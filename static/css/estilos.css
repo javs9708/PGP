@@ -1,0 +1,24 @@
+.vertical-center {
+	height: 91vh;
+	display: flex;
+	align-items: center;
+}
+
+.navbar {
+	background-color: #48676;
+}
+
+.btn {
+	color: #fff;
+	background: #48676b;
+	border-radius: 0;
+	margin-top: 10px;
+}
+
+.btn:hover {
+	box-shadow: 0px 0px 9px rgba(0,0,0,.35);
+}
+
+.registro{
+  border-right: 1px solid #48676b;
+}
