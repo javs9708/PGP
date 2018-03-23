@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-
+{% load staticfiles %}
 
 {% block title %}
 Inicio
@@ -8,101 +8,134 @@ Inicio
 
 {% block content %}
 
-  <!DOCTYPE html>
-  <html lang="es">
-  <head>
 
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-      <title>Ingresar</title>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-  </head>
-  <body>
-    {% block navbar %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >
+  <link rel="stylesheet" href="{% static 'css/bootstrap-grid.css' %}" >
+  <link rel="stylesheet" href="{% static 'css/bootstrap-reboot.css' %}" >
+  <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 
-  	<nav class="navbar navbar-expand-lg navbar-dark">
-  	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  	    <span class="navbar-toggler-icon"></span>
-  	  </button>
-
-  	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-  	    <ul class="navbar-nav mr-auto">
-  	      <li class="nav-item">
-  	        <a class="nav-link" href="#">Inicio</a>
-  	      </li>
-  	      <li class="nav-item ac active">
-  	        <a class="nav-link" href="#">Ingresar</a>
-  	      </li>
-  	    </ul>
-  	  </div>
-  	</nav>
-
-    {% endblock %}
-
-  	<div class="container vertical-center">
-  		<div class="row">
-  			<div class="registro col-7 pr-5 mt-5">
-  				<h1 class="display-4">Registro</h1>
-  				<div class="row pt-3">
-  					<div class="col-6">
-  						<form method="POST">{% csrf_token %}
-  							<div class="form-group">
-  								<label for="first_name">Nombre:</label>
-  								<input type="text" class="form-control" name="first_name">
-  							</div>
-  							<div class="form-group">
-  								<label for="cc">Documento de identidad:</label>
-  								<input type="text" class="form-control" name="cc">
-  							</div>
-  							<div class="form-group">
-  								<label for="username">Nombre de usuario:</label>
-  								<input type="text" class="form-control" name="username">
-  							</div>
-  							<div class="form-group">
-  								<label for="password1">Contraseña:</label>
-  								<input type="password" class="form-control" name="password1">
-  							</div>
-  					</div>
-  					<div class="col-6">
-  							<div class="form-group">
-  								<label for="last_name">Apellidos:</label>
-  								<input type="text" class="form-control" name="last_name">
-  							</div>
-  							<div class="form-group">
-  								<label for="fechaNacimiento">Fecha de nacimiento:</label>
-  								<input type="date" class="form-control" name="fecha_nacimiento">
-  							</div>
-  							<div class="form-group">
-  								<label for="email">Correo electrónico:</label>
-  								<input type="email" class="form-control" name="email">
-  							</div>
-  							<div class="form-group">
-  								<label for="password2">Confirmar contraseña:</label>
-  								<input type="password" class="form-control" name="password2">
-								</div>
-								<button type="submit" class="btn">Confirmar</button>
-							</form>
-  					</div>
-  				</div>
-  			</div>
-  			<div class="col-5 align-self-center pl-5">
-  				<h1 class="display-4 text-center pb-4">Iniciar sesión</h1>
-  				<form>
-  					<div class="form-group">
-  					   	<input type="text" class="form-control" name="username" placeholder="Nombre de usuario">
-  					</div>
-  					<div class="form-group">
-  					   	<input type="password" class="form-control" name="password" placeholder="Contraseña">
-  					</div>
-  					<button type="submit" class="btn btn-block">Confirmar</button>
-  				</form>
-  			</div>
-  		</div>
-  	</div>
-
-  </body>
-  </html>
+	<title>Ingresar</title>
+</head>
 
 
-</form>
+<body class="bg-light d-flex align-items-lg-center">
+
+  {% block navbar %}
+
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		  	<a class="navbar-brand" href="#">
+	    		<img src="img/Logo.png" width="30" height="30" alt="">
+	  		</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    	<span class="navbar-toggler-icon"></span>
+		  	</button>
+
+		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    	<ul class="navbar-nav mr-auto">
+		      		<li class="nav-item">
+		        			<a class="nav-link" href="#">Inicio</a>
+		      		</li>
+		      		<li class="nav-item ac active">
+		        		<a class="nav-link" href="#">Ingresar</a>
+		      		</li>
+		    	</ul>
+		  	</div>
+		</nav>
+
+  {% endblock %}
+
+		<div class="row mt-5">
+			<div class="col-12 col-lg-5 py-5 px-xl-5 align-self-center">
+				<div class="card border-dark text-center">
+					<div class="card-body">
+						<h1 class="card-title display-4 pb-4">Iniciar sesión</h1>
+						<form method="POST">{% csrf_token %}
+							<div class="form-group">
+							   	<input type="text" class="form-control" name="username" required=True placeholder="Nombre de usuario">
+							</div>
+							<div class="form-group">
+							   	<input type="password" class="form-control" name="password" required=True placeholder="Contraseña">
+							</div>
+							<button type="submit" class="btn btn-block btn-dark mb-2" name="bc2">Confirmar</button>
+              {% if error.0 %}
+                      <h5>{{error.1}}</h5>
+              {% endif %}
+							<button type="button" class="btn btn-link">¿Olvidaste tu constraseña?</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-7 pb-lg-0 pb-5">
+				<div class="card border-dark">
+					<div class="card-body">
+						<h1 class="card-title display-4 text-center text-md-left mb-4">Registro</h1>
+						<form method="POST">{% csrf_token %}
+							<div class="form-row">
+						    	<div class="form-group col-12 col-md-6">
+						      		<label for="inputName">Nombre</label>
+						      		<input type="text" class="form-control" name="first_name" required=True placeholder="Nombre">
+						    	</div>
+						    	<div class="form-group col-12 col-md-6">
+						      		<label for="inputApellidos">Apellidos</label>
+						      		<input type="text" class="form-control" name="last_name" required=True placeholder="Apellidos">
+						    	</div>
+						  	</div>
+						  	<div class="form-row">
+						    	<div class="form-group col-12 col-md-6">
+						      		<label for="inputID">Documento de identidad</label>
+						      		<input type="text" class="form-control" name="cc" required=True placeholder="1088123456">
+						    	</div>
+						    	<div class="form-group col-12 col-md-6">
+						      		<label for="inputFechaNacimiento">Fecha de nacimiento</label>
+						      		<input type="date" class="form-control" name="fecha_nacimiento" required=True>
+						    	</div>
+						  	</div>
+						  	<div class="form-row">
+						    	<div class="form-group col-12 col-md-6">
+						      		<label for="InputNickname">Nombre de usuario</label>
+						      		<input type="text" class="form-control" name="username" required=True placeholder="Nombre de usuario">
+						    	</div>
+						    	<div class="form-group col-12 col-md-6">
+						      		<label for="inputEmail">Correo electrónico</label>
+						      		<input type="email" class="form-control" name="email" required=True placeholder="alguien@ejemplo.com">
+						    	</div>
+						  	</div>
+						  	<div class="form-row">
+						    	<div class="form-group col-12 col-md-6">
+						      		<label for="inputPassword">Contraseña</label>
+						      		<input type="password" class="form-control" name="password1" required=True placeholder="Contraseña">
+						    	</div>
+						    	<div class="form-group col-12 col-md-6">
+						      		<label for="inputCPassword">Confirmar contraseña</label>
+						      		<input type="password" class="form-control" name="password2" required=True placeholder="Contraseña">
+						    	</div>
+						  	</div>
+						  	<div class="form-row">
+						  		<div class="form-group col-12 col-md-6">
+						  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
+                    {% if error.0 %}
+                            <h5>{{error.1}}</h5>
+                    {% endif %}
+						  		</div>
+						  	</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.js"></script>
+
+</body>
+</html>
 {% endblock %}

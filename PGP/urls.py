@@ -20,9 +20,10 @@ from apps.usuario.views import *
 
 from apps.usuario.views import RegistroUsuario
 
+
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
-	#url(r'^usuario/', include ('apps.usuario.urls')),
+	url(r'^usuario/', include ('apps.usuario.urls')),
 	url(r'^',RegistroUsuario , name='index'),
 	url(r'^reset/password_reset$',password_reset,
 	   {'template_name':'restablecerContraseña/password_reset_form.html',
