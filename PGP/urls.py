@@ -18,11 +18,13 @@ from django.conf.urls import url, include
 from django.contrib.auth.views import login, logout_then_login
 from apps.usuario.views import *
 
-from apps.usuario.views import RegistroUsuario
+from apps.usuario.views import RegistroUsuario, inicio
 
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^usuario/', include ('apps.usuario.urls')),
-	url(r'^$',RegistroUsuario , name='index'),	
+	url(r'^$',RegistroUsuario , name='index'),
+	url(r'^inicio/',inicio , name='inicio'),	
+
 ]

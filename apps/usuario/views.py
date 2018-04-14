@@ -81,8 +81,11 @@ def RegistroUsuario(request):
 
 
     template = loader.get_template('usuario/index.html')
-    ctx = {'error':error, 
+    ctx = {'error':error,
             'error2':error2,
             'error3':error3,
             }
     return HttpResponse(template.render(ctx,request))
+
+def inicio(request):
+    return render(request, 'usuario/inicio.html')

@@ -25,7 +25,7 @@ Inicio
 
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		  	<a class="navbar-brand" href="#">
+		  	<a class="navbar-brand" href="{%url 'inicio'%}">
 	    		<img src="../../static/img/Logo.png" width="30" height="30" alt="">
 	  		</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,10 +35,10 @@ Inicio
 		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    	<ul class="navbar-nav mr-auto">
 		      		<li class="nav-item">
-		        			<a class="nav-link" href="#">Inicio</a>
+		        			<a class="nav-link" href="{%url 'inicio'%}">Inicio</a>
 		      		</li>
 		      		<li class="nav-item ac active">
-		        		<a class="nav-link" href="#">Ingresar</a>
+		        		<a class="nav-link" href="{%url 'index'%}">Ingresar</a>
 		      		</li>
 		    	</ul>
 		  	</div>
@@ -63,31 +63,31 @@ Inicio
 						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#recuperarContraseña">¿Olvidaste tu constraseña?</button>
 					</div>
 				</div>
-				{% if error.0 %}	
+				{% if error.0 %}
 					<div class="alert alert-danger alert-dismissible fade show align-self-end mt-2" role="alert">
 					  	<strong>Error:</strong> {{error.1}}
 					  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					    	<span aria-hidden="true">&times;</span>
 					  	</button>
-					</div>	
+					</div>
 	            {% endif %}
 
-	            {% if error2.0 %}	
+	            {% if error2.0 %}
 					<div class="alert alert-success alert-dismissible fade show align-self-end mt-2" role="alert">
 					  	{{error2.1}}
 					  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					    	<span aria-hidden="true">&times;</span>
 					  	</button>
-					</div>	
+					</div>
 	            {% endif %}
-	            
-	            {% if error3.0 %}	
+
+	            {% if error3.0 %}
 					<div class="alert alert-warning alert-dismissible fade show align-self-end mt-2" role="alert">
 					  	{{error3.1}}
 					  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					    	<span aria-hidden="true">&times;</span>
 					  	</button>
-					</div>	
+					</div>
 	            {% endif %}
 			</div>
 			<div class="col-12 col-lg-7 pb-lg-0 pb-5">
