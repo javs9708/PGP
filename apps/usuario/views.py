@@ -17,6 +17,8 @@ from .models import Usuario
 
 
 def RegistroUsuario(request):
+    error2=(False,"")
+    error=(False,"")
     if request.method == 'GET':
         template = loader.get_template('usuario/index.html')
         ctx = {}
@@ -25,7 +27,7 @@ def RegistroUsuario(request):
 
     if request.method == 'POST':
         if 'bc1' in request.POST:
-            error=(False,"")
+
             username = request.POST.get('username')
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
@@ -53,14 +55,14 @@ def RegistroUsuario(request):
 
                 usuario.save()
 
-                error=(True, "Registro exitoso")
+                error2=(True, "Registro exitoso")
 
             else:
-                error=(True, "Las contraseñas deben ser iguales")
+                error2=(True, "Las contraseñas deben ser iguales")
 
 
         if 'bc2' in request.POST:
-            error=(False,"")
+
             username = request.POST['username']
             password = request.POST['password']
             usuario = User.objects.filter(username=username)
@@ -79,5 +81,7 @@ def RegistroUsuario(request):
 
 
     template = loader.get_template('usuario/index.html')
-    ctx = {'error':error}
+    ctx = {'error':error, 
+            'error2':error2,
+            }
     return HttpResponse(template.render(ctx,request))

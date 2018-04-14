@@ -15,11 +15,6 @@ Inicio
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >
-  <link rel="stylesheet" href="{% static 'css/bootstrap-grid.css' %}" >
-  <link rel="stylesheet" href="{% static 'css/bootstrap-reboot.css' %}" >
-  <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-
 	<title>Ingresar</title>
 </head>
 
@@ -31,7 +26,7 @@ Inicio
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		  	<a class="navbar-brand" href="#">
-	    		<img src="img/Logo.png" width="30" height="30" alt="">
+	    		<img src="../../static/img/Logo.png" width="30" height="30" alt="">
 	  		</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    	<span class="navbar-toggler-icon"></span>
@@ -63,12 +58,56 @@ Inicio
 							<div class="form-group">
 							   	<input type="password" class="form-control" name="password" required=True placeholder="Contraseña">
 							</div>
+
 							<button type="submit" class="btn btn-block btn-dark mb-2" name="bc2">Confirmar</button>
+
               {% if error.0 %}
                       <h5>{{error.1}}</h5>
               {% endif %}
-							<button type="button" class="btn btn-link">¿Olvidaste tu constraseña?</button>
-						</form>
+
+							</form>
+
+
+								<button type="button" class="btn btn-link" data-toggle="modal" data-target="#recuperarContraseña">¿Olvidaste tu constraseña?</button>
+
+
+
+								<div class="modal fade" id="recuperarContraseña" tabindex="-1" role="dialog" aria-labelledby="recuperarContraseña" aria-hidden="true">
+								  <div class="modal-dialog modal-dialog-centered">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								            <h5 class="modal-title">Recuperar contraseña</h5>
+								            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+								              <span aria-hidden="true">&times;</span>
+								            </button>
+								        </div>
+								        <div class="modal-body px-4">
+								        <form>
+								          <div class="form-group">
+
+								            <label for="id_email">Correo electrónico:</label>
+								            <input type="email" class="form-control" id="id_email" aria-describedby="EmailRecuperacion" placeholder="alguien@ejemplo.com">
+								            <small id="id_email" class="form-text text-muted">Escribe la dirección del correo electrónico asociada a tu cuenta.</small>
+								          </div>
+								        </form>
+								        </div>
+								        <div class="modal-footer">
+
+								            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
+														<form>
+								            <button type="submit" class="btn btn-dark">Confirmar</button>
+													</form>
+
+								        </div>
+								    </div>
+								  </div>
+								</div>
+
+
+
+
+
+
 					</div>
 				</div>
 			</div>
@@ -76,7 +115,8 @@ Inicio
 				<div class="card border-dark">
 					<div class="card-body">
 						<h1 class="card-title display-4 text-center text-md-left mb-4">Registro</h1>
-						<form method="POST">{% csrf_token %}
+						<form method="POST">
+							{% csrf_token %}
 							<div class="form-row">
 						    	<div class="form-group col-12 col-md-6">
 						      		<label for="inputName">Nombre</label>
@@ -120,8 +160,8 @@ Inicio
 						  	<div class="form-row">
 						  		<div class="form-group col-12 col-md-6">
 						  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
-                    {% if error.0 %}
-                            <h5>{{error.1}}</h5>
+                    {% if error2.0 %}
+                            <h5>{{error2.1}}</h5>
                     {% endif %}
 						  		</div>
 						  	</div>
@@ -131,10 +171,6 @@ Inicio
 			</div>
 		</div>
 	</div>
-
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="js/jquery.js"></script>
-  <script src="js/bootstrap.js"></script>
 
 </body>
 </html>
