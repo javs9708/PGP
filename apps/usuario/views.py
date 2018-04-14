@@ -18,6 +18,7 @@ from .models import Usuario
 
 def RegistroUsuario(request):
     error2=(False,"")
+    error3=(False,"")
     error=(False,"")
     if request.method == 'GET':
         template = loader.get_template('usuario/index.html')
@@ -58,7 +59,7 @@ def RegistroUsuario(request):
                 error2=(True, "Registro exitoso")
 
             else:
-                error2=(True, "Las contraseñas deben ser iguales")
+                error3=(True, "Las contraseñas deben ser iguales")
 
 
         if 'bc2' in request.POST:
@@ -71,7 +72,6 @@ def RegistroUsuario(request):
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     login(request,user)
-                    error = (True, "Bien")
                 else:
                     error = (True, "Contraseña invalida")
 
@@ -83,5 +83,6 @@ def RegistroUsuario(request):
     template = loader.get_template('usuario/index.html')
     ctx = {'error':error, 
             'error2':error2,
+            'error3':error3,
             }
     return HttpResponse(template.render(ctx,request))
