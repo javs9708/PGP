@@ -81,6 +81,7 @@ DATABASES = {
         'NAME': 'PGP',
         'USER': 'postgres',
         'PASSWORD': 'javs',
+        #'PASSWORD': '24315860',
         'HOST': 'localhost',
         'PORT': '5432',
     }
