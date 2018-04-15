@@ -15,18 +15,16 @@ Inicio
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-	<title>Ingresar</title>
+	<title>Inicio</title>
 </head>
 
 
-<body class="bg-light d-flex align-items-lg-center">
-
-  {% block navbar %}
-
-	<div class="container">
+<body class="bg-light d-flex">
+  	{% block navbar %}
+	<div class="container-fluid">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		  	<a class="navbar-brand" href="{%url 'inicio'%}">
-	    		<img src="../../static/img/Logo.png" width="30" height="30" alt="">
+		  	<a class="navbar-brand" href="#">
+	    		<img src="../static/img/Logo.png" width="30" height="30" alt="">
 	  		</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    	<span class="navbar-toggler-icon"></span>
@@ -34,18 +32,67 @@ Inicio
 
 		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    	<ul class="navbar-nav mr-auto">
-		      		<li class="nav-item">
-		        			<a class="nav-link" href="{%url 'inicio'%}">Inicio</a>
-		      		</li>
 		      		<li class="nav-item ac active">
-		        		<a class="nav-link" href="{%url 'index'%}">Ingresar</a>
+		        			<a class="nav-link" href="#">Inicio</a>
+		      		</li>
+		      		<li class="nav-item">
+		        		<a class="nav-link" href="#">Ingresar</a>
 		      		</li>
 		    	</ul>
 		  	</div>
 		</nav>
+  		{% endblock %}
+		<div class="jumbotron jumbotron-fluid my-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h1 class="display-4 mb-3">Planificador de gastos personales</h1>
+						<p class="lead">Manejar tus finanzas nunca fue más fácil, ¿Qué esperas para probarlo?</p>	
+					</div>
+					<div class="col-12 d-flex justify-content-end">
+						<div>
+							<a class="btn btn-outline-dark btn-lg" href="#" role="button">Registrate ahora</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-  {% endblock %}
-
-
-<h5>Swokosky lo chupa cagado</h5>
+		<div class="row my-5 justify-content-center">
+			<div class="mb-5 col-xl-5 col-lg-7 col-mg-9 text-center px-5">
+				<img src="../static/img/Logo2.png" class="logo img-fluid" alt="">
+			</div>
+			<div class="col-12">
+				<blockquote class="blockquote text-center">
+  					<p class="mb-0">"PGP, es una solución inteligente a todos tus problemas financieros."</p>
+  					<footer class="blockquote-footer">Santiago Gómez</footer>
+				</blockquote>
+			</div>
+			<div class="col-12 mt-5">
+				<div class="card-deck mx-5">
+					<div class="card bg-light">
+						<img class="card-img-top" src="../static/img/Gestionar.jpg" alt="">
+						<div class="card-body">
+							<h3 class="card-title">Gestiona</h1>
+							<p class="card-text">Gestiona tus cuentas y presupuestos facilmente</p>
+						</div>
+					</div>
+					<div class="card bg-light">
+						<img class="card-img-top" src="../static/img/Transacción.jpg" alt="">
+						<div class="card-body">
+							<h3 class="card-title">Registra</h1>
+							<p class="card-text">Lleva un registro de todas tus transacciones</p>
+						</div>
+					</div>
+					<div class="card bg-light">
+						<img class="card-img-top" src="../static/img/Visualizar.jpg" alt="">
+						<div class="card-body">
+							<h3 class="card-title">Visualiza</h1>
+							<p class="card-text">Visualiza toda la información de tus gastos personales en un mismo lugar</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
