@@ -60,7 +60,7 @@ Inicio
 							</div>
 							<button type="submit" class="btn btn-block btn-dark mb-2" name="bc2">Confirmar</button>
 						</form>
-						<button type="button" class="btn btn-link" data-toggle="modal" data-target="#recuperarContraseña">¿Olvidaste tu constraseña?</button>
+						<a href="{% url 'password_reset' %}">¿Olvidaste tu constraseña?</a>
 					</div>
 				</div>
 				{% if error.0 %}
@@ -163,11 +163,11 @@ Inicio
 								<input type="email" class="form-control" id="id_email" aria-describedby="EmailRecuperacion" placeholder="alguien@ejemplo.com">
 								<small id="id_email" class="form-text text-muted">Escribe la dirección del correo electrónico asociada a tu cuenta.</small>
 							</div>
-						</form>
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cerrar</button>
-						<form>
+
 							<button type="submit" class="btn btn-dark">Confirmar</button>
 						</form>
 					</div>
