@@ -3,6 +3,20 @@ body {
   height: 100%;
 }
 
-.logo {
-	max-width: 60%;
+.gestiona{
+	margin-bottom: 0px;
+	background: #263238;
+	color: #fff;
+}
+
+.registra{
+	margin-bottom: 0px;
+	background: #37474F;
+	color: #fff;
+}
+
+.visualiza{
+	margin-bottom: 0px;
+	background: #455A64;
+	color: #fff;
 }
