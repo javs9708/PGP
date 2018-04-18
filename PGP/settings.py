@@ -26,7 +26,7 @@ SECRET_KEY = '3fvg@+l7v8pet_@vh#-&3$e2g8ern(fjr20zk%rqwg$y-hfm8u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.4', '127.0.0.1', '192.168.1.18']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.usuario',
+    'apps.gestion',
 ]
 
 MIDDLEWARE = [
@@ -80,8 +81,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'PGP',
         'USER': 'postgres',
-        #'PASSWORD': 'javs',
-        'PASSWORD': '24315860',
+        'PASSWORD': 'javs',
+        #'PASSWORD': '24315860',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -120,8 +121,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-#LOGIN_REDIRECT_URL = reverse_lazy('base/base.html')
-#LOGOUT_REDIRECT_URL = reverse_lazy('login')
+#LOGIN_REDIRECT_URL = reverse_lazy('usuario/index.html')
+#LOGOUT_REDIRECT_URL = reverse_lazy('ingresar')
 
 EMAIL_USE_TLS= True
 EMAIL_HOST='smtp.gmail.com'

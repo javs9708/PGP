@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login , authenticate
+from django.contrib.auth import login , authenticate, logout
 
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
@@ -72,6 +72,8 @@ def RegistroUsuario(request):
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     login(request,user)
+                    return redirect('menu')
+
                 else:
                     error = (True, "Contraseña invalida")
 
@@ -89,3 +91,9 @@ def RegistroUsuario(request):
 
 def inicio(request):
     return render(request, 'usuario/inicio.html')
+
+def cerrarSesion(request):
+	if request.user is not None:
+		logout(request)
+
+	return redirect('index')

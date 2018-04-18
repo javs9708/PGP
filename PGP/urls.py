@@ -18,14 +18,18 @@ from django.conf.urls import url, include
 from django.contrib.auth.views import login, logout_then_login, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 from apps.usuario.views import *
 
-from apps.usuario.views import RegistroUsuario, inicio
+from apps.usuario.views import RegistroUsuario, inicio, cerrarSesion
+from apps.gestion.views import gestionMenu
 
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^usuario/', include ('apps.usuario.urls')),
+	url(r'^gestion/', include ('apps.gestion.urls')),
 	url(r'^ingresar/',RegistroUsuario , name='index'),
 	url(r'^$',inicio , name='inicio'),
+
+	url(r'^logout/$',cerrarSesion,name="logout"),
 
 	url(r'^reiniciar/reiniciar_contraseña$',password_reset,
        {'template_name':'registration/password_reset_form.html',
