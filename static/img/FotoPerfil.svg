@@ -9,16 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="200.99428mm"
-   height="200.99428mm"
-   viewBox="0 0 200.99428 200.99428"
+   width="132.10213mm"
+   height="176.13615mm"
+   viewBox="0 0 132.10213 176.13615"
    version="1.1"
    id="svg8"
-   inkscape:export-filename="C:\Users\Magoratogha\Desktop\Planificador de gastos personales\img\Logo2.png"
-   inkscape:export-xdpi="192.37"
-   inkscape:export-ydpi="192.37"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="Logo-light.svg">
+   sodipodi:docname="FotoPerfil.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -28,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="247.92341"
-     inkscape:cy="442.8596"
+     inkscape:zoom="0.35"
+     inkscape:cx="953.37552"
+     inkscape:cy="562.96002"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -55,17 +52,13 @@
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-4.1335163,-56.720911)">
-    <path
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.40275857px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 30.795981,190.98639 64.157485,157.62488 87.3478,179.1878 167.90363,99.03883 190.68709,160.87965 158.13928,230.4506 74.73552,240.62179 Z"
-       id="path848"
-       inkscape:connector-curvature="0" />
-    <circle
-       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:25.19024277;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path836"
-       cx="104.63065"
-       cy="157.21805"
-       r="87.902016" />
+     transform="translate(-37.418667,-56.263504)">
+    <rect
+       style="fill:#666666;fill-opacity:1;stroke:none;stroke-width:0.98110288;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect10"
+       width="132.10213"
+       height="176.13615"
+       x="37.418667"
+       y="56.263504" />
   </g>
 </svg>

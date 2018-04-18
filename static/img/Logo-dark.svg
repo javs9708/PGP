@@ -9,16 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="200.99428mm"
+   height="200.99428mm"
+   viewBox="0 0 200.99428 200.99428"
    version="1.1"
    id="svg8"
    inkscape:export-filename="C:\Users\Magoratogha\Desktop\Planificador de gastos personales\img\Logo2.png"
    inkscape:export-xdpi="192.37"
    inkscape:export-ydpi="192.37"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="Logo.svg">
+   sodipodi:docname="Logo-dark.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -29,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="263.54615"
-     inkscape:cy="591.33764"
+     inkscape:cx="247.92341"
+     inkscape:cy="442.8596"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -54,7 +54,8 @@
   <g
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-4.1335163,-56.720911)">
     <path
        style="fill:#343a40;fill-opacity:1;stroke:#ffffff;stroke-width:0.40275857px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 30.795981,190.98639 64.157485,157.62488 87.3478,179.1878 167.90363,99.03883 190.68709,160.87965 158.13928,230.4506 74.73552,240.62179 Z"
