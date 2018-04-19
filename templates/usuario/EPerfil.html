@@ -24,7 +24,7 @@
 		        			<a class="nav-link" href="{%url 'perfil'%}">Perfil</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="{%url 'menu'%}">Gestionar finanzas</a>
+		        		<a class="nav-link" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
 		      		</li>
 		      		<li class="nav-item">
 		        			<a class="nav-link" href="#">Visualizar finanzas</a>
@@ -37,7 +37,7 @@
 		    		<li class="nav-item dropdown">
 		    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
 						<div class="dropdown-menu dropdown-menu-right">
-				    		<a class="dropdown-item" href="{%url 'EPerfil'%}">Editar Perfil</a>
+				    		<a class="dropdown-item" href="/usuario/editar_perfil?username={{usuario.user.username}}">Editar Perfil</a>
 				    		<a class="dropdown-item" href="{%url 'logout'%}">Cerrar sesión</a>
 						</div>
 					</li>
@@ -48,15 +48,15 @@
 			<div class="col-xl-8 col-lg-10 col-12">
 				<div class="card border-dark">
 					<div class="card-body">
-						<form>
+						<form method="POST" enctype="multipart/form-data"> {% csrf_token %}
 				 			<div class="row justify-content-lg-end justify-content-center align-items-center">
 				    			<div class="col-md-6 col-lg-4">
 				    				<div class="form-row">
 				    					<div class="form-group col-12 text-center">
-				    						<img src="../../static/img/FotoPerfil.svg" class="rounded img-fluid" alt="">
+				    						<img src="{{usuario.foto_perfil.url}}" class="rounded img-fluid" alt="">
     										<span class="camara btn btn-file">
     											<img src="../../static/img/ic_camera.svg" class="img-fluid" width="32" height="32" alt="">
-    											<input type="file">
+    											<input type="file" name="foto_perfil">
 											</span>
 				    					</div>
 				    				</div>
@@ -65,27 +65,27 @@
 				    				<div class="form-row">
 									    <div class="form-group col-12 col-md-6">
 						      				<label for="inputName">Nombre</label>
-						      				<input type="text" class="form-control" id="inputName" placeholder="Nombre">
+						      				<input type="text" class="form-control" id="inputName" placeholder="Nombre" value="{{usuario.user.first_name}}" name="first_name">
 						    			</div>
 						    			<div class="form-group col-12 col-md-6">
 						      				<label for="inputApellidos">Apellidos</label>
-						      				<input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos">
+						      				<input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos" value="{{usuario.user.last_name}}" name="last_name">
 						    			</div>
 						    			<div class="form-group col-12">
 						      				<label for="inputEmail">Correo electrónico</label>
-						      				<input type="email" class="form-control" id="inputEmail" placeholder="alguien@ejemplo.com">
+						      				<input type="email" class="form-control" id="inputEmail" placeholder="alguien@ejemplo.com" value="{{usuario.user.email}}" name="email">
 						    			</div>
 						    			<div class="form-group col-12">
 						      				<label for="InputNickname">Nombre de usuario</label>
-						      				<input type="text" class="form-control" id="InputNickname" placeholder="Nombre de usuario">
+						      				<input type="text" class="form-control" id="InputNickname" placeholder="Nombre de usuario" value="{{usuario.user.username}}" name="username">
 						    			</div>
 								    	<div class="form-group col-12 col-md-7">
 								      		<label for="inputID">Documento de identidad</label>
-								      		<input type="text" class="form-control" id="inputID" placeholder="1088123456">
+								      		<input type="text" class="form-control" id="inputID" placeholder="1088123456" value="{{usuario.cc}}" name="cc">
 								    	</div>
 								    	<div class="form-group col-12 col-md-5">
 								      		<label for="inputFechaNacimiento">Fecha de nacimiento</label>
-								      		<input type="date" class="form-control" id="inputFechaNacimiento">
+								      		<input type="date" class="form-control" value="{{fecha}}" name="fecha_nacimiento">
 								    	</div>
 									</div>
 						    	</div>

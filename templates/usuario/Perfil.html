@@ -34,7 +34,7 @@ Perfil
 		        			<a class="nav-link" href="{%url 'perfil'%}">Perfil</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="{%url 'menu'%}">Gestionar finanzas</a>
+		        		<a class="nav-link" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
 		      		</li>
 		      		<li class="nav-item">
 		        			<a class="nav-link" href="#">Visualizar finanzas</a>
@@ -47,7 +47,7 @@ Perfil
 		    		<li class="nav-item dropdown">
 		    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
 						<div class="dropdown-menu dropdown-menu-right">
-				    		<a class="dropdown-item" href="{%url 'EPerfil'%}">Editar Perfil</a>
+				    		<a class="dropdown-item" href="/usuario/editar_perfil?username={{usuario.user.username}}">Editar Perfil</a>
 				    		<a class="dropdown-item" href="{%url 'logout'%}">Cerrar sesión</a>
 						</div>
 					</li>
@@ -63,7 +63,7 @@ Perfil
 				    			<div class="col-md-6 col-lg-4">
 				    				<div class="form-row">
 				    					<div class="form-group col-12 text-center">
-				    						<img src="../../static/img/FotoPerfil.svg" class="rounded img-fluid" alt="">
+				    						<img src="{{usuario.foto_perfil.url}}" class="rounded img-fluid" alt="">
 				    					</div>
 				    				</div>
 				    			</div>
@@ -96,7 +96,7 @@ Perfil
 						    	</div>
 				  				<div class="col-12 col-lg-4 order-lg-last">
 				  					<div class="form-row">
-				  						<a class="btn btn-dark btn-block" href="{%url 'EPerfil'%}">Editar</a>
+				  						<a class="btn btn-dark btn-block" href="/usuario/editar_perfil?username={{usuario.user.username}}">Editar</a>
 				    				</div>
 				    			</div>
 				    		</div>

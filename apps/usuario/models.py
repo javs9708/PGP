@@ -11,6 +11,7 @@ class Usuario(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cc = models.CharField(max_length=15, null=False, blank=False)
     fecha_nacimiento = models.DateField()
+    foto_perfil = models.ImageField(default=True , upload_to='foto_perfiles', null=True)
 
 
     def __str__(self):

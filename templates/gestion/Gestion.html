@@ -31,10 +31,10 @@ Gestión
 		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    	<ul class="navbar-nav mr-auto">
 		      		<li class="nav-item">
-		        			<a class="nav-link" href="{%url 'perfil'%}">Perfil</a>
+		        			<a class="nav-link" href="/usuario/perfil?username={{usuario.user.username}}">Perfil</a>
 		      		</li>
 		      		<li class="nav-item ac active">
-		        		<a class="nav-link" href="{%url 'menu'%}">Gestionar finanzas</a>
+		        		<a class="nav-link" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
 		      		</li>
 		      		<li class="nav-item">
 		        			<a class="nav-link" href="#">Visualizar finanzas</a>
@@ -47,7 +47,7 @@ Gestión
 		    		<li class="nav-item dropdown">
 		    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
 						<div class="dropdown-menu dropdown-menu-right">
-				    		<a class="dropdown-item" href="{%url 'EPerfil'%}">Editar Perfil</a>
+				    		<a class="dropdown-item" href="/usuario/editar_perfil?username={{usuario.user.username}}">Editar Perfil</a>
 				    		<a class="dropdown-item" href="{%url 'logout'%}">Cerrar sesión</a>
 						</div>
 					</li>

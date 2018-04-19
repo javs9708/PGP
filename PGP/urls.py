@@ -20,6 +20,8 @@ from apps.usuario.views import *
 
 from apps.usuario.views import RegistroUsuario, inicio, cerrarSesion
 from apps.gestion.views import gestionMenu
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
@@ -46,4 +48,4 @@ urlpatterns = [
        {'template_name':'registration/password_reset_complete.html'},
        name='password_reset_complete'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

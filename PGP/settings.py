@@ -78,13 +78,8 @@ WSGI_APPLICATION = 'PGP.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'PGP',
-        'USER': 'postgres',
-        #'PASSWORD': 'javs',
-        'PASSWORD': '24315860',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -137,3 +132,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static/media')

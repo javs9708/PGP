@@ -72,7 +72,7 @@ def RegistroUsuario(request):
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     login(request,user)
-                    return redirect('menu')
+                    return redirect('/gestion/menu?username='+username)
 
                 else:
                     error = (True, "Contraseña invalida")
@@ -100,14 +100,83 @@ def cerrarSesion(request):
 
 def visualizarPerfil(request):
     if request.method == 'GET':
-        cc = request.GET.get('cc')
-        usuario = Usuario.objects.filter(cc=cc)
-        print (usuario)
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
         template = loader.get_template('usuario/Perfil.html')
+        print(usuario.foto_perfil)
         ctx = {'usuario':usuario,
                 }
         return HttpResponse(template.render(ctx,request))
 
 
 def editarPerfil(request):
-    return render(request, 'usuario/EPerfil.html')
+
+    if request.method == 'GET': 
+        username = request.GET.get('username')
+        template = loader.get_template('usuario/EPerfil.html')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+        fecha = usuario.fecha_nacimiento
+        fecha = str(fecha)
+        ctx = {'usuario':usuario,
+                'fecha' : fecha,
+                    }
+        return HttpResponse(template.render(ctx,request))
+
+    if request.method == 'POST':
+        template = loader.get_template('usuario/Perfil.html')
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        cc = request.POST.get('cc')
+        fecha_nacimiento = request.POST.get('fecha_nacimiento')
+
+        if len(username) != 0:
+            usuario.user.username = username
+            usuario.user.save()
+
+        if len(first_name) != 0:
+            usuario.user.first_name = first_name
+            usuario.user.save()
+
+        if len(last_name) != 0:
+            usuario.user.last_name = last_name
+            usuario.user.save() 
+
+        if len(email) != 0:
+            usuario.user.email = email
+            usuario.user.save()
+
+        if len(cc) != 0:
+            usuario.cc = cc
+            usuario.save()
+
+        if len(fecha_nacimiento) != 0:
+            usuario.fecha_nacimiento = fecha_nacimiento
+            usuario.save()
+
+        if len(request.FILES) != 0:
+            foto_perfil = request.FILES['foto_perfil']
+        else:
+            foto_perfil = None
+
+        if foto_perfil is not None:
+            usuario.foto_perfil.delete()
+            usuario.foto_perfil = foto_perfil
+            usuario.save()
+
+        return redirect('/usuario/perfil?username='+usuario.user.username)
+
+
+
+
+
