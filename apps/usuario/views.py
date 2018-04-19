@@ -99,7 +99,15 @@ def cerrarSesion(request):
 	return redirect('index')
 
 def visualizarPerfil(request):
-    return render(request, 'usuario/Perfil.html')
+    if request.method == 'GET':
+        cc = request.GET.get('cc')
+        usuario = Usuario.objects.filter(cc=cc)
+        print (usuario)
+        template = loader.get_template('usuario/Perfil.html')
+        ctx = {'usuario':usuario,
+                }
+        return HttpResponse(template.render(ctx,request))
+
 
 def editarPerfil(request):
     return render(request, 'usuario/EPerfil.html')
