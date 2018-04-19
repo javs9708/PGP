@@ -3,6 +3,15 @@ body {
   height: 100%;
 }
 
+.jumbo{
+    margin-bottom: 0px;
+}
+
+.container-main{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
 .gestiona{
 	margin-bottom: 0px;
 	background: #263238;
