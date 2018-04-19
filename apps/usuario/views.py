@@ -96,7 +96,7 @@ def cerrarSesion(request):
 	if request.user is not None:
 		logout(request)
 
-	return redirect('index')
+	return redirect('inicio')
 
 def visualizarPerfil(request):
     if request.method == 'GET':

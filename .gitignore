@@ -1,0 +1,7 @@
+*pyc
+venv
+*.pyc
+staticfiles
+.env
+__pycache__/
+profile_pictures/
