@@ -97,3 +97,9 @@ def cerrarSesion(request):
 		logout(request)
 
 	return redirect('index')
+
+def visualizarPerfil(request):
+    return render(request, 'usuario/Perfil.html')
+
+def editarPerfil(request):
+    return render(request, 'usuario/EPerfil.html')

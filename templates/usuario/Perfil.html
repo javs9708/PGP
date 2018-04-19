@@ -1,18 +1,28 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+Perfil
+{% endblock %}
+
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/estilos.css">
+	<link rel="stylesheet" href="../../static/css/bootstrap.css">
+	<link rel="stylesheet" href="../../static/css/estilos.css">
 	<title>Perfil</title>
 </head>
 <body class="bg-light d-flex align-items-lg-center">
 
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		  	<a class="navbar-brand" href="#">
-	    		<img src="img/Logo-light.svg" class="img-fluid" width="30" height="30" alt="">
+		  	<a class="navbar-brand">
+	    		<img src="../../static/img/Logo-light.svg" class="img-fluid" width="30" height="30" alt="">
 	  		</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    	<span class="navbar-toggler-icon"></span>
@@ -21,24 +31,24 @@
 		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    	<ul class="navbar-nav mr-auto">
 		      		<li class="nav-item ac active">
-		        			<a class="nav-link" href="#">Perfil</a>
+		        			<a class="nav-link" href="{%url 'perfil'%}">Perfil</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="#">Gestionar finanzas</a>
+		        		<a class="nav-link" href="{%url 'menu'%}">Gestionar finanzas</a>
 		      		</li>
 		      		<li class="nav-item">
 		        			<a class="nav-link" href="#">Visualizar finanzas</a>
 		      		</li>
 		      		<li class="nav-item d-lg-none">
-		        			<a class="nav-link" href="#">Cerrar sesión</a>
+		        			<a class="nav-link" href="{%url 'logout'%}">Cerrar sesión</a>
 		      		</li>
 		    	</ul>
 		    	<ul class="navbar-nav mr-0 d-none d-lg-block">
 		    		<li class="nav-item dropdown">
-		    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nombre de usuario</button>
+		    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
 						<div class="dropdown-menu">
-				    		<a class="dropdown-item" href="#">Editar Perfil</a>
-				    		<a class="dropdown-item" href="#">Cerrar sesión</a>
+				    		<a class="dropdown-item" href="{%url 'EPerfil'%}">Editar Perfil</a>
+				    		<a class="dropdown-item" href="{%url 'logout'%}">Cerrar sesión</a>
 						</div>
 					</li>
 				</ul>
@@ -53,32 +63,32 @@
 				    			<div class="col-md-6 col-lg-4">
 				    				<div class="form-row">
 				    					<div class="form-group col-12 text-center">
-				    						<img src="img/FotoPerfil.svg" class="rounded img-fluid" alt="">
+				    						<img src="../../static/img/FotoPerfil.svg" class="rounded img-fluid" alt="">
 				    					</div>
 				    				</div>
 				    			</div>
 				    			<div class="col-12 col-lg-8 mb-3 order-lg-first">
 									<div class="row">
 										<div class="col-12 text-center mb-2">
-											<h1 class="font-weight-light">Nombre Apellidos</h1>
+											<h1 class="font-weight-light">{{user.first_name}} {{user.last_name}}</h1>
 										</div>
 										<div class="col-12">
 											<ul class="list-group list-group-flush">
 											  	<li class="list-group-item">
-											  		<div class="font-weight-bold">Nombre de usuario:</div> 
-											  		Aepfijepfifdio
+											  		<div class="font-weight-bold">Nombre de usuario:</div>
+											  		{{user.username}}
 											  	</li>
 											  	<li class="list-group-item">
-											  		<div class="font-weight-bold">Correo electrónico:</div> 
-											  		Aepfijepfifdio@dfnadoi.com
+											  		<div class="font-weight-bold">Correo electrónico:</div>
+											  		{{user.email}}
 											  	</li>
 											  	<li class="list-group-item">
-											  		<div class="font-weight-bold">Documento de identidad:</div> 
-											  		126154261542
+											  		<div class="font-weight-bold">Documento de identidad:</div>
+											  		{{usuario.cc}}
 											  	</li>
 											  	<li class="list-group-item">
-											  		<div class="font-weight-bold">Fecha de nacimiento:</div> 
-											  		32/23/2323
+											  		<div class="font-weight-bold">Fecha de nacimiento:</div>
+											  		{{usuario.fecha_nacimiento}}
 											  	</li>
 											</ul>
 										</div>
@@ -86,18 +96,20 @@
 						    	</div>
 				  				<div class="col-12 col-lg-4 order-lg-last">
 				  					<div class="form-row">
-				  						<button type="submit" class="btn btn-dark btn-block">Editar</button>
+				  						<a class="btn btn-dark btn-block" href="{%url 'EPerfil'%}">Editar</a>
 				    				</div>
 				    			</div>
 				    		</div>
 						</form>
 					</div>
-				</div>	
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.js"></script>
+	<script src="../static/js/jquery.js"></script>
+	<script src="../static/js/bootstrap.js"></script>
 </body>
 </html>
+
+{% endblock %}
