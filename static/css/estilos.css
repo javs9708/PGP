@@ -3,10 +3,6 @@ body {
   height: 100%;
 }
 
-.jumbo{
-	margin-bottom: 0px;
-}
-
 .gestiona{
 	margin-bottom: 0px;
 	background: #263238;
@@ -25,7 +21,21 @@ body {
 	color: #fff;
 }
 
-.container-main{
-  padding-right: 0px;
-  padding-left: 0px;
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    cursor: inherit; 
+}
+
+.camara {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
 }
