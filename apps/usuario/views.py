@@ -12,9 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Usuario
 from django.contrib.auth.decorators import login_required
-
-
-
+from .funciones.validadores import *
 
 
 def RegistroUsuario(request):
@@ -39,28 +37,68 @@ def RegistroUsuario(request):
             cc = request.POST.get('cc')
             fecha_nacimiento = request.POST.get('fecha_nacimiento')
 
-            if password1 == password2:
-                user = User.objects.create_user(
-        				username=username,
-        				first_name=first_name,
-        				last_name=last_name,
-        				email=email,
-                        password=password1
-        				)
-                user.save()
+            flag = False
 
-                usuario = Usuario.objects.create(
-                        user = user,
-                        cc = cc,
-                        fecha_nacimiento = fecha_nacimiento
-                )
+            erroresCampos = []
+            errores = (False , erroresCampos )
 
-                usuario.save()
+            if validar_nombre(first_name):
+                flag = True
+                error = "Nombre"
+                erroresCampos.append(error)
+                errores = (True , erroresCampos)
 
-                error2=(True, "Registro exitoso")
+            if validar_apellido(last_name):
+                flag = True
+                error = "Apellido"
+                erroresCampos.append(error)
+                errores = (True , erroresCampos)
 
+            if validar_cc(cc):
+                flag = True
+                error = "Documento de identidad"
+                erroresCampos.append(error)
+                errores = (True , erroresCampos)
+
+            if validar_fecha(fecha_nacimiento):
+                flag = True
+                error = "Fecha Nacimiento"
+                erroresCampos.append(error)
+                errores = (True , erroresCampos)
+
+            if validar_email(email):
+                flag = True
+                error = "Correo Electronico"
+                erroresCampos.append(error)
+                errores = (True , erroresCampos)
+
+
+            if flag == False:
+                if password1 == password2:
+                    user = User.objects.create_user(
+            				username=username,
+            				first_name=first_name,
+            				last_name=last_name,
+            				email=email,
+                            password=password1
+            				)
+                    user.save()
+
+                    usuario = Usuario.objects.create(
+                            user = user,
+                            cc = cc,
+                            fecha_nacimiento = fecha_nacimiento,
+                            foto_perfil = None
+                    )
+
+                    usuario.save()
+
+                    error2=(True, "Registro exitoso")
+
+                else:
+                    error3=(True, "Las contraseñas deben ser iguales")
             else:
-                error3=(True, "Las contraseñas deben ser iguales")
+                error = (False , "")
 
 
         if 'bc2' in request.POST:
@@ -87,6 +125,7 @@ def RegistroUsuario(request):
     ctx = {'error':error,
             'error2':error2,
             'error3':error3,
+            'errores':errores,
             }
     return HttpResponse(template.render(ctx,request))
 

@@ -89,12 +89,24 @@ Ingresar
 					  	</button>
 					</div>
 	            {% endif %}
+
+	            {% if errores.0  %}
+		            {% for error in errores.1  %}
+		            	<div class="alert alert-danger alert-dismissible fade show align-self-end mt-2" role="alert">
+						  	<strong>Error:</strong> en el campo({{error}})
+						  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						    	<span aria-hidden="true">&times;</span>
+						  	</button>
+						</div>
+		            	
+		            {% endfor %}
+	            {% endif %}
 			</div>
 			<div class="col-12 col-lg-7 pb-lg-0 pb-5">
 				<div class="card border-dark">
 					<div class="card-body">
 						<h1 class="card-title display-4 text-center text-md-left mb-4">Registro</h1>
-						<form method="POST">
+						<form method="POST" enctype="multipart/form-data">
 							{% csrf_token %}
 							<div class="form-row">
 						    	<div class="form-group col-12 col-md-6">
