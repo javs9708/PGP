@@ -78,13 +78,13 @@ def RegistroUsuario(request):
                 error = "Fecha de nacimiento (Ingrese un año de nacimiento valido)"
                 erroresCampos.append(error)
                 errores = (True , erroresCampos)
-
+            """
             if validar_email(email):
                 flag = True
                 error = "Correo Electronico"
                 erroresCampos.append(error)
                 errores = (True , erroresCampos)
-
+            """
             if len(usuario)!=0:
                 flag= True
                 error = "Nombre de usuario (Ya existe un nombre de usuario asociado)"
@@ -242,14 +242,15 @@ def editarPerfil(request):
             error = "Fecha de nacimiento (Ingrese un año de nacimiento valido)"
             erroresCampos.append(error)
             errores = (True , erroresCampos)
-
+        """
         if validar_email(email):
             flag = True
             error = "Correo Electronico"
             erroresCampos.append(error)
             errores = (True , erroresCampos)
 
-        """
+        
+
         if len(usuario)!=0 and (usuario[0])!=(username):
             flag= True
             print (usuario[0])
