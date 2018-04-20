@@ -19,6 +19,9 @@ def RegistroUsuario(request):
     error2=(False,"")
     error3=(False,"")
     error=(False,"")
+    erroresCampos = []
+    errores = (False , erroresCampos )
+    datos = request.POST
     if request.method == 'GET':
         template = loader.get_template('usuario/index.html')
         ctx = {}
@@ -37,6 +40,9 @@ def RegistroUsuario(request):
             cc = request.POST.get('cc')
             fecha_nacimiento = request.POST.get('fecha_nacimiento')
 
+            usuario = User.objects.filter(username=username)
+            cedula = Usuario.objects.filter(cc=cc)
+
             flag = False
 
             erroresCampos = []
@@ -45,25 +51,31 @@ def RegistroUsuario(request):
 
             if validar_nombre(first_name):
                 flag = True
-                error = "Nombre"
+                error = "Nombre (Ingrese unicamente caracteres alfabéticos)"
                 erroresCampos.append(error)
                 errores = (True , erroresCampos)
 
             if validar_apellido(last_name):
                 flag = True
-                error = "Apellido"
+                error = "Apellido (Ingrese unicamente caracteres alfabéticos)"
                 erroresCampos.append(error)
                 errores = (True , erroresCampos)
 
             if validar_cc(cc):
                 flag = True
-                error = "Documento de identidad"
+                error = "Documento de identidad (Ingrese unicamente caracteres numericos y 10 digitos)"
                 erroresCampos.append(error)
                 errores = (True , erroresCampos)
-
+            """
+            if validar_password(password1):
+                flag = True
+                error = "Contraseña (Debe tener 8 Digitos a lo menos)"
+                erroresCampos.append(error)
+                errores = (True , erroresCampos)
+            """
             if validar_fecha(fecha_nacimiento):
                 flag = True
-                error = "Fecha Nacimiento"
+                error = "Fecha de nacimiento (Ingrese un año de nacimiento valido)"
                 erroresCampos.append(error)
                 errores = (True , erroresCampos)
 
@@ -73,6 +85,17 @@ def RegistroUsuario(request):
                 erroresCampos.append(error)
                 errores = (True , erroresCampos)
 
+            if len(usuario)!=0:
+                flag= True
+                error = "Nombre de usuario (Ya existe un nombre de usuario asociado)"
+                erroresCampos.append(error)
+                errores = (True , erroresCampos)
+
+            if len(cedula)!=0:
+                flag= True
+                error = "Documento de identidad (Ya existe un documento asociado)"
+                erroresCampos.append(error)
+                errores = (True , erroresCampos)
 
             if flag == False:
                 if password1 == password2:
@@ -157,8 +180,11 @@ def visualizarPerfil(request):
 
 @login_required(login_url='/ingresar/')
 def editarPerfil(request):
+    erroresCampos = []
+    errores = (False , erroresCampos )
+    datos = request.POST
 
-    if request.method == 'GET': 
+    if request.method == 'GET':
         username = request.GET.get('username')
         template = loader.get_template('usuario/EPerfil.html')
         user = User.objects.filter(username=username)
@@ -172,7 +198,6 @@ def editarPerfil(request):
         return HttpResponse(template.render(ctx,request))
 
     if request.method == 'POST':
-        template = loader.get_template('usuario/Perfil.html')
         username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
@@ -185,43 +210,102 @@ def editarPerfil(request):
         cc = request.POST.get('cc')
         fecha_nacimiento = request.POST.get('fecha_nacimiento')
 
-        if len(username) != 0:
-            usuario.user.username = username
-            usuario.user.save()
+        usuario = User.objects.filter(username=username)
+        cedula = Usuario.objects.filter(cc=cc)
 
-        if len(first_name) != 0:
-            usuario.user.first_name = first_name
-            usuario.user.save()
+        flag = False
 
-        if len(last_name) != 0:
-            usuario.user.last_name = last_name
-            usuario.user.save() 
+        erroresCampos = []
+        errores = (False , erroresCampos )
+        datos = request.POST
 
-        if len(email) != 0:
-            usuario.user.email = email
-            usuario.user.save()
+        if validar_nombre(first_name):
+            flag = True
+            error = "Nombre (Ingrese unicamente caracteres alfabéticos)"
+            erroresCampos.append(error)
+            errores = (True , erroresCampos)
 
-        if len(cc) != 0:
-            usuario.cc = cc
-            usuario.save()
+        if validar_apellido(last_name):
+            flag = True
+            error = "Apellido (Ingrese unicamente caracteres alfabéticos)"
+            erroresCampos.append(error)
+            errores = (True , erroresCampos)
 
-        if len(fecha_nacimiento) != 0:
-            usuario.fecha_nacimiento = fecha_nacimiento
-            usuario.save()
+        if validar_cc(cc):
+            flag = True
+            error = "Documento de identidad (Ingrese unicamente caracteres numericos y 10 digitos)"
+            erroresCampos.append(error)
+            errores = (True , erroresCampos)
 
-        if len(request.FILES) != 0:
-            foto_perfil = request.FILES['foto_perfil']
-        else:
-            foto_perfil = None
+        if validar_fecha(fecha_nacimiento):
+            flag = True
+            error = "Fecha de nacimiento (Ingrese un año de nacimiento valido)"
+            erroresCampos.append(error)
+            errores = (True , erroresCampos)
 
-        if foto_perfil is not None:
-            usuario.foto_perfil.delete()
-            usuario.foto_perfil = foto_perfil
-            usuario.save()
+        if validar_email(email):
+            flag = True
+            error = "Correo Electronico"
+            erroresCampos.append(error)
+            errores = (True , erroresCampos)
 
-        return redirect('/usuario/perfil?username='+usuario.user.username)
+        """
+        if len(usuario)!=0 and (usuario[0])!=(username):
+            flag= True
+            print (usuario[0])
+            print(username)
+            error = "Nombre de usuario (Ya existe un nombre de usuario asociado)"
+            erroresCampos.append(error)
+            errores = (True , erroresCampos)
+            """
 
+        if flag == False:
 
+            username = request.GET.get('username')
+            user = User.objects.filter(username=username)
+            usuario = Usuario.objects.filter(user_id=user[0].id)
+            usuario = usuario[0]
 
+            print (username)
 
+            if len(username) != 0:
+                usuario.user.username = username
+                usuario.user.save()
 
+            if len(first_name) != 0:
+                usuario.user.first_name = first_name
+                usuario.user.save()
+
+            if len(last_name) != 0:
+                usuario.user.last_name = last_name
+                usuario.user.save()
+
+            if len(email) != 0:
+                usuario.user.email = email
+                usuario.user.save()
+
+            if len(cc) != 0:
+                usuario.cc = cc
+                usuario.save()
+
+            if len(fecha_nacimiento) != 0:
+                usuario.fecha_nacimiento = fecha_nacimiento
+                usuario.save()
+
+            if len(request.FILES) != 0:
+                foto_perfil = request.FILES['foto_perfil']
+            else:
+                foto_perfil = None
+
+            if foto_perfil is not None:
+                usuario.foto_perfil.delete()
+                usuario.foto_perfil = foto_perfil
+                usuario.save()
+
+            return redirect('/usuario/perfil?username='+usuario.user.username)
+
+    template = loader.get_template('usuario/EPerfil.html')
+    ctx = {'errores':errores,
+            'datos':datos,
+            }
+    return HttpResponse(template.render(ctx,request))

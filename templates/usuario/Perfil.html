@@ -63,7 +63,12 @@ Perfil
 				    			<div class="col-md-6 col-lg-4">
 				    				<div class="form-row">
 				    					<div class="form-group col-12 text-center">
-				    						<img src="{{usuario.foto_perfil.url}}" class="rounded img-fluid" alt="">
+												{% if not usuario.foto_perfil %}
+												<img src="../../static/img/FotoPerfil.svg" class="rounded img-fluid" alt="">
+												{% endif %}
+												{% if usuario.foto_perfil %}
+												<img src="{{usuario.foto_perfil.url}}" class="rounded img-fluid" alt="">
+												{% endif %}
 				    					</div>
 				    				</div>
 				    			</div>
