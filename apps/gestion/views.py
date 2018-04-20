@@ -3,7 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from ..usuario.models import Usuario
 from django.contrib.auth.models import User
 from django.template import loader
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/ingresar/')
 def gestionMenu(request):
     username = request.GET.get('username')
     template = loader.get_template('gestion/Gestion.html')

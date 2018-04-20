@@ -11,6 +11,7 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Usuario
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -92,12 +93,14 @@ def RegistroUsuario(request):
 def inicio(request):
     return render(request, 'usuario/inicio.html')
 
+@login_required(login_url='/ingresar/')
 def cerrarSesion(request):
 	if request.user is not None:
 		logout(request)
 
 	return redirect('inicio')
 
+@login_required(login_url='/ingresar/')
 def visualizarPerfil(request):
     if request.method == 'GET':
         username = request.GET.get('username')
@@ -111,6 +114,7 @@ def visualizarPerfil(request):
         return HttpResponse(template.render(ctx,request))
 
 
+@login_required(login_url='/ingresar/')
 def editarPerfil(request):
 
     if request.method == 'GET': 

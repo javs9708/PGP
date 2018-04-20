@@ -5,6 +5,6 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
 
-    url(r'^perfil/',login_required(visualizarPerfil), name='perfil'),
-    url(r'^editar_perfil/',login_required(editarPerfil), name='EPerfil')
+    url(r'^perfil/',visualizarPerfil, name='perfil'),
+    url(r'^editar_perfil/',editarPerfil, name='EPerfil')
 ] 

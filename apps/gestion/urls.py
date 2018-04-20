@@ -4,6 +4,6 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
 
-    url(r'^menu/',login_required(gestionMenu), name='menu')
+    url(r'^menu/',gestionMenu, name='menu')
 
 ]
