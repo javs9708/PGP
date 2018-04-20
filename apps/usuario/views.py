@@ -41,6 +41,7 @@ def RegistroUsuario(request):
 
             erroresCampos = []
             errores = (False , erroresCampos )
+            datos = request.POST
 
             if validar_nombre(first_name):
                 flag = True
@@ -126,6 +127,7 @@ def RegistroUsuario(request):
             'error2':error2,
             'error3':error3,
             'errores':errores,
+            'datos':datos,
             }
     return HttpResponse(template.render(ctx,request))
 
