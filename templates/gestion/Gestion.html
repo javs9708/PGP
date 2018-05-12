@@ -63,7 +63,7 @@ Gestión
 					   		<p class="card-text text-center">Acá podrás agregar nuevas cuentas. También podrás modificar o quitar cuentas que ya existan. Puedes asociar cuentas de bancas en linea si lo requieres.</p>
 					   	</div>
 					   	<div class="botom-card card-footer">
-					   		<a href="#" class="btn btn-dark btn-block">¡Gestionar!</a>
+					   		<a href="/gestion/cuentas?username={{usuario.user.username}}" class="btn btn-dark btn-block">¡Gestionar!</a>
 					   	</div>
 					</div>
 					<div class="card border-dark">
@@ -73,7 +73,7 @@ Gestión
 						 	<p class="card-text text-center">Acá podrás registrar todas las transacciones de tus cuentas o presupuestos existentes.</p>
 					   	</div>
 						<div class="botom-card card-footer">
-  							<a href="#" class="align-self-end btn btn-dark btn-block">¡Registrar!</a>
+  							<a href="/gestion/transacciones?username={{usuario.user.username}}" class="align-self-end btn btn-dark btn-block">¡Registrar!</a>
   						</div>
 					</div>
 					<div class="card border-dark">
@@ -83,7 +83,7 @@ Gestión
 							<p class="card-text text-center">Acá podrás agregar nuevos presupuestos. También podrás modificar o quitar presupuestos que ya existan.</p>
 						</div>
 						<div class="botom-card card-footer">
-							<a href="#" class="btn btn-dark btn-block">¡Gestionar!</a>
+							<a href="/gestion/presupuesto?username={{usuario.user.username}}" class="btn btn-dark btn-block">¡Gestionar!</a>
 					    </div>
 					</div>
 				</div>
