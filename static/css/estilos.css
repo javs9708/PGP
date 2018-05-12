@@ -48,3 +48,8 @@ body {
     bottom: 4px;
     right: 4px;
 }
+
+.botom-card {
+    border: none;
+    background: #fff;
+}
