@@ -18,7 +18,7 @@ Gestión
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<title>Gestión</title>
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex align-items-lg-center">
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		  	<a class="navbar-brand">
@@ -55,15 +55,15 @@ Gestión
 		  	</div>
 		</nav>
 		
-		<div class="row pt-5 mt-5">
-			<div class="col-7 pr-4">
+		<div class="row">
+			<div class="col-7 pr-4 mt-5">
 				<h1 class="font-weight-light mb-3">Nueva Cuenta</h1>
 				<div id="accordion">
 					<div class="card border-dark mb-1">
 						<div class="card-header bg-transparent py-0" style="height: 3rem;" id="headingOne">
 					    	<div class="row pt-1 justify-content-between align-items-center">
 								<div class="col">
-									<h6>Tarjeta de crédito</h6>
+									<h6>Tarjeta de crédito/débito</h6>
 								</div>
 								<div class="col text-right">
 									<span class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -76,18 +76,15 @@ Gestión
 					      	<div class="card-body">
 						        <form>
 									<div class="form-row">
-								    	<div class="form-group col-12">
-								      		<label for="">Nombre de la cuenta</label>
-								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre" value="">
+								      	<div class="form-group col-12">
+								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la cuenta" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
 								    	<div class="form-group col-7">
-								      		<label for="">Número de la tarjeta de crédito</label>
-								      		<input type="text" class="form-control" name="c_num" required=True placeholder="xxxx-xxxx-xxxx-xxxx" value="">
+								      		<input type="text" class="form-control" name="c_num" required=True placeholder="No. Tarjeta: xxxx-xxxx-xxxx-xxxx" value="">
 								    	</div>
 								    	<div class="form-group col-5">
-								      		<label for="">CSC</label>
 								      		<input type="text" class="form-control" name="csc" required=True placeholder="CSC" value="">
 								    	</div>
 								  	</div>
@@ -140,7 +137,64 @@ Gestión
 					    </div>
 					    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 					      	<div class="card-body">
-					        	Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. 
+					        	<form>
+									<div class="form-row">
+								      	<div class="form-group col-12">
+								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del prestamo/hipoteca" value="">
+								    	</div>
+								  	</div>
+								  	<div class="form-row">
+								    	<div class="form-group col-6">
+								      		<input type="number" class="form-control" name="c_num" required=True placeholder="Monto" value="">
+								    	</div>
+								    	<div class="form-group col-1 pr-2 align-self-center">
+								    		<label for="">Divisa</label>
+								      	</div>
+								      	<div class="form-group col-2">
+								    		<select class="form-control" id="exampleFormControlSelect1">
+											   	<option>COP</option>
+											   	<option>EUR</option>
+											   	<option>DOL</option>
+											   	<option>YEN</option>
+											</select>
+								      	</div>
+								    	<div class="form-group col-3">
+								      		<input type="number" class="form-control" name="csc" required=True placeholder="Interés %" value="">
+								    	</div>
+								  	</div>
+								  	<div class="form-row">
+								    	<div class="form-group col-4">
+								      		<label for="">Fecha prestamo</label>
+								      		<div class="form-row">
+								      			<div class="col">
+								      				<input type="date" class="form-control" name="" required=True placeholder="" value="">	
+								      			</div>
+								      		</div>
+								    	</div>
+								    	<div class="form-group col-4">
+								      		<label for="">Fecha límite</label>
+								      		<div class="form-row">
+								      			<div class="col">
+								      				<input type="date" class="form-control" name="" required=True placeholder="" value="">	
+								      			</div>
+								      		</div>
+								    	</div>
+								    	<div class="form-group col-4">
+								      		<label for="">Tipo de pago</label>
+								      		 	<select class="form-control" id="exampleFormControlSelect1">
+											    	<option>Semanal</option>
+											      	<option>Quincenal</option>
+											      	<option>Mensual</option>
+											      	<option>Anual</option>
+											    </select>
+								    	</div>
+								  	</div>
+								  	<div class="row">
+								  		<div class="col-6">
+								  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
+								  		</div>
+								  	</div>
+								</form> 
 					      	</div>
 					    </div>
 					</div>
@@ -159,7 +213,51 @@ Gestión
 					    </div>
 					    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
 					    	<div class="card-body">
-					        	Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+					        	<form>
+									<div class="form-row">
+								      	<div class="form-group col-12">
+								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la cuenta" value="">
+								    	</div>
+								  	</div>
+								  	<div class="form-row">
+								    	<div class="form-group col-7">
+								      		<input type="text" class="form-control" name="c_num" required=True placeholder="No. Tarjeta: xxxx-xxxx-xxxx-xxxx" value="">
+								    	</div>
+								    	<div class="form-group col-5">
+								      		<input type="text" class="form-control" name="csc" required=True placeholder="CSC" value="">
+								    	</div>
+								  	</div>
+								  	<div class="form-row">
+								    	<div class="form-group col-5">
+								      		<label for="">Fecha de vencimiento</label>
+								      		<div class="form-row">
+								      			<div class="col">
+								      				<input type="number" class="form-control" name="" required=True placeholder="mm" value="" min="1" max="12">	
+								      			</div>
+								      			<div class="col-1">
+								      				<h3 class="font-weight-light">/</h3>	
+								      			</div>
+								      			<div class="col">
+								      				<input type="number" class="form-control" name="" required=True placeholder="aa" value="" min="1" max="99">
+								      			</div>
+								      		</div>
+								    	</div>
+								    	<div class="form-group pl-5 col-7">
+								      		<label for="">Tipo de divisa</label>
+								      		 	<select class="form-control" id="exampleFormControlSelect1">
+											    	<option>COP</option>
+											      	<option>EUR</option>
+											      	<option>DOL</option>
+											      	<option>YEN</option>
+											    </select>
+								    	</div>
+								  	</div>
+								  	<div class="row">
+								  		<div class="col-6">
+								  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
+								  		</div>
+								  	</div>
+								</form>
 					      	</div>
 					    </div>
 					</div>
@@ -167,7 +265,7 @@ Gestión
 						<div class="card-header bg-transparent py-0" style="height: 3rem;" id="headingFour">
 					    	<div class="row pt-1 justify-content-between align-items-center">
 								<div class="col">
-									<h6>Cheques</h6>
+									<h6>Chequera</h6>
 								</div>
 								<div class="col text-right">
 									<span class="btn" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -178,14 +276,89 @@ Gestión
 					    </div>
 					    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
 					      	<div class="card-body">
-					        	Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+					        	<form>
+									<div class="form-row">
+								      	<div class="form-group col-12">
+								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la chequera" value="">
+								    	</div>
+								  	</div>
+								  	<div class="form-row">
+								    	<div class="form-group col-5">
+								      		<input type="number" class="form-control" name="c_num" required=True placeholder="Número de la cuenta" value="">
+								    	</div>
+								    	<div class="form-group col-1 pr-2 align-self-center">
+								    		<label for="">Divisa</label>
+								      	</div>
+								      	<div class="form-group col-2">
+								    		<select class="form-control" id="exampleFormControlSelect1">
+											   	<option>COP</option>
+											   	<option>EUR</option>
+											   	<option>DOL</option>
+											   	<option>YEN</option>
+											</select>
+								      	</div>
+								    	<div class="form-group col-4">
+								      		<input type="number" class="form-control" name="csc" required=True placeholder="No. de cheques" value="">
+								    	</div>
+								  	</div>
+								  	<div class="row">
+								  		<div class="col-6">
+								  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
+								  		</div>
+								  	</div>
+								</form>
 					      	</div>
 					    </div>
 					</div>
 				</div>
 			</div>
-			<div class="col-5">
-				<h1 class="font-weight-light">Cuentas Existentes</h1>
+			<div class="col-5 align-self-center mt-5">
+				<h1 class="font-weight-light text-center mb-3">Cuentas Existentes</h1>
+				<ul class="list-group">
+				  	<li class="list-group-item py-0"> 
+						<div class="row pt-3">
+							<div class="col">
+								<p>Cuenta 1</p>
+							</div>
+							<div class="col text-right">
+								<i class="material-icons">delete</i>
+							</div>
+						</div>
+				  	</li>
+				  	<li class="list-group-item py-0"> 
+						<div class="row pt-3">
+							<div class="col">
+								<p>Cuenta 2</p>
+							</div>
+							<div class="col text-right">
+								<i class="material-icons">delete</i>
+							</div>
+						</div>
+				  	</li>
+				  	<li class="list-group-item py-0"> 
+						<div class="row pt-3">
+							<div class="col">
+								<p>Cuenta 3</p>
+							</div>
+							<div class="col text-right">
+								<i class="material-icons">delete</i>
+							</div>
+						</div>
+				  	</li>
+				  	<li class="list-group-item py-0"> 
+						<div class="row pt-3">
+							<div class="col">
+								<p>Cuenta 4</p>
+							</div>
+							<div class="col text-right">
+								<i class="material-icons">delete</i>
+							</div>
+						</div>
+				  	</li>
+				</ul>
+				<div class="text-right">
+					<button type="" class="mt-5 btn btn-dark" name="bc1">Configurar banca en linea</button>
+				</div>
 			</div>
 		</div>
 	</div>
