@@ -54,7 +54,7 @@ Gestión
 				</ul>
 		  	</div>
 		</nav>
-		
+
 		<div class="row">
 			<div class="col-7 pr-4 mt-5">
 				<h1 class="font-weight-light mb-3">Nueva Cuenta</h1>
@@ -74,7 +74,8 @@ Gestión
 					    </div>
 					    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
 					      	<div class="card-body">
-						        <form>
+										<form method="post">
+										  {% csrf_token %}
 									<div class="form-row">
 								      	<div class="form-group col-12">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la cuenta" value="">
@@ -93,19 +94,19 @@ Gestión
 								      		<label for="">Fecha de vencimiento</label>
 								      		<div class="form-row">
 								      			<div class="col">
-								      				<input type="number" class="form-control" name="" required=True placeholder="mm" value="" min="1" max="12">	
+								      				<input type="number" class="form-control" name="mm" required=True placeholder="mm" value="" min="1" max="12">
 								      			</div>
 								      			<div class="col-1">
-								      				<h3 class="font-weight-light">/</h3>	
+								      				<h3 class="font-weight-light">/</h3>
 								      			</div>
 								      			<div class="col">
-								      				<input type="number" class="form-control" name="" required=True placeholder="aa" value="" min="1" max="99">
+								      				<input type="number" class="form-control" name="aa" required=True placeholder="aa" value="" min="1" max="99">
 								      			</div>
 								      		</div>
 								    	</div>
 								    	<div class="form-group pl-5 col-7">
 								      		<label for="">Tipo de divisa</label>
-								      		 	<select class="form-control" id="exampleFormControlSelect1">
+								      		 	<select class="form-control" id="divisa">
 											    	<option>COP</option>
 											      	<option>EUR</option>
 											      	<option>DOL</option>
@@ -167,7 +168,7 @@ Gestión
 								      		<label for="">Fecha prestamo</label>
 								      		<div class="form-row">
 								      			<div class="col">
-								      				<input type="date" class="form-control" name="" required=True placeholder="" value="">	
+								      				<input type="date" class="form-control" name="" required=True placeholder="" value="">
 								      			</div>
 								      		</div>
 								    	</div>
@@ -175,7 +176,7 @@ Gestión
 								      		<label for="">Fecha límite</label>
 								      		<div class="form-row">
 								      			<div class="col">
-								      				<input type="date" class="form-control" name="" required=True placeholder="" value="">	
+								      				<input type="date" class="form-control" name="" required=True placeholder="" value="">
 								      			</div>
 								      		</div>
 								    	</div>
@@ -194,7 +195,7 @@ Gestión
 								  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
 								  		</div>
 								  	</div>
-								</form> 
+								</form>
 					      	</div>
 					    </div>
 					</div>
@@ -232,10 +233,10 @@ Gestión
 								      		<label for="">Fecha de vencimiento</label>
 								      		<div class="form-row">
 								      			<div class="col">
-								      				<input type="number" class="form-control" name="" required=True placeholder="mm" value="" min="1" max="12">	
+								      				<input type="number" class="form-control" name="" required=True placeholder="mm" value="" min="1" max="12">
 								      			</div>
 								      			<div class="col-1">
-								      				<h3 class="font-weight-light">/</h3>	
+								      				<h3 class="font-weight-light">/</h3>
 								      			</div>
 								      			<div class="col">
 								      				<input type="number" class="form-control" name="" required=True placeholder="aa" value="" min="1" max="99">
@@ -314,48 +315,30 @@ Gestión
 			</div>
 			<div class="col-5 align-self-center mt-5">
 				<h1 class="font-weight-light text-center mb-3">Cuentas Existentes</h1>
+				{% if tarjetas %}
+				{% for e in tarjetas %}
 				<ul class="list-group">
-				  	<li class="list-group-item py-0"> 
+				  	<li class="list-group-item py-0">
 						<div class="row pt-3">
 							<div class="col">
-								<p>Cuenta 1</p>
+
+								<p>{{e.nombre}}</p>
+
 							</div>
 							<div class="col text-right">
+
 								<i class="material-icons">delete</i>
-							</div>
-						</div>
-				  	</li>
-				  	<li class="list-group-item py-0"> 
-						<div class="row pt-3">
-							<div class="col">
-								<p>Cuenta 2</p>
-							</div>
-							<div class="col text-right">
-								<i class="material-icons">delete</i>
-							</div>
-						</div>
-				  	</li>
-				  	<li class="list-group-item py-0"> 
-						<div class="row pt-3">
-							<div class="col">
-								<p>Cuenta 3</p>
-							</div>
-							<div class="col text-right">
-								<i class="material-icons">delete</i>
-							</div>
-						</div>
-				  	</li>
-				  	<li class="list-group-item py-0"> 
-						<div class="row pt-3">
-							<div class="col">
-								<p>Cuenta 4</p>
-							</div>
-							<div class="col text-right">
-								<i class="material-icons">delete</i>
+
 							</div>
 						</div>
 				  	</li>
 				</ul>
+				{% endfor %}
+				{% else %}
+				<p>No hay cuentas registradas</p>
+				{% endif %}
+
+
 				<div class="text-right">
 					<button type="" class="mt-5 btn btn-dark" name="bc1">Configurar banca en linea</button>
 				</div>

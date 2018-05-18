@@ -249,7 +249,7 @@ def editarPerfil(request):
             erroresCampos.append(error)
             errores = (True , erroresCampos)
 
-        
+
 
         if len(usuario)!=0 and (usuario[0])!=(username):
             flag= True
