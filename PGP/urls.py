@@ -28,6 +28,7 @@ urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^usuario/', include ('apps.usuario.urls')),
 	url(r'^gestion/', include ('apps.gestion.urls')),
+	url(r'^visualizar/', include ('apps.visualizar.urls')),
 	url(r'^ingresar/',RegistroUsuario , name='index'),
 	url(r'^$',inicio , name='inicio'),
 

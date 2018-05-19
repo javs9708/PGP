@@ -1,0 +1,109 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+Gestión
+{% endblock %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta chaset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-sacale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/maiqueestilo.css">
+	<title>Visualizar Finanzas</title>
+</head>
+
+<body class="bg-light d-flex align-items-md-center">
+
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		  	<a class="navbar-brand" href="#">
+	    		<img src="/static/img/Logo-light.svg" class="img-fluid" width="30" height="30" alt="">
+	  		</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    	<span class="navbar-toggler-icon"></span>
+		  	</button>
+
+		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    	<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+								<a class="nav-link" href="/usuario/perfil?username={{usuario.user.username}}">Perfil</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
+						</li>
+						<li class="nav-item ac active ">
+								<a class="nav-link" href="/visualizar/menu?username={{usuario.user.username}}">Visualizar finanzas</a>
+						</li>
+						<li class="nav-item d-lg-none">
+								<a class="nav-link" href="{%url 'logout'%}">Cerrar sesión</a>
+						</li>
+		    	</ul>
+		    	<ul class="navbar-nav mr-0 d-none d-lg-block">
+		    		<li class="nav-item dropdown">
+		    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="/usuario/editar_perfil?username={{usuario.user.username}}">Editar Perfil</a>
+							<a class="dropdown-item" href="{%url 'logout'%}">Cerrar sesión</a>
+						</div>
+					</li>
+				</ul>
+		 	</div>
+		</nav>
+
+		<div class="row mt-5 pt-4 pb-2">
+			<div class="col-12">
+				<div class="card-deck">
+					<div class="card border-dark">
+					  <img class="card-img-top" src="../../static/img/Cuentas.png" alt="Card image cap">
+					  <div class="card-body">
+					      <h5 class="card-title text-center"><strong>Cuentas</strong></h5>
+					      <p class="card-text text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, perferendis, quo. Minima magni aliquid fuga?</p>
+					  </div>
+						<div class="botom-card card-footer">
+							<a href="/gestion/cuentas?username={{usuario.user.username}}" class="btn btn-dark btn-block">¡Gestionar!</a>
+						</div>
+					</div>
+					<div class="card border-dark">
+					  <img class="card-img-top" src="../../static/img/Transacciones.png" alt="Card image cap">
+					  <div class="card-body">
+					      <h5 class="card-title text-center"><strong>Cuentas</strong></h5>
+					      <p class="card-text text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, perferendis, quo. Minima magni aliquid fuga?</p>
+					  </div>
+						<div class="botom-card card-footer">
+							<a href="/gestion/cuentas?username={{usuario.user.username}}" class="btn btn-dark btn-block">¡Gestionar!</a>
+						</div>
+					</div>
+					<div class="card border-dark">
+					  <img class="card-img-top" src="../../static/img/Presupuestos.png" alt="Card image cap">
+					  <div class="card-body">
+					      <h5 class="card-title text-center"><strong>Cuentas</strong></h5>
+					      <p class="card-text text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, perferendis, quo. Minima magni aliquid fuga?</p>
+					  </div>
+						<div class="botom-card card-footer">
+							<a href="/gestion/cuentas?username={{usuario.user.username}}" class="btn btn-dark btn-block">¡Gestionar!</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2 text-right">
+			<div class="col">
+				<button type="button" class="btn btn-outline-dark">Generar reportes</button>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock %}
