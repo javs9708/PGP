@@ -5,9 +5,7 @@
 Gestión
 {% endblock %}
 
-
 {% block content %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -53,16 +51,10 @@ Gestión
 					</li>
 				</ul>
 		  	</div>
-		</nav><br><br><br>
-		{% if mensaje_cuenta.0 %}
-		<div class="alert alert-warning" role="alert">
-  			<strong>Atención!</strong> {{mensaje_cuenta.1}}
-		</div>
-			
-		{% endif %}
+		</nav>
 
 		<div class="row">
-			<div class="col-7 pr-4 mt-5">
+			<div class="col-12 col-lg-8 col-xl-7 pr-lg-4 mt-5 pt-lg-0 pt-5">
 				<h1 class="font-weight-light mb-3">Nueva Cuenta</h1>
 				<div id="accordion">
 					<div class="card border-dark mb-1">
@@ -80,19 +72,22 @@ Gestión
 					    </div>
 					    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
 					      	<div class="card-body">
-										<form method="post">
-										  {% csrf_token %}
+								<form method="post">
+								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-12">
+								      	<div class="form-group col-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la cuenta" value="">
+								    	</div>
+								    	<div class="form-group col-6">
+								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-7">
+								    	<div class="form-group col-6">
 								      		<input type="text" class="form-control" name="c_num" required=True placeholder="No. Tarjeta: xxxx-xxxx-xxxx-xxxx" value="">
 								    	</div>
-								    	<div class="form-group col-5">
-								      		<input type="text" class="form-control" name="csc" required=True placeholder="CSC" value="">
+								    	<div class="form-group col-6">
+								      		<input type="text" class="form-control" name="csc" required=True placeholder="No. Cuenta" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
@@ -112,16 +107,16 @@ Gestión
 								    	</div>
 								    	<div class="form-group pl-5 col-7">
 								      		<label for="">Tipo de divisa</label>
-								      		 	<select type="text" class="form-control" name="divisa">
-											    		<option>COP</option>
-											      	<option>EUR</option>
-											      	<option>DOL</option>
-											      	<option>YEN</option>
-											    </select>
+								      		<select type="text" class="form-control" name="divisa">
+											  	<option>COP</option>
+											   	<option>EUR</option>
+											   	<option>DOL</option>
+											   	<option>YEN</option>
+											</select>
 								    	</div>
 								  	</div>
 								  	<div class="row">
-								  		<div class="col-6">
+								  		<div class="col-12">
 								  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
 								  		</div>
 								  	</div>
@@ -144,11 +139,14 @@ Gestión
 					    </div>
 					    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 					      	<div class="card-body">
-										<form method="post">
-										  {% csrf_token %}
+								<form method="post">
+								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-12">
+								      	<div class="form-group col-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del prestamo/hipoteca" value="">
+								    	</div>
+								    	<div class="form-group col-6">
+								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
@@ -198,7 +196,7 @@ Gestión
 								    	</div>
 								  	</div>
 								  	<div class="row">
-								  		<div class="col-6">
+								  		<div class="col-12">
 								  			<button type="submit" class="btn btn-dark btn-block" name="bc2">Confirmar</button>
 								  		</div>
 								  	</div>
@@ -221,47 +219,56 @@ Gestión
 					    </div>
 					    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
 					    	<div class="card-body">
-					        	<form>
+					        	<form method="post">
+								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-12">
+								      	<div class="form-group col-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la cuenta" value="">
 								    	</div>
-								  	</div>
-								  	<div class="form-row">
-								    	<div class="form-group col-7">
-								      		<input type="text" class="form-control" name="c_num" required=True placeholder="No. Tarjeta: xxxx-xxxx-xxxx-xxxx" value="">
-								    	</div>
-								    	<div class="form-group col-5">
-								      		<input type="text" class="form-control" name="csc" required=True placeholder="CSC" value="">
+								    	<div class="form-group col-6">
+								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-5">
-								      		<label for="">Fecha de vencimiento</label>
+								    	<div class="form-group col-5 align-self-end">
+								      		<input type="text" class="form-control" name="csc" required=True placeholder="No. Cuenta" value="">
+								    	</div>
+								    	<div class="form-group col-4">
+								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" value="">
+								    	</div>
+								    	<div class="form-group col-3">
+								      		<input type="number" class="form-control" name="interes" required=True placeholder="Interés %" value="">
+								    	</div>
+								  	</div>
+								  	<div class="form-row">
+								    	<div class="form-group col-4">
+								      		<label for="">Fecha prestamo</label>
 								      		<div class="form-row">
 								      			<div class="col">
-								      				<input type="number" class="form-control" name="" required=True placeholder="mm" value="" min="1" max="12">
-								      			</div>
-								      			<div class="col-1">
-								      				<h3 class="font-weight-light">/</h3>
-								      			</div>
-								      			<div class="col">
-								      				<input type="number" class="form-control" name="" required=True placeholder="aa" value="" min="1" max="99">
+								      				<input type="date" class="form-control" name="fecha_prestamo" required=True placeholder="" value="">
 								      			</div>
 								      		</div>
 								    	</div>
-								    	<div class="form-group pl-5 col-7">
-								      		<label for="">Tipo de divisa</label>
-								      		 	<select class="form-control" id="exampleFormControlSelect1">
-											    	<option>COP</option>
-											      	<option>EUR</option>
-											      	<option>DOL</option>
-											      	<option>YEN</option>
-											    </select>
+								    	<div class="form-group col-4">
+								      		<label for="">Fecha límite</label>
+								      		<div class="form-row">
+								      			<div class="col">
+								      				<input type="date" class="form-control" name="fecha_limite" required=True placeholder="" value="">
+								      			</div>
+								      		</div>
 								    	</div>
+								      	<div class="form-group col-4">
+								      		<label for="">Divisa</label>
+								    		<select type="text" class="form-control" name="divisa">
+											   	<option>COP</option>
+											   	<option>EUR</option>
+											   	<option>DOL</option>
+											   	<option>YEN</option>
+											</select>
+								      	</div>
 								  	</div>
 								  	<div class="row">
-								  		<div class="col-6">
+								  		<div class="col-12">
 								  			<button type="button" class="btn btn-dark btn-block" name="bc3">Confirmar</button>
 								  		</div>
 								  	</div>
@@ -286,8 +293,11 @@ Gestión
 					      	<div class="card-body">
 					        	<form>
 									<div class="form-row">
-								      	<div class="form-group col-12">
+								      	<div class="form-group col-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la chequera" value="">
+								    	</div>
+								    	<div class="form-group col-6">
+								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
@@ -320,53 +330,49 @@ Gestión
 					</div>
 				</div>
 			</div>
-			<div class="col-5 align-self-center mt-5">
+			<div class="col-12 col-lg-4 col-xl-5 align-self-center mt-5">
 				<h1 class="font-weight-light text-center mb-3">Cuentas Existentes</h1>
 				{% if tarjetas or prestamos%}
-
 				{% for e in tarjetas %}
 				<ul class="list-group">
 				  	<li class="list-group-item py-0">
 						<div class="row pt-3">
-							<div class="col">
+							<div class="col-10">
 								<p>{{e.nombre}}</p>
 							</div>
-							<div class="col text-right">
+							<div class="col-2 text-right">
 								<i class="material-icons">delete</i>
 							</div>
 						</div>
 				  	</li>
 				</ul>
 				{% endfor %}
-
 				{% for e in prestamos %}
 				<ul class="list-group">
-						<li class="list-group-item py-0">
+					<li class="list-group-item py-0">
 						<div class="row pt-3">
-							<div class="col">
+							<div class="col-10">
 								<p>{{e.nombre}}</p>
 							</div>
-							<div class="col text-right">
+							<div class="col-2 text-right">
 								<i class="material-icons">delete</i>
 							</div>
 						</div>
-						</li>
+					</li>
 				</ul>
 				{% endfor %}
-
-
 				{% else %}
-				<p>No hay cuentas registradas</p>
+				<p class="text-center">No hay cuentas registradas</p>
 				{% endif %}
-
-				<div class="text-right">
-					<button type="" class="mt-5 btn btn-dark" name="bc1">Configurar banca en linea</button>
-				</div>
+				<button type="" class="mt-5 btn-block btn btn-dark" name="bc1">Configurar banca en linea</button>
+				{% if mensaje_cuenta.0 %}
+				<div class="mt-3 alert alert-warning" role="alert">
+  					<strong>Atención! </strong> {{mensaje_cuenta.1}}
+				</div>	
+				{% endif %}
 			</div>
 		</div>
 	</div>
-
-
 
 	<script src="../static/js/jquery.js"></script>
 	<script src="../static/js/bootstrap.js"></script>
