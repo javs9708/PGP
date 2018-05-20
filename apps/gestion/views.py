@@ -21,9 +21,11 @@ def gestionMenu(request):
 
 @login_required(login_url='/ingresar/')
 def gestionCuentas(request):
+
+    mensaje_cuenta = (False,"")
+    template = loader.get_template('gestion/gestionCuentas.html')
     if request.method == 'GET':
         username = request.GET.get('username')
-        template = loader.get_template('gestion/gestionCuentas.html')
         user =  User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
@@ -55,18 +57,26 @@ def gestionCuentas(request):
             tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
             prestamos = Prestamo.objects.filter(user_id=user[0].id)
 
+            tarjeta_exist = False
+            for tarjeta in tarjetas:
+                if str(tarjeta.numero) == str(numero):
+                    tarjeta_exist = True
 
-            tarjeta = Tarjeta.objects.create(
-                    nombre= nombre,
-                    numero = numero,
-                    csc = csc,
-                    fecha_vencimiento_mm = fecha_vencimiento_mm,
-                    fecha_vencimiento_aa = fecha_vencimiento_aa,
-                    tipo_divisa = tipo_divisa,
-                    user_id= user[0].id
-            )
+            if not tarjeta_exist:
+                tarjeta = Tarjeta.objects.create(
+                        nombre= nombre,
+                        numero = numero,
+                        csc = csc,
+                        fecha_vencimiento_mm = fecha_vencimiento_mm,
+                        fecha_vencimiento_aa = fecha_vencimiento_aa,
+                        tipo_divisa = tipo_divisa,
+                        user_id= user[0].id
+                )
 
-            tarjeta.save()
+                tarjeta.save()
+                tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+            else:
+                mensaje_cuenta = (True,"Ya existe una cuenta con este numero de tarjeta")
 
         if 'bc2' in request.POST:
             nombre = request.POST.get('c_name')
@@ -97,14 +107,16 @@ def gestionCuentas(request):
             )
 
             prestamo.save()
+            prestamos = Prestamo.objects.filter(user_id=user[0].id)
 
-    template = loader.get_template('gestion/gestionCuentas.html')
-    ctx = {
-            'usuario': usuario,
-            'tarjetas': tarjetas,
-            'prestamos': prestamos,
-    }
-    return HttpResponse(template.render(ctx,request))
+        template = loader.get_template('gestion/gestionCuentas.html')
+        ctx = {
+                'usuario': usuario,
+                'tarjetas': tarjetas,
+                'prestamos': prestamos,
+                'mensaje_cuenta': mensaje_cuenta
+        }
+        return HttpResponse(template.render(ctx,request))
 
 @login_required(login_url='/ingresar/')
 def gestionTransacciones(request):

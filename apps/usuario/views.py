@@ -303,7 +303,6 @@ def editarPerfil(request):
 
             return redirect('/usuario/perfil?username='+usuario.user.username)
 
-    print("******************", usuario)
     template = loader.get_template('usuario/EPerfil.html')
     ctx = {'errores':errores,
             'datos':datos,

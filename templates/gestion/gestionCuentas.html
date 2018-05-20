@@ -53,7 +53,13 @@ Gestión
 					</li>
 				</ul>
 		  	</div>
-		</nav>
+		</nav><br><br><br>
+		{% if mensaje_cuenta.0 %}
+		<div class="alert alert-warning" role="alert">
+  			<strong>Atención!</strong> {{mensaje_cuenta.1}}
+		</div>
+			
+		{% endif %}
 
 		<div class="row">
 			<div class="col-7 pr-4 mt-5">
@@ -256,7 +262,7 @@ Gestión
 								  	</div>
 								  	<div class="row">
 								  		<div class="col-6">
-								  			<button type="submit" class="btn btn-dark btn-block" name="bc3">Confirmar</button>
+								  			<button type="button" class="btn btn-dark btn-block" name="bc3">Confirmar</button>
 								  		</div>
 								  	</div>
 								</form>
@@ -305,7 +311,7 @@ Gestión
 								  	</div>
 								  	<div class="row">
 								  		<div class="col-6">
-								  			<button type="submit" class="btn btn-dark btn-block" name="bc4">Confirmar</button>
+								  			<button type="button" class="btn btn-dark btn-block" name="bc4">Confirmar</button>
 								  		</div>
 								  	</div>
 								</form>
