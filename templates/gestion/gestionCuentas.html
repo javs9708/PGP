@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title %}
-Gestión
+Gestión de cuentas
 {% endblock %}
 
 {% block content %}
@@ -55,7 +55,7 @@ Gestión
 
 		<div class="row">
 			<div class="col-12 col-lg-8 col-xl-7 pr-lg-4 mt-5 pt-lg-0 pt-5">
-				<h1 class="font-weight-light mb-3">Nueva Cuenta</h1>
+				<h1 class="font-weight-light mb-3">Nueva cuenta</h1>
 				<div id="accordion">
 					<div class="card border-dark mb-1">
 						<div class="card-header bg-transparent py-0" style="height: 3rem;" id="headingOne">
@@ -331,7 +331,7 @@ Gestión
 				</div>
 			</div>
 			<div class="col-12 col-lg-4 col-xl-5 align-self-center mt-5">
-				<h1 class="font-weight-light text-center mb-3">Cuentas Existentes</h1>
+				<h1 class="font-weight-light text-center mb-3">Cuentas existentes</h1>
 				{% if tarjetas or prestamos%}
 				{% for e in tarjetas %}
 				<ul class="list-group">
@@ -364,7 +364,14 @@ Gestión
 				{% else %}
 				<p class="text-center">No hay cuentas registradas</p>
 				{% endif %}
-				<button type="" class="mt-5 btn-block btn btn-dark" name="bc1">Configurar banca en linea</button>
+				<div class="row">
+					<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+						<button type="" class="mt-5 btn-block btn btn-dark" name="bc1">Ver lista detallada</button>
+					</div>
+					<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+						<button type="" class="mt-lg-2 mt-2 mt-md-5 mt-xl-5 btn-block btn btn-outline-dark" name="bc1">Configurar banca en línea</button>
+					</div>
+				</div>
 				{% if mensaje_cuenta.0 %}
 				<div class="mt-3 alert alert-warning" role="alert">
   					<strong>Atención! </strong> {{mensaje_cuenta.1}}

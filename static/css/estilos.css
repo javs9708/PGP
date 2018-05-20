@@ -53,3 +53,8 @@ body {
     border: none;
     background: #fff;
 }
+
+.form-group textarea{
+    max-height: 60px;
+    min-height: 60px;
+}
