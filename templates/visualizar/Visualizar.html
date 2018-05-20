@@ -31,15 +31,24 @@ Gestión
 
 		  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    	<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-								<a class="nav-link" href="/usuario/perfil?username={{usuario.user.username}}">Perfil</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
-						</li>
-						<li class="nav-item ac active ">
-								<a class="nav-link" href="/visualizar/menu?username={{usuario.user.username}}">Visualizar finanzas</a>
-						</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/usuario/perfil?username={{usuario.user.username}}">Perfil</a>
+					</li>
+					<li class="nav-item dropdown">
+        				<div class="btn-group">
+						  <a class="nav-link" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
+						  <button class="d-none d-lg-block pl-0 btn btn-link nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
+						  <div class="dropdown-menu">
+						    <a class="dropdown-item" href="/gestion/cuentas?username={{usuario.user.username}}">Cuentas</a>
+						    <a class="dropdown-item" href="/gestion/transacciones?username={{usuario.user.username}}">Transacciones</a>
+						    <a class="dropdown-item" href="/gestion/presupuesto?username={{usuario.user.username}}">Presupuestos</a>
+						  </div>
+						</div>
+		      		</li>
+		      		
+					<li class="nav-item ac active ">
+						<a class="nav-link" href="/visualizar/menu?username={{usuario.user.username}}">Visualizar finanzas</a>
+					</li>
 						<li class="nav-item d-lg-none">
 								<a class="nav-link" href="{%url 'logout'%}">Cerrar sesión</a>
 						</li>

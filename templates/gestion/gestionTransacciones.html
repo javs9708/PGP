@@ -19,7 +19,7 @@ Gestión de transacciones
 
 	<title>Gestión</title>
 </head>
-<body class="bg-light d-flex align-items-md-center">
+<body class="bg-light d-flex align-items-lg-center">
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		  	<a class="navbar-brand">
@@ -34,8 +34,16 @@ Gestión de transacciones
 		      		<li class="nav-item">
 		        			<a class="nav-link" href="/usuario/perfil?username={{usuario.user.username}}">Perfil</a>
 		      		</li>
-		      		<li class="nav-item ac active">
-		        		<a class="nav-link" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
+		      		<li class="nav-item dropdown">
+        				<div class="btn-group">
+						  <a class="nav-link ac active" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
+						  <button class="d-none d-lg-block ac active pl-0 btn btn-link nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
+						  <div class="dropdown-menu">
+						    <a class="dropdown-item" href="/gestion/cuentas?username={{usuario.user.username}}">Cuentas</a>
+						    <a class="dropdown-item" href="/gestion/transacciones?username={{usuario.user.username}}">Transacciones</a>
+						    <a class="dropdown-item" href="/gestion/presupuesto?username={{usuario.user.username}}">Presupuestos</a>
+						  </div>
+						</div>
 		      		</li>
 		      		<li class="nav-item">
 		        			<a class="nav-link" href="/visualizar/menu?username={{usuario.user.username}}">Visualizar finanzas</a>
