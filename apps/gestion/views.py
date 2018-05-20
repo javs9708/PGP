@@ -75,7 +75,7 @@ def gestionCuentas(request):
             fecha_prestamo = request.POST.get('fecha_prestamo')
             fecha_limite = request.POST.get('fecha_limite')
             tipo_divisa = request.POST.get('divisa')
-            tipo_pago = reques.POST.get('pago')
+            tipo_pago = request.POST.get('pago')
 
             username = request.GET.get('username')
             user = User.objects.filter(username=username)
