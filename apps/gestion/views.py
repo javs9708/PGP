@@ -50,6 +50,10 @@ def gestionCuentas(request):
 
             username = request.GET.get('username')
             user = User.objects.filter(username=username)
+            usuario = Usuario.objects.filter(user_id=user[0].id)
+            usuario = usuario[0]
+            tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+            prestamos = Prestamo.objects.filter(user_id=user[0].id)
 
 
             tarjeta = Tarjeta.objects.create(
@@ -75,6 +79,10 @@ def gestionCuentas(request):
 
             username = request.GET.get('username')
             user = User.objects.filter(username=username)
+            usuario = Usuario.objects.filter(user_id=user[0].id)
+            usuario = usuario[0]
+            tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+            prestamos = Prestamo.objects.filter(user_id=user[0].id)
 
 
             prestamo = Prestamo.objects.create(
