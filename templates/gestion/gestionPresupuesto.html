@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title %}
-Gestión
+Gestión de presupuestos
 {% endblock %}
 
 
@@ -15,6 +15,7 @@ Gestión
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="../../static/css/bootstrap.css">
 	<link rel="stylesheet" href="../../static/css/estilos.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<title>Gestión</title>
 </head>
 <body class="bg-light d-flex align-items-md-center">
@@ -61,7 +62,118 @@ Gestión
 				</ul>
 		  	</div>
 		</nav>
-			<h5>Gestionar presupuestos</h5>
+		
+		<div class="row">
+			<div class="col-12 col-lg-8 col-xl-7 pr-lg-4 mt-5 pt-lg-0 pt-5">
+				<h1 class="font-weight-light mb-3">Nuevo presupuesto</h1>
+				<div class="card border-dark mb-1">
+			      	<div class="card-body">
+						<form method="post">
+						{% csrf_token %}
+							<div class="form-row">
+						      	<div class="form-group col-6">
+						      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del Presupuesto" value="">
+						    	</div>
+						    	<div class="form-group col-6">
+						      		<input type="number" class="form-control" name="c_name" required=True placeholder="Monto" min="0" value="">
+						    	</div>
+						  	</div>
+						  	<div class="form-row">
+						    	<div class="form-group col-3">
+						      		<label for="">Divisa</label>
+						     		<select type="text" class="form-control" name="divisa">
+									  	<option>COP</option>
+									   	<option>EUR</option>
+									   	<option>DOL</option>
+									   	<option>YEN</option>
+									</select>
+						    	</div>
+						    	<div class="form-group col-4">
+						      		<label for="">Cuenta asociada</label>
+						      		<select type="text" class="form-control" name="cuenta">
+									  	<option>Cuenta 1</option>
+									   	<option>Cuenta 2</option>
+									   	<option>Cuenta 3</option>
+									   	<option>Cuenta 4</option>
+									</select>
+						    	</div>
+						    	<div class="form-group col-5 align-self-end">
+						      		<input type="number" class="form-control" name="c_name" required=True placeholder="Saldo de reinversión" min="0" value="">
+						    	</div>
+						  	</div>
+						  	<div class="form-row">
+						    	<div class="form-group col-4">
+						      			<label for="">Periodo de recurrencia</label>
+						      		<input type="number" class="form-control" name="c_name" required=True placeholder="#" min="0" value="">
+						    	</div>
+						  		<div class="form-group col-4 align-self-end">
+						      		<select type="text" class="form-control" name="cuenta">
+									  	<option>Días</option>
+									   	<option>Semanas</option>
+									   	<option>Meses</option>
+									   	<option>Años</option>
+									</select>
+						    	</div>
+						    	<div class="form-group col-4">						    				<label for="">Categoría</label>
+						      		<select type="text" class="form-control" name="cuenta">
+									  	<option>Categoría 1</option>
+									   	<option>Categoría 2</option>
+									   	<option>Categoría 3</option>
+									   	<option>Categoría 4</option>
+									</select>
+						    	</div>
+						  	</div>
+						  	<div class="row">
+						  		<div class="col-12">
+						  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
+						  		</div>
+						  	</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-4 col-xl-5 align-self-center mt-5">
+				<h1 class="font-weight-light text-center mb-3">Presupuesos existentes</h1>
+				{% if tarjetas or prestamos%}
+				{% for e in tarjetas %}
+				<ul class="list-group">
+				  	<li class="list-group-item py-0">
+						<div class="row pt-3">
+							<div class="col-10">
+								<p>{{e.nombre}}</p>
+							</div>
+							<div class="col-2 text-right">
+								<i class="material-icons">delete</i>
+							</div>
+						</div>
+				  	</li>
+				</ul>
+				{% endfor %}
+				{% for e in prestamos %}
+				<ul class="list-group">
+					<li class="list-group-item py-0">
+						<div class="row pt-3">
+							<div class="col-10">
+								<p>{{e.nombre}}</p>
+							</div>
+							<div class="col-2 text-right">
+								<i class="material-icons">delete</i>
+							</div>
+						</div>
+					</li>
+				</ul>
+				{% endfor %}
+				{% else %}
+				<p class="text-center">No existe ningún presupuesto hasta ahora.</p>
+				{% endif %}
+				<button type="" class="mt-5 btn-block btn btn-dark" name="bc1">Ver lista detallada</button>
+				{% if mensaje_cuenta.0 %}
+				<div class="mt-3 alert alert-warning" role="alert">
+  					<strong>Atención! </strong> {{mensaje_cuenta.1}}
+				</div>	
+				{% endif %}
+			</div>
+		</div>
 	</div>
 
 
