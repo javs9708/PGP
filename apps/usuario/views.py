@@ -210,9 +210,8 @@ def editarPerfil(request):
         cc = request.POST.get('cc')
         fecha_nacimiento = request.POST.get('fecha_nacimiento')
 
-        usuario = User.objects.filter(username=username)
+        #usuario = User.objects.filter(username=username)
         cedula = Usuario.objects.filter(cc=cc)
-
         flag = False
 
         erroresCampos = []
@@ -267,7 +266,6 @@ def editarPerfil(request):
             usuario = Usuario.objects.filter(user_id=user[0].id)
             usuario = usuario[0]
 
-            print (username)
 
             if len(username) != 0:
                 usuario.user.username = username
@@ -305,8 +303,10 @@ def editarPerfil(request):
 
             return redirect('/usuario/perfil?username='+usuario.user.username)
 
+    print("******************", usuario)
     template = loader.get_template('usuario/EPerfil.html')
     ctx = {'errores':errores,
             'datos':datos,
+            'usuario': usuario
             }
     return HttpResponse(template.render(ctx,request))
