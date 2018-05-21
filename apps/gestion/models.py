@@ -15,7 +15,7 @@ class Tarjeta(models.Model):
 class Prestamo(models.Model):
     nombre = models.CharField(max_length=50)
     entidad = models.CharField(max_length=50, null=True)
-    monto = models.IntegerField()
+    monto = models.BigIntegerField()
     interes = models.IntegerField()
     fecha_prestamo = models.DateField()
     fecha_limite = models.DateField()
@@ -27,9 +27,16 @@ class Inversion(models.Model):
     nombre = models.CharField(max_length=50)
     entidad = models.CharField(max_length=50)
     numero_cuenta = models.IntegerField()
-    monto = models.IntegerField()
+    monto = models.BigIntegerField()
     interes = models.IntegerField()
     fecha_prestamo = models.DateField()
     fecha_limite = models.DateField()
     tipo_divisa = models.CharField(max_length=5, null=True)
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
+
+class Chequera(models.Model):
+    nombre = models.CharField(max_length=50)
+    entidad = models.CharField(max_length=50)
+    tipo_divisa = models.CharField(max_length=5)
+    numero_cuenta = models.IntegerField()
+    monto = models.BigIntegerField()
