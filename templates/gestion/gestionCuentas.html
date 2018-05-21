@@ -87,15 +87,18 @@ Gestión de cuentas
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la cuenta" value="">
 								    	</div>
 								    	<div class="form-group col-6">
-								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Entidad bancaria" value="">
+								      		<input type="text" class="form-control" name="c_entidad" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-6">
-								      		<input type="text" class="form-control" name="c_num" required=True placeholder="No. Tarjeta: xxxx-xxxx-xxxx-xxxx" value="">
+								    	<div class="form-group col-4">
+								      		<input type="text" class="form-control" name="c_num" required=True placeholder="Número tarjeta" value="">
 								    	</div>
-								    	<div class="form-group col-6">
-								      		<input type="text" class="form-control" name="csc" required=True placeholder="No. Cuenta" value="">
+											<div class="form-group col-4">
+								      		<input type="number" class="form-control" name="c_saldo" required=True placeholder="Saldo inicial" value="">
+								    	</div>
+								    	<div class="form-group col-4">
+								      		<input type="text" class="form-control" name="c_numCuenta" required=True placeholder="No. Cuenta" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
@@ -154,7 +157,7 @@ Gestión de cuentas
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del prestamo/hipoteca" value="">
 								    	</div>
 								    	<div class="form-group col-6">
-								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Entidad bancaria" value="">
+								      		<input type="text" class="form-control" name="c_entidad" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
@@ -234,12 +237,12 @@ Gestión de cuentas
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la cuenta" value="">
 								    	</div>
 								    	<div class="form-group col-6">
-								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Entidad bancaria" value="">
+								      		<input type="text" class="form-control" name="c_entidad" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
 								    	<div class="form-group col-5 align-self-end">
-								      		<input type="text" class="form-control" name="csc" required=True placeholder="No. Cuenta" value="">
+								      		<input type="text" class="form-control" name="c_numCuenta" required=True placeholder="No. Cuenta" value="">
 								    	</div>
 								    	<div class="form-group col-4">
 								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" value="">
@@ -277,7 +280,7 @@ Gestión de cuentas
 								  	</div>
 								  	<div class="row">
 								  		<div class="col-12">
-								  			<button type="button" class="btn btn-dark btn-block" name="bc3">Confirmar</button>
+								  			<button type="submit" class="btn btn-dark btn-block" name="bc3">Confirmar</button>
 								  		</div>
 								  	</div>
 								</form>
@@ -301,18 +304,13 @@ Gestión de cuentas
 					      	<div class="card-body">
 					        	<form>
 									<div class="form-row">
-								      	<div class="form-group col-6">
+								      	<div class="form-group col-5">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la chequera" value="">
 								    	</div>
-								    	<div class="form-group col-6">
+								    	<div class="form-group col-4">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
-								  	</div>
-								  	<div class="form-row">
-								    	<div class="form-group col-5">
-								      		<input type="number" class="form-control" name="c_num" required=True placeholder="Número de la cuenta" value="">
-								    	</div>
-								    	<div class="form-group col-1 pr-2 align-self-center">
+											<div class="form-group col-1 pr-2 align-self-center">
 								    		<label for="">Divisa</label>
 								      	</div>
 								      	<div class="form-group col-2">
@@ -323,13 +321,22 @@ Gestión de cuentas
 											   	<option>YEN</option>
 											</select>
 								      	</div>
+								  	</div>
+								  	<div class="form-row">
+								    	<div class="form-group col-4">
+								      		<input type="number" class="form-control" name="c_num" required=True placeholder="Número de la cuenta" value="">
+								    	</div>
+											<div class="form-group col-4">
+								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" value="">
+								    	</div>
+
 								    	<div class="form-group col-4">
 								      		<input type="number" class="form-control" name="csc" required=True placeholder="No. de cheques" value="">
 								    	</div>
 								  	</div>
 								  	<div class="row">
 								  		<div class="col-6">
-								  			<button type="button" class="btn btn-dark btn-block" name="bc4">Confirmar</button>
+								  			<button type="submit" class="btn btn-dark btn-block" name="bc4">Confirmar</button>
 								  		</div>
 								  	</div>
 								</form>
@@ -340,7 +347,7 @@ Gestión de cuentas
 			</div>
 			<div class="col-12 col-lg-4 col-xl-5 align-self-center mt-5">
 				<h1 class="font-weight-light text-center mb-3">Cuentas existentes</h1>
-				{% if tarjetas or prestamos%}
+				{% if tarjetas or prestamos or inversiones%}
 				{% for e in tarjetas %}
 				<ul class="list-group">
 				  	<li class="list-group-item py-0">
@@ -349,13 +356,27 @@ Gestión de cuentas
 								<p>{{e.nombre}}</p>
 							</div>
 							<div class="col-2 text-right">
-								<i class="material-icons">delete</i>
+									<i class="material-icons">delete</i>
 							</div>
 						</div>
 				  	</li>
 				</ul>
 				{% endfor %}
 				{% for e in prestamos %}
+				<ul class="list-group">
+					<li class="list-group-item py-0">
+						<div class="row pt-3">
+							<div class="col-10">
+								<p>{{e.nombre}}</p>
+							</div>
+							<div class="col-2 text-right">
+								<i class="material-icons">delete</i>
+							</div>
+						</div>
+					</li>
+				</ul>
+				{% endfor %}
+				{% for e in inversiones %}
 				<ul class="list-group">
 					<li class="list-group-item py-0">
 						<div class="row pt-3">
@@ -381,9 +402,9 @@ Gestión de cuentas
 					</div>
 				</div>
 				{% if mensaje_cuenta.0 %}
-				<div class="mt-3 alert alert-warning" role="alert">
-  					<strong>Atención! </strong> {{mensaje_cuenta.1}}
-				</div>	
+					<div class="mt-3 alert alert-warning" role="alert">
+	  					<strong>Atención! </strong> {{mensaje_cuenta.1}}
+					</div>
 				{% endif %}
 			</div>
 		</div>
@@ -391,6 +412,7 @@ Gestión de cuentas
 
 	<script src="../static/js/jquery.js"></script>
 	<script src="../static/js/bootstrap.js"></script>
+
 </body>
 </html>
 
