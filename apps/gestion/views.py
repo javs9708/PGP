@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from ..usuario.models import Usuario
-from .models import Tarjeta,Prestamo, Inversion, Chequera, Ingreso, Gasto, Transferencia
+from .models import Tarjeta,Prestamo, Inversion, Chequera, Ingreso, Gasto, Transferencia, Presupuesto
 from django.contrib.auth.models import User
 from django.template import loader
 from django.contrib.auth.decorators import login_required
@@ -287,11 +287,44 @@ def gestionTransacciones(request):
                     notas_adicionales = notas_adicionales,
                     user_id= user[0].id,
             )
-
-
-
             ingreso.save()
             ingresos = Ingreso.objects.filter(user_id=user[0].id)
+
+
+
+            tarjeta = Tarjeta.objects.filter(nombre=cuenta_ingresar).exists()
+            prestamo = Prestamo.objects.filter(nombre=cuenta_ingresar).exists()
+            inversion = Inversion.objects.filter(nombre=cuenta_ingresar).exists()
+            chequera = Chequera.objects.filter(nombre=cuenta_ingresar).exists()
+
+            if tarjeta:
+                tarjeta = Tarjeta.objects.get(nombre=cuenta_ingresar)
+                monto=int(monto)
+                tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
+                tarjeta.saldo_inicial+=monto
+                tarjeta.save()
+
+            if prestamo:
+                prestamo = Prestamo.objects.get(nombre=cuenta_ingresar)
+                monto=int(monto)
+                prestamo.monto=int(prestamo.monto)
+                prestamo.monto+=monto
+                prestamo.save()
+
+            if inversion:
+                inversion = Inversion.objects.get(nombre=cuenta_ingresar)
+                monto=int(monto)
+                inversion.monto=int(inversion.monto)
+                inversion.monto+=monto
+                inversion.save()
+
+            if chequera:
+                chequera = Chequera.objects.get(nombre=cuenta_ingresar)
+                monto=int(monto)
+                chequera.monto=int(chequera.monto)
+                chequera.monto+=monto
+                chequera.save()
+    
 
         if 'bc2' in request.POST:
             nombre = request.POST.get('c_name')
@@ -384,15 +417,116 @@ def gestionTransacciones(request):
 
 @login_required(login_url='/ingresar/')
 def gestionPresupuesto(request):
-    username = request.GET.get('username')
+    mensaje_cuenta = (False,"")
     template = loader.get_template('gestion/gestionPresupuesto.html')
-    user = User.objects.filter(username=username)
-    usuario = Usuario.objects.filter(user_id=user[0].id)
-    usuario = usuario[0]
-    ctx = {
-        	'usuario': usuario,
-    }
-    return HttpResponse(template.render(ctx,request))
+
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+
+        tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+        prestamos = Prestamo.objects.filter(user_id=user[0].id)
+        inversiones = Inversion.objects.filter(user_id=user[0].id)
+        chequeras = Chequera.objects.filter(user_id=user[0].id)
+
+        ingresos = Ingreso.objects.filter(user_id=user[0].id)
+        gastos = Gasto.objects.filter(user_id=user[0].id)
+        transferencias = Transferencia.objects.filter(user_id=user[0].id)
+
+        presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
+        ctx = {
+                'usuario': usuario,
+
+                'tarjetas': tarjetas,
+                'prestamos': prestamos,
+                'inversiones': inversiones,
+                'chequeras': chequeras,
+
+                'ingresos': ingresos,
+                'gastos': gastos,
+                'transferencias': transferencias,
+
+                'presupuestos':presupuestos,
+
+                'mensaje_cuenta': mensaje_cuenta,
+        }
+        return HttpResponse(template.render(ctx,request))
+
+    if request.method == 'POST':
+        if 'bc1' in request.POST:
+            nombre = request.POST.get('c_name')
+            monto = request.POST.get('c_mon')
+            tipo_divisa = request.POST.get('divisa')
+            cuenta = request.POST.get('cuenta')
+            saldo_reinversion = request.POST.get('c_saldoR')
+            periodo_recurrencia_num = request.POST.get('c_periodoRecurrenciaD')
+            periodo_recurrencia_tiem = request.POST.get('c_periodoRecurrenciaT')
+            categoria = request.POST.get('c_categoria')
+
+            periodo_recurrencia_num=str(periodo_recurrencia_num)
+            periodo_recurrencia_tiem=str(periodo_recurrencia_tiem)
+
+            periodo_recurrencia=periodo_recurrencia_num+" "+periodo_recurrencia_tiem
+
+            username = request.GET.get('username')
+            user = User.objects.filter(username=username)
+            usuario = Usuario.objects.filter(user_id=user[0].id)
+            usuario = usuario[0]
+
+            presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
+            presupuesto = Presupuesto.objects.create(
+                    nombre = nombre,
+                    monto = monto,
+                    tipo_divisa = tipo_divisa,
+                    cuenta = cuenta,
+                    saldo_reinversion = saldo_reinversion,
+                    periodo_recurrencia = periodo_recurrencia,
+                    categoria = categoria,
+                    user_id= user[0].id,
+            )
+
+
+
+            presupuesto.save()
+            presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
+        template = loader.get_template('gestion/gestionPresupuesto.html')
+
+        tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+        prestamos = Prestamo.objects.filter(user_id=user[0].id)
+        inversiones = Inversion.objects.filter(user_id=user[0].id)
+        chequeras = Chequera.objects.filter(user_id=user[0].id)
+
+        ingresos = Ingreso.objects.filter(user_id=user[0].id)
+        gastos = Gasto.objects.filter(user_id=user[0].id)
+        transferencias = Transferencia.objects.filter(user_id=user[0].id)
+
+        presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
+
+
+        ctx = {
+                'usuario': usuario,
+
+                'tarjetas': tarjetas,
+                'prestamos': prestamos,
+                'inversiones': inversiones,
+                'chequeras': chequeras,
+
+                'ingresos': ingresos,
+                'gastos': gastos,
+                'transferencias':transferencias,
+
+                'presupuestos':presupuestos,
+
+                'mensaje_cuenta': mensaje_cuenta,
+        }
+        return HttpResponse(template.render(ctx,request))
 
 def paginacion(request):
     tarjetas= Tarjeta.objects.all()

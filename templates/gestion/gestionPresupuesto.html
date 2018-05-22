@@ -62,7 +62,7 @@ Gestión de presupuestos
 				</ul>
 		  	</div>
 		</nav>
-		
+
 		<div class="row">
 			<div class="col-12 col-lg-8 col-xl-7 pr-lg-4 mt-5 pt-lg-0 pt-5">
 				<h1 class="font-weight-light mb-3">Nuevo presupuesto</h1>
@@ -75,7 +75,7 @@ Gestión de presupuestos
 						      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del Presupuesto" value="">
 						    	</div>
 						    	<div class="form-group col-6">
-						      		<input type="number" class="form-control" name="c_name" required=True placeholder="Monto" min="0" value="">
+						      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="0" value="">
 						    	</div>
 						  	</div>
 						  	<div class="form-row">
@@ -91,23 +91,35 @@ Gestión de presupuestos
 						    	<div class="form-group col-4">
 						      		<label for="">Cuenta asociada</label>
 						      		<select type="text" class="form-control" name="cuenta">
-									  	<option>Cuenta 1</option>
-									   	<option>Cuenta 2</option>
-									   	<option>Cuenta 3</option>
-									   	<option>Cuenta 4</option>
+												{% if tarjetas or prestamos or inversiones or chequeras%}
+													{% for e in tarjetas %}
+														<option>{{ e.nombre }}</option>
+													{% endfor %}
+													{% for e in prestamos %}
+														<option>{{ e.nombre }}</option>
+													{% endfor %}
+													{% for e in inversiones %}
+														<option>{{ e.nombre }}</option>
+													{% endfor %}
+													{% for e in chequeras %}
+														<option>{{ e.nombre }}</option>
+													{% endfor %}
+												{% else %}
+													<option>Sin cuentas</option>
+												{% endif %}
 									</select>
 						    	</div>
 						    	<div class="form-group col-5 align-self-end">
-						      		<input type="number" class="form-control" name="c_name" required=True placeholder="Saldo de reinversión" min="0" value="">
+						      		<input type="number" class="form-control" name="c_saldoR" required=True placeholder="Saldo de reinversión" min="0" value="">
 						    	</div>
 						  	</div>
 						  	<div class="form-row">
 						    	<div class="form-group col-4">
 						      			<label for="">Periodo de recurrencia</label>
-						      		<input type="number" class="form-control" name="c_name" required=True placeholder="#" min="0" value="">
+						      		<input type="number" class="form-control" name="c_periodoRecurrenciaD" required=True placeholder="#" min="0" value="">
 						    	</div>
 						  		<div class="form-group col-4 align-self-end">
-						      		<select type="text" class="form-control" name="cuenta">
+						      		<select type="text" class="form-control" name="c_periodoRecurrenciaT">
 									  	<option>Días</option>
 									   	<option>Semanas</option>
 									   	<option>Meses</option>
@@ -115,7 +127,7 @@ Gestión de presupuestos
 									</select>
 						    	</div>
 						    	<div class="form-group col-4">						    				<label for="">Categoría</label>
-						      		<select type="text" class="form-control" name="cuenta">
+						      		<select type="text" class="form-control" name="c_categoria">
 									  	<option>Categoría 1</option>
 									   	<option>Categoría 2</option>
 									   	<option>Categoría 3</option>
@@ -134,8 +146,8 @@ Gestión de presupuestos
 			</div>
 			<div class="col-12 col-lg-4 col-xl-5 align-self-center mt-5">
 				<h1 class="font-weight-light text-center mb-3">Presupuesos existentes</h1>
-				{% if tarjetas or prestamos%}
-				{% for e in tarjetas %}
+				{% if presupuestos%}
+				{% for e in presupuestos %}
 				<ul class="list-group">
 				  	<li class="list-group-item py-0">
 						<div class="row pt-3">
@@ -149,20 +161,6 @@ Gestión de presupuestos
 				  	</li>
 				</ul>
 				{% endfor %}
-				{% for e in prestamos %}
-				<ul class="list-group">
-					<li class="list-group-item py-0">
-						<div class="row pt-3">
-							<div class="col-10">
-								<p>{{e.nombre}}</p>
-							</div>
-							<div class="col-2 text-right">
-								<i class="material-icons">delete</i>
-							</div>
-						</div>
-					</li>
-				</ul>
-				{% endfor %}
 				{% else %}
 				<p class="text-center">No existe ningún presupuesto hasta ahora.</p>
 				{% endif %}
@@ -170,7 +168,7 @@ Gestión de presupuestos
 				{% if mensaje_cuenta.0 %}
 				<div class="mt-3 alert alert-warning" role="alert">
   					<strong>Atención! </strong> {{mensaje_cuenta.1}}
-				</div>	
+				</div>
 				{% endif %}
 			</div>
 		</div>

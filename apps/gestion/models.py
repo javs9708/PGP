@@ -75,3 +75,16 @@ class Transferencia(models.Model):
     notas_adicionales = models.TextField()
 
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
+
+#------------Presupuestos--------------------#
+
+class Presupuesto(models.Model):
+    nombre = models.CharField(max_length=50)
+    monto = models.BigIntegerField()
+    tipo_divisa = models.CharField(max_length=5)
+    cuenta = models.CharField(max_length=50)
+    saldo_reinversion = models.BigIntegerField()
+    periodo_recurrencia = models.CharField(max_length=50)
+    categoria = models.CharField(max_length=50)
+
+    user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
