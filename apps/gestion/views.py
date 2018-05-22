@@ -324,7 +324,7 @@ def gestionTransacciones(request):
                 chequera.monto=int(chequera.monto)
                 chequera.monto+=monto
                 chequera.save()
-    
+
 
         if 'bc2' in request.POST:
             nombre = request.POST.get('c_name')
@@ -356,6 +356,39 @@ def gestionTransacciones(request):
             gasto.save()
             gastos = Gasto.objects.filter(user_id=user[0].id)
 
+            tarjeta = Tarjeta.objects.filter(nombre=cuenta_retirar).exists()
+            prestamo = Prestamo.objects.filter(nombre=cuenta_retirar).exists()
+            inversion = Inversion.objects.filter(nombre=cuenta_retirar).exists()
+            chequera = Chequera.objects.filter(nombre=cuenta_retirar).exists()
+
+            if tarjeta:
+                tarjeta = Tarjeta.objects.get(nombre=cuenta_retirar)
+                monto=int(monto)
+                tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
+                tarjeta.saldo_inicial-=monto
+                tarjeta.save()
+
+            if prestamo:
+                prestamo = Prestamo.objects.get(nombre=cuenta_retirar)
+                monto=int(monto)
+                prestamo.monto=int(prestamo.monto)
+                prestamo.monto-=monto
+                prestamo.save()
+
+            if inversion:
+                inversion = Inversion.objects.get(nombre=cuenta_retirar)
+                monto=int(monto)
+                inversion.monto=int(inversion.monto)
+                inversion.monto-=monto
+                inversion.save()
+
+            if chequera:
+                chequera = Chequera.objects.get(nombre=cuenta_retirar)
+                monto=int(monto)
+                chequera.monto=int(chequera.monto)
+                chequera.monto-=monto
+                chequera.save()
+
         if 'bc3' in request.POST:
             nombre = request.POST.get('c_name')
             monto = request.POST.get('c_mon')
@@ -385,6 +418,74 @@ def gestionTransacciones(request):
 
             transferencia.save()
             transferencias = Transferencia.objects.filter(user_id=user[0].id)
+
+            tarjeta = Tarjeta.objects.filter(nombre=cuenta_fuente).exists()
+            tarjetaD = Tarjeta.objects.filter(nombre=cuenta_destino).exists()
+
+            prestamo = Prestamo.objects.filter(nombre=cuenta_fuente).exists()
+            prestamoD = Prestamo.objects.filter(nombre=cuenta_destino).exists()
+
+            inversion = Inversion.objects.filter(nombre=cuenta_fuente).exists()
+            inversionD = Inversion.objects.filter(nombre=cuenta_destino).exists()
+
+            chequera = Chequera.objects.filter(nombre=cuenta_fuente).exists()
+            chequeraD = Chequera.objects.filter(nombre=cuenta_destino).exists()
+
+            if tarjeta:
+                tarjeta = Tarjeta.objects.get(nombre=cuenta_fuente)
+                monto=int(monto)
+                tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
+                tarjeta.saldo_inicial-=monto
+                tarjeta.save()
+
+            if tarjetaD:
+                tarjeta = Tarjeta.objects.get(nombre=cuenta_destino)
+                monto=int(monto)
+                tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
+                tarjeta.saldo_inicial+=monto
+                tarjeta.save()
+
+            if prestamo:
+                prestamo = Prestamo.objects.get(nombre=cuenta_fuente)
+                monto=int(monto)
+                prestamo.monto=int(prestamo.monto)
+                prestamo.monto-=monto
+                prestamo.save()
+
+            if prestamoD:
+                prestamo = Prestamo.objects.get(nombre=cuenta_destino)
+                monto=int(monto)
+                prestamo.monto=int(prestamo.monto)
+                prestamo.monto+=monto
+                prestamo.save()
+
+            if inversion:
+                inversion = Inversion.objects.get(nombre=cuenta_fuente)
+                monto=int(monto)
+                inversion.monto=int(inversion.monto)
+                inversion.monto-=monto
+                inversion.save()
+
+            if inversionD:
+                inversion = Inversion.objects.get(nombre=cuenta_destino)
+                monto=int(monto)
+                inversion.monto=int(inversion.monto)
+                inversion.monto+=monto
+                inversion.save()
+
+            if chequera:
+                chequera = Chequera.objects.get(nombre=cuenta_fuente)
+                monto=int(monto)
+                chequera.monto=int(chequera.monto)
+                chequera.monto-=monto
+                chequera.save()
+
+            if chequeraD:
+                chequera = Chequera.objects.get(nombre=cuenta_destino)
+                monto=int(monto)
+                chequera.monto=int(chequera.monto)
+                chequera.monto+=monto
+                chequera.save()
 
         template = loader.get_template('gestion/gestionTransacciones.html')
 
