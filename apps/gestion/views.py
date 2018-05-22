@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse, HttpResponseRedirect
 from ..usuario.models import Usuario
-from .models import Tarjeta,Prestamo, Inversion
+from .models import Tarjeta,Prestamo, Inversion, Chequera, Ingreso, Gasto, Transferencia
 from django.contrib.auth.models import User
 from django.template import loader
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 @login_required(login_url='/ingresar/')
 def gestionMenu(request):
@@ -33,12 +34,14 @@ def gestionCuentas(request):
         tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
         prestamos = Prestamo.objects.filter(user_id=user[0].id)
         inversiones = Inversion.objects.filter(user_id=user[0].id)
+        chequeras = Chequera.objects.filter(user_id=user[0].id)
 
         ctx = {
             	'usuario': usuario,
                 'tarjetas': tarjetas,
                 'prestamos': prestamos,
                 'inversiones':inversiones,
+                'chequeras':chequeras,
         }
         return HttpResponse(template.render(ctx,request))
 
@@ -76,6 +79,7 @@ def gestionCuentas(request):
                 tarjeta = Tarjeta.objects.create(
                         nombre= nombre,
                         numero_tarjeta = numero_tarjeta,
+                        saldo_inicial = saldo_inicial,
                         numero_cuenta = numero_cuenta,
                         entidad = entidad,
                         fecha_vencimiento_mm = fecha_vencimiento_mm,
@@ -161,36 +165,222 @@ def gestionCuentas(request):
                 inversiones = Inversion.objects.filter(user_id=user[0].id)
 
             else:
-                mensaje_cuenta = (True,"Ya existe una cuenta con este numero de cuenta")
+                mensaje_cuenta = (True,"Ya existe una cuenta registrada con este número")
+
+        if 'bc4' in request.POST:
+            nombre = request.POST.get('c_name')
+            entidad = request.POST.get('c_entidad')
+            tipo_divisa = request.POST.get('divisa')
+            numero_cuenta = request.POST.get('c_numCuenta')
+            monto = request.POST.get('c_mon')
+            numero_cheques = request.POST.get('c_numCheques')
 
 
+
+            username = request.GET.get('username')
+            user = User.objects.filter(username=username)
+            usuario = Usuario.objects.filter(user_id=user[0].id)
+            usuario = usuario[0]
+
+            chequeras = Chequera.objects.filter(user_id=user[0].id)
+
+
+            num_cuenta_exist = False
+            for num_cuenta in chequeras:
+                if str(num_cuenta.numero_cuenta) == str(numero_cuenta):
+                    num_cuenta_exist = True
+
+            if not num_cuenta_exist:
+                chequera = Chequera.objects.create(
+                        nombre= nombre,
+                        entidad = entidad,
+                        tipo_divisa = tipo_divisa,
+                        numero_cuenta = numero_cuenta,
+                        monto = monto,
+                        numero_cheques = numero_cheques,
+                        user_id= user[0].id
+                )
+
+                chequera.save()
+                chequeras = Chequera.objects.filter(user_id=user[0].id)
+
+            else:
+                mensaje_cuenta = (True,"Ya existe una cuenta registrada con este número")
 
         template = loader.get_template('gestion/gestionCuentas.html')
 
         prestamos = Prestamo.objects.filter(user_id=user[0].id)
         tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
         inversiones = Inversion.objects.filter(user_id=user[0].id)
+        chequeras = Chequera.objects.filter(user_id=user[0].id)
 
         ctx = {
                 'usuario': usuario,
                 'tarjetas': tarjetas,
                 'prestamos': prestamos,
                 'inversiones':inversiones,
-                'mensaje_cuenta': mensaje_cuenta
+                'chequeras':chequeras,
+                'mensaje_cuenta': mensaje_cuenta,
         }
         return HttpResponse(template.render(ctx,request))
 
 @login_required(login_url='/ingresar/')
 def gestionTransacciones(request):
-    username = request.GET.get('username')
+
+    mensaje_cuenta = (False,"")
     template = loader.get_template('gestion/gestionTransacciones.html')
-    user = User.objects.filter(username=username)
-    usuario = Usuario.objects.filter(user_id=user[0].id)
-    usuario = usuario[0]
-    ctx = {
-        	'usuario': usuario,
-    }
-    return HttpResponse(template.render(ctx,request))
+
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+
+        tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+        prestamos = Prestamo.objects.filter(user_id=user[0].id)
+        inversiones = Inversion.objects.filter(user_id=user[0].id)
+        chequeras = Chequera.objects.filter(user_id=user[0].id)
+
+        ingresos = Ingreso.objects.filter(user_id=user[0].id)
+        gastos = Gasto.objects.filter(user_id=user[0].id)
+        transferencias = Transferencia.objects.filter(user_id=user[0].id)
+
+        ctx = {
+                'usuario': usuario,
+
+                'tarjetas': tarjetas,
+                'prestamos': prestamos,
+                'inversiones': inversiones,
+                'chequeras': chequeras,
+
+                'ingresos': ingresos,
+                'gastos': gastos,
+                'transferencias': transferencias,
+
+                'mensaje_cuenta': mensaje_cuenta,
+        }
+        return HttpResponse(template.render(ctx,request))
+
+    if request.method == 'POST':
+        if 'bc1' in request.POST:
+            nombre = request.POST.get('c_name')
+            monto = request.POST.get('c_mon')
+            tipo_divisa = request.POST.get('divisa')
+            cuenta_ingresar = request.POST.get('cuenta')
+            fecha_ingreso = request.POST.get('fechai')
+            notas_adicionales = request.POST.get('notas')
+
+            username = request.GET.get('username')
+            user = User.objects.filter(username=username)
+            usuario = Usuario.objects.filter(user_id=user[0].id)
+            usuario = usuario[0]
+
+            ingresos = Ingreso.objects.filter(user_id=user[0].id)
+
+            ingreso = Ingreso.objects.create(
+                    nombre = nombre,
+                    monto = monto,
+                    tipo_divisa = tipo_divisa,
+                    cuenta_ingresar = cuenta_ingresar,
+                    fecha_ingreso = fecha_ingreso,
+                    notas_adicionales = notas_adicionales,
+                    user_id= user[0].id,
+            )
+
+
+
+            ingreso.save()
+            ingresos = Ingreso.objects.filter(user_id=user[0].id)
+
+        if 'bc2' in request.POST:
+            nombre = request.POST.get('c_name')
+            monto = request.POST.get('c_mon')
+            tipo_divisa = request.POST.get('divisa')
+            cuenta_retirar = request.POST.get('cuenta')
+            fecha_gasto = request.POST.get('fechag')
+            notas_adicionales = request.POST.get('notas')
+
+            username = request.GET.get('username')
+            user = User.objects.filter(username=username)
+            usuario = Usuario.objects.filter(user_id=user[0].id)
+            usuario = usuario[0]
+
+            gastos = Gasto.objects.filter(user_id=user[0].id)
+
+            gasto = Gasto.objects.create(
+                    nombre = nombre,
+                    monto = monto,
+                    tipo_divisa = tipo_divisa,
+                    cuenta_retirar = cuenta_retirar,
+                    fecha_gasto = fecha_gasto,
+                    notas_adicionales = notas_adicionales,
+                    user_id= user[0].id,
+            )
+
+
+
+            gasto.save()
+            gastos = Gasto.objects.filter(user_id=user[0].id)
+
+        if 'bc3' in request.POST:
+            nombre = request.POST.get('c_name')
+            monto = request.POST.get('c_mon')
+            tipo_divisa = request.POST.get('divisa')
+            cuenta_fuente = request.POST.get('cuentaF')
+            cuenta_destino = request.POST.get('cuentaD')
+            notas_adicionales = request.POST.get('notas')
+
+            username = request.GET.get('username')
+            user = User.objects.filter(username=username)
+            usuario = Usuario.objects.filter(user_id=user[0].id)
+            usuario = usuario[0]
+
+            transferencias = Transferencia.objects.filter(user_id=user[0].id)
+
+            transferencia = Transferencia.objects.create(
+                    nombre = nombre,
+                    monto = monto,
+                    tipo_divisa = tipo_divisa,
+                    cuenta_fuente = cuenta_fuente,
+                    cuenta_destino= cuenta_destino,
+                    notas_adicionales = notas_adicionales,
+                    user_id= user[0].id,
+            )
+
+
+
+            transferencia.save()
+            transferencias = Transferencia.objects.filter(user_id=user[0].id)
+
+        template = loader.get_template('gestion/gestionTransacciones.html')
+
+        tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+        prestamos = Prestamo.objects.filter(user_id=user[0].id)
+        inversiones = Inversion.objects.filter(user_id=user[0].id)
+        chequeras = Chequera.objects.filter(user_id=user[0].id)
+
+        ingresos = Ingreso.objects.filter(user_id=user[0].id)
+        gastos = Gasto.objects.filter(user_id=user[0].id)
+        transferencias = Transferencia.objects.filter(user_id=user[0].id)
+
+
+
+        ctx = {
+                'usuario': usuario,
+
+                'tarjetas': tarjetas,
+                'prestamos': prestamos,
+                'inversiones': inversiones,
+                'chequeras': chequeras,
+
+                'ingresos': ingresos,
+                'gastos': gastos,
+                'transferencias':transferencias,
+
+                'mensaje_cuenta': mensaje_cuenta,
+        }
+        return HttpResponse(template.render(ctx,request))
 
 @login_required(login_url='/ingresar/')
 def gestionPresupuesto(request):
@@ -203,3 +393,11 @@ def gestionPresupuesto(request):
         	'usuario': usuario,
     }
     return HttpResponse(template.render(ctx,request))
+
+def paginacion(request):
+    tarjetas= Tarjeta.objects.all()
+    paginator = Paginator(tarjetas, 1) # Show 25 contacts per page
+    page = request.GET.get('page')
+    # ?page=1
+    tarjetas = paginator.get_page(page)
+    return render(request, 'gestion/gestionCuentas.html', {'tarjetas': tarjetas})

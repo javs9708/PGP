@@ -302,19 +302,20 @@ Gestión de cuentas
 					    </div>
 					    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
 					      	<div class="card-body">
-					        	<form>
+										<form method="post">
+								{% csrf_token %}
 									<div class="form-row">
 								      	<div class="form-group col-5">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la chequera" value="">
 								    	</div>
 								    	<div class="form-group col-4">
-								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Entidad bancaria" value="">
+								      		<input type="text" class="form-control" name="c_entidad" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 											<div class="form-group col-1 pr-2 align-self-center">
 								    		<label for="">Divisa</label>
 								      	</div>
 								      	<div class="form-group col-2">
-								    		<select class="form-control" id="exampleFormControlSelect1">
+								    		<select class="form-control" name="divisa">
 											   	<option>COP</option>
 											   	<option>EUR</option>
 											   	<option>DOL</option>
@@ -324,14 +325,14 @@ Gestión de cuentas
 								  	</div>
 								  	<div class="form-row">
 								    	<div class="form-group col-4">
-								      		<input type="number" class="form-control" name="c_num" required=True placeholder="Número de la cuenta" value="">
+								      		<input type="number" class="form-control" name="c_numCuenta" required=True placeholder="Número de la cuenta" value="">
 								    	</div>
 											<div class="form-group col-4">
 								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" value="">
 								    	</div>
 
 								    	<div class="form-group col-4">
-								      		<input type="number" class="form-control" name="csc" required=True placeholder="No. de cheques" value="">
+								      		<input type="number" class="form-control" name="c_numCheques" required=True placeholder="No. de cheques" value="">
 								    	</div>
 								  	</div>
 								  	<div class="row">
@@ -347,7 +348,7 @@ Gestión de cuentas
 			</div>
 			<div class="col-12 col-lg-4 col-xl-5 align-self-center mt-5">
 				<h1 class="font-weight-light text-center mb-3">Cuentas existentes</h1>
-				{% if tarjetas or prestamos or inversiones%}
+				{% if tarjetas or prestamos or inversiones or chequeras%}
 				{% for e in tarjetas %}
 				<ul class="list-group">
 				  	<li class="list-group-item py-0">
@@ -362,6 +363,27 @@ Gestión de cuentas
 				  	</li>
 				</ul>
 				{% endfor %}
+
+				<!--
+				<div class="pagination">
+				    <span class="step-links">
+				        {% if tarjetas.has_previous %}
+				            <a href="?page=1">&laquo; first</a>
+				            <a href="?page={{ tarjetas.previous_page_number }}">previous</a>
+				        {% endif %}
+
+				        <span class="current">
+				            Page {{ tarjetas.number }} of {{ tarjetas.paginator.num_pages }}.
+				        </span>
+
+				        {% if tarjetas.has_next %}
+				            <a href="?page={{ tarjetas.next_page_number }}">next</a>
+				            <a href="?page={{ tarjetas.paginator.num_pages }}">last &raquo;</a>
+				        {% endif %}
+				    </span>
+				</div>
+
+				-->
 				{% for e in prestamos %}
 				<ul class="list-group">
 					<li class="list-group-item py-0">
@@ -388,6 +410,20 @@ Gestión de cuentas
 							</div>
 						</div>
 					</li>
+				</ul>
+				{% endfor %}
+				{% for e in chequeras %}
+				<ul class="list-group">
+				  	<li class="list-group-item py-0">
+						<div class="row pt-3">
+							<div class="col-10">
+								<p>{{e.nombre}}</p>
+							</div>
+							<div class="col-2 text-right">
+									<i class="material-icons">delete</i>
+							</div>
+						</div>
+				  	</li>
 				</ul>
 				{% endfor %}
 				{% else %}

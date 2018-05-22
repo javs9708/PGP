@@ -63,7 +63,7 @@ Gestión de transacciones
 				</ul>
 		  	</div>
 		</nav>
-		
+
 		<div class="row">
 			<div class="col-12 col-lg-8 col-xl-7 pr-lg-4 mt-5 pt-lg-0 pt-5">
 				<h1 class="font-weight-light mb-3">Nueva transacción</h1>
@@ -90,7 +90,7 @@ Gestión de transacciones
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del Ingreso" value="">
 								    	</div>
 								    	<div class="form-group col-6">
-								      		<input type="number" class="form-control" name="c_name" required=True placeholder="Monto" min="0" value="">
+								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="0" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
@@ -106,10 +106,24 @@ Gestión de transacciones
 								    	<div class="form-group col-4">
 								      		<label for="">Cuenta a ingresar</label>
 								      		<select type="text" class="form-control" name="cuenta">
-											  	<option>Cuenta 1</option>
-											   	<option>Cuenta 2</option>
-											   	<option>Cuenta 3</option>
-											   	<option>Cuenta 4</option>
+													{% if tarjetas or prestamos or inversiones or chequeras%}
+														{% for e in tarjetas %}
+													  	<option>{{ e.nombre }}</option>
+														{% endfor %}
+														{% for e in prestamos %}
+													  	<option>{{ e.nombre }}</option>
+														{% endfor %}
+														{% for e in inversiones %}
+													  	<option>{{ e.nombre }}</option>
+														{% endfor %}
+														{% for e in chequeras %}
+													  	<option>{{ e.nombre }}</option>
+														{% endfor %}
+
+													{% else %}
+														<option>Sin cuentas</option>
+													{% endif %}
+
 											</select>
 								    	</div>
 								    	<div class="form-group col-4">
@@ -120,7 +134,7 @@ Gestión de transacciones
 								  	<div class="form-row">
 								  		<div class="form-group col-12">
 								    		<label for="">Notas adicionales</label>
-    										<textarea class="form-control" id=""></textarea>
+    										<textarea class="form-control" name="notas"></textarea>
     									</div>
 								  	</div>
 								  	<div class="row">
@@ -154,7 +168,7 @@ Gestión de transacciones
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del Gasto" value="">
 								    	</div>
 								    	<div class="form-group col-6">
-								      		<input type="number" class="form-control" name="c_name" required=True placeholder="Monto" min="1" value="">
+								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="1" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
@@ -170,26 +184,39 @@ Gestión de transacciones
 								    	<div class="form-group col-4">
 								      		<label for="">Cuenta a retirar</label>
 								      		<select type="text" class="form-control" name="cuenta">
-											  	<option>Cuenta 1</option>
-											   	<option>Cuenta 2</option>
-											   	<option>Cuenta 3</option>
-											   	<option>Cuenta 4</option>
+														{% if tarjetas or prestamos or inversiones or chequeras %}
+															{% for e in tarjetas %}
+														  	<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in prestamos %}
+														  	<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in inversiones %}
+														  	<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in chequeras %}
+														  	<option>{{ e.nombre }}</option>
+															{% endfor %}
+
+														{% else %}
+															<option>Sin cuentas</option>
+														{% endif %}
 											</select>
 								    	</div>
 								    	<div class="form-group col-4">
 								      		<label for="">Fecha gasto</label>
-								      		<input type="date" class="form-control" name="fechai" required=True>
+								      		<input type="date" class="form-control" name="fechag" required=True>
 								      	</div>
 								  	</div>
 								  	<div class="form-row">
 								  		<div class="form-group col-12">
 								    		<label for="">Notas adicionales</label>
-    										<textarea class="form-control" id=""></textarea>
+    										<textarea class="form-control" name="notas"></textarea>
     									</div>
 								  	</div>
 								  	<div class="row">
 								  		<div class="col-12">
-								  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
+								  			<button type="submit" class="btn btn-dark btn-block" name="bc2">Confirmar</button>
 								  		</div>
 								  	</div>
 								</form>
@@ -218,7 +245,7 @@ Gestión de transacciones
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la Transferencia" value="">
 								    	</div>
 								    	<div class="form-group col-6">
-								      		<input type="number" class="form-control" name="c_name" required=True placeholder="Monto" min="0" value="">
+								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="0" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
@@ -233,32 +260,56 @@ Gestión de transacciones
 								    	</div>
 								    	<div class="form-group col-4">
 								      		<label for="">Cuenta fuente</label>
-								      		<select type="text" class="form-control" name="cuenta">
-											  	<option>Cuenta 1</option>
-											   	<option>Cuenta 2</option>
-											   	<option>Cuenta 3</option>
-											   	<option>Cuenta 4</option>
+								      		<select type="text" class="form-control" name="cuentaF">
+														{% if tarjetas or prestamos or inversiones or chequeras%}
+															{% for e in tarjetas %}
+																<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in prestamos %}
+																<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in inversiones %}
+																<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in chequeras %}
+																<option>{{ e.nombre }}</option>
+															{% endfor %}
+														{% else %}
+															<option>Sin cuentas</option>
+														{% endif %}
 											</select>
 								    	</div>
 								    	<div class="form-group col-4">
 								      		<label for="">Cuenta destino</label>
-								      		<select type="text" class="form-control" name="cuenta">
-											  	<option>Cuenta 1</option>
-											   	<option>Cuenta 2</option>
-											   	<option>Cuenta 3</option>
-											   	<option>Cuenta 4</option>
+								      		<select type="text" class="form-control" name="cuentaD">
+														{% if tarjetas or prestamos or inversiones or chequeras%}
+															{% for e in tarjetas %}
+																<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in prestamos %}
+																<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in inversiones %}
+																<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in chequeras %}
+																<option>{{ e.nombre }}</option>
+															{% endfor %}
+														{% else %}
+															<option>Sin cuentas</option>
+														{% endif %}
 											</select>
 								      	</div>
 								  	</div>
 								  	<div class="form-row">
 								  		<div class="form-group col-12">
 								    		<label for="">Notas adicionales</label>
-    										<textarea class="form-control" id=""></textarea>
+    										<textarea class="form-control" name="notas"></textarea>
     									</div>
 								  	</div>
 								  	<div class="row">
 								  		<div class="col-12">
-								  			<button type="submit" class="btn btn-dark btn-block" name="bc1">Confirmar</button>
+								  			<button type="submit" class="btn btn-dark btn-block" name="bc3">Confirmar</button>
 								  		</div>
 								  	</div>
 								</form>
@@ -269,35 +320,49 @@ Gestión de transacciones
 			</div>
 			<div class="col-12 col-lg-4 col-xl-5 align-self-center mt-5">
 				<h1 class="font-weight-light text-center mb-3">Historial de transacciones</h1>
-				{% if tarjetas or prestamos%}
-				{% for e in tarjetas %}
-				<ul class="list-group">
-				  	<li class="list-group-item py-0">
-						<div class="row pt-3">
-							<div class="col-10">
-								<p>{{e.nombre}}</p>
+				{% if ingresos or gastos or transferencias%}
+					{% for e in ingresos%}
+					<ul class="list-group">
+					  	<li class="list-group-item py-0">
+							<div class="row pt-3">
+								<div class="col-10">
+									<p>{{e.nombre}}</p>
+								</div>
+								<div class="col-2 text-right">
+									<i class="material-icons">delete</i>
+								</div>
 							</div>
-							<div class="col-2 text-right">
-								<i class="material-icons">delete</i>
+					  	</li>
+					</ul>
+					{% endfor %}
+					{% for e in gastos %}
+					<ul class="list-group">
+					  	<li class="list-group-item py-0">
+							<div class="row pt-3">
+								<div class="col-10">
+									<p>{{e.nombre}}</p>
+								</div>
+								<div class="col-2 text-right">
+									<i class="material-icons">delete</i>
+								</div>
 							</div>
-						</div>
-				  	</li>
-				</ul>
-				{% endfor %}
-				{% for e in prestamos %}
-				<ul class="list-group">
-					<li class="list-group-item py-0">
-						<div class="row pt-3">
-							<div class="col-10">
-								<p>{{e.nombre}}</p>
+					  	</li>
+					</ul>
+					{% endfor %}
+					{% for e in transferencias%}
+					<ul class="list-group">
+					  	<li class="list-group-item py-0">
+							<div class="row pt-3">
+								<div class="col-10">
+									<p>{{e.nombre}}</p>
+								</div>
+								<div class="col-2 text-right">
+									<i class="material-icons">delete</i>
+								</div>
 							</div>
-							<div class="col-2 text-right">
-								<i class="material-icons">delete</i>
-							</div>
-						</div>
-					</li>
-				</ul>
-				{% endfor %}
+					  	</li>
+					</ul>
+					{% endfor %}
 				{% else %}
 				<p class="text-center">No hay ninguna transaccion hasta ahora.</p>
 				{% endif %}
@@ -305,7 +370,7 @@ Gestión de transacciones
 				{% if mensaje_cuenta.0 %}
 				<div class="mt-3 alert alert-warning" role="alert">
   					<strong>Atención! </strong> {{mensaje_cuenta.1}}
-				</div>	
+				</div>
 				{% endif %}
 			</div>
 		</div>
