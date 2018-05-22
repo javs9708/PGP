@@ -1,0 +1,128 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+Gestión
+{% endblock %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta chaset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-sacale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/estilos.css">
+	<title>Visualizar Cuentas</title>
+</head>
+
+<body class="bg-light d-flex align-items-md-center">
+
+	<div class="container pt-5 mt-4">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			  	<a class="navbar-brand" href="#">
+		    		<img src="img/Logo-light.svg" class="img-fluid" width="30" height="30" alt="">
+		  		</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			    	<span class="navbar-toggler-icon"></span>
+			  	</button>
+
+			  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    	<ul class="navbar-nav mr-auto">
+			      		<li class="nav-item">
+			        			<a class="nav-link" href="#">Perfil</a>
+			      		</li>
+			      		<li class="nav-item">
+			        		<a class="nav-link" href="#">Gestionar finanzas</a>
+			      		</li>
+			      		<li class="nav-item ac active">
+			        			<a class="nav-link" href="#">Visualizar finanzas</a>
+			      		</li>
+			      		<li class="nav-item d-lg-none">
+			        			<a class="nav-link" href="#">Cerrar sesión</a>
+			      		</li>
+			    	</ul>
+			    	<ul class="navbar-nav mr-0 d-none d-lg-block">
+			    		<li class="nav-item dropdown">
+			    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nombre de usuario</button>
+							<div class="dropdown-menu">
+					    		<a class="dropdown-item" href="#">Editar Perfil</a>
+					    		<a class="dropdown-item" href="#">Cerrar sesión</a>
+							</div>
+						</li>
+					</ul>
+			  	</div>
+			</nav>
+	
+		<div class="row">
+		  <div class=" col-md-4 col-12 mt-3">
+		  	<fondo>
+			    <div class="list-group" id="list-tab" role="tablist">
+			      <a class="list-group-item list-group-item-action  active" id="list-cuenta1-list" data-toggle="list" href="#list-cuenta1" role="tab" aria-controls="cuenta1">Gastos varios <div><small>Tarjeta credito/debito</small></div></a>
+			      <a class="list-group-item list-group-item-action " id="list-cuenta2-list" data-toggle="list" href="#list-cuenta2" role="tab" aria-controls="cuenta2">Cuota inicial casa <div><small> Prestamos/hipotecas</small></div></a>
+			      <a class="list-group-item list-group-item-action " id="list-cuenta3-list" data-toggle="list" href="#list-cuenta3" role="tab" aria-controls="cuenta3">Acciones Coca-cola <div><small> Cuentas de inversion</small></div></a>
+			    </div>
+			</fondo>
+		  </div>
+		  <div class=" col-md-8 col-12 mt-3 mb-3">
+		    <div class="tab-content" id="nav-tabContent">
+		      <div class="tab-pane fade show active" id="list-cuenta1" role="tabpanel" aria-labelledby="list-cuenta1-list">
+		      	<div class="card border-dark">
+		      	  <div class="card-body">
+		      	    <h1 class="card-title text-center">Gastos varios</h1>
+		      	    <p class="card-text"><strong>Entidad bancaria:</strong> Davivienda</p>
+		      	    <p class="card-text"><strong>Numero de tarjeta:</strong> 1234-5678-7101-1121</p>
+		      	    <p class="card-text"><strong>Saldo inicial:</strong> $52.250</p>
+		      	    <p class="card-text"><strong>Numero de cuenta:</strong> Cuenta 1</p>
+		      	    <p class="card-text"><strong>Fecha de vencimiento:</strong> 19/05/2018</p>
+		      	    <p class="card-text"><strong>Tipo de divisa:</strong> COP</p>
+		      	    <p class="card-text"><strong>Notas adicionales:</strong> <input class="form-control" type="text" placeholder="Cambiar CSC" readonly></p>
+		      	    <br><br><br><br><br>
+		      	  </div>
+		      	</div>
+		      </div>
+		      <div class="tab-pane fade" id="list-cuenta2" role="tabpanel" aria-labelledby="list-cuenta2-list">
+				<div class="card border-dark">
+				  <div class="card-body">
+				    <h1 class="card-title text-center">Cuota inicial casa</h1>
+				    <p class="card-text"><strong>Entidad bancaria:</strong> Davivienda</p>
+				    <p class="card-text"><strong>Monto:</strong> $30.000.000</p>
+				    <p class="card-text"><strong>Tipo de divisa:</strong> COP</p>
+				    <p class="card-text"><strong>Interes:</strong> 3%</p>
+				    <p class="card-text"><strong>Fecha prestamo:</strong> 16/05/20018</p>
+				    <p class="card-text"><strong>Fecha limite:</strong> 16/07/20018</p>
+				    <p class="card-text"><strong>Tipo de pago:</strong> Mensual</p>
+				    <br><br><br><br><br>
+				  </div>
+				</div>
+		      </div>
+		      <div class="tab-pane fade" id="list-cuenta3" role="tabpanel" aria-labelledby="list-cuenta3-list">
+		      	<div class="card border-dark">
+		      	  <div class="card-body">
+		      	    <h1 class="card-title text-center">Acciones Coca-cola</h1>
+		      	    <p class="card-text"><strong>Entidad bancaria:</strong> Davivienda</p>
+		      	    <p class="card-text"><strong>No. Cuenta:</strong> Cuenta 1</p>
+		      	    <p class="card-text"><strong>Monto:</strong> $2.000.000</p>
+		      	    <p class="card-text"><strong>Divisa:</strong> COP</p>
+		      	    <p class="card-text"><strong>Interes:</strong> 4%</p>
+		      	    <p class="card-text"><strong>Fecha prestamo:</strong> 16/05/20018</p>
+				    <p class="card-text"><strong>Fecha limite:</strong> 16/07/20018</p>
+		      	    <br><br><br><br><br>
+		      	  </div>
+		      	</div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>	
+
+	
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+{% endblock %}

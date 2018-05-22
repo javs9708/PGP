@@ -1,0 +1,176 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+Gestión
+{% endblock %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta chaset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-sacale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/estilos.css">
+	<title>Visualizar transacciones</title>
+</head>
+
+<body class="bg-light d-flex align-items-md-center">
+
+	<div class="container pt-5 mt-4">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			  	<a class="navbar-brand" href="#">
+		    		<img src="img/Logo-light.svg" class="img-fluid" width="30" height="30" alt="">
+		  		</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			    	<span class="navbar-toggler-icon"></span>
+			  	</button>
+
+			  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    	<ul class="navbar-nav mr-auto">
+			      		<li class="nav-item">
+			        			<a class="nav-link" href="#">Perfil</a>
+			      		</li>
+			      		<li class="nav-item">
+			        		<a class="nav-link" href="#">Gestionar finanzas</a>
+			      		</li>
+			      		<li class="nav-item ac active">
+			        			<a class="nav-link" href="#">Visualizar finanzas</a>
+			      		</li>
+			      		<li class="nav-item d-lg-none">
+			        			<a class="nav-link" href="#">Cerrar sesión</a>
+			      		</li>
+			    	</ul>
+			    	<ul class="navbar-nav mr-0 d-none d-lg-block">
+			    		<li class="nav-item dropdown">
+			    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nombre de usuario</button>
+							<div class="dropdown-menu">
+					    		<a class="dropdown-item" href="#">Editar Perfil</a>
+					    		<a class="dropdown-item" href="#">Cerrar sesión</a>
+							</div>
+						</li>
+					</ul>
+			  	</div>
+			</nav>
+	<!-- aca esta el List group-->
+		<div class="row">
+		  <div class=" col-md-4 col-12 mt-3">
+		  	<div class="list-group" id="list-tab" role="tablist">
+			    <a class="aaa list-group-item list-group-item-action active" id="list-ingreso1-list" data-toggle="list" href="#list-ingreso1" role="tab" aria-controls="ingreso1">Ingreso 1</a>
+			    <a class="list-group-item list-group-item-action" id="list-ingreso2-list" data-toggle="list" href="#list-ingreso2" role="tab" aria-controls="ingreso2">Ingreso 2</a>
+			    <a class="list-group-item list-group-item-action" id="list-gastos1-list" data-toggle="list" href="#list-gastos1" role="tab" aria-controls="gastos1">Gastos 1</a>
+			    <a class="list-group-item list-group-item-action" id="list-transferencia1-list" data-toggle="list" href="#list-transferencia1" role="tab" aria-controls="transferencia1">Transferencia 1</a>
+			    <a class="list-group-item list-group-item-action" id="list-transferencia2-list" data-toggle="list" href="#list-transferencia2" role="tab" aria-controls="transferencia2">Transferencia 2</a>
+			</div>
+		</div>
+		<!-- aca inicia las cards -->
+		<div class=" col-md-8 col-12 mt-3 mb-3">
+			<div class="tab-content" id="nav-tabContent">
+		 		<div class="tab-pane fade show active" id="list-ingreso1" role="tabpanel" aria-labelledby="list-ingreso1-list">
+		      		<div class="card border-dark">
+		      	  		<div class="card-body">
+		      	    		<h1 class="card-title text-center">Ingreso 1</h1>
+		      	    		<div class="row">
+				      	    	<div class="col">
+			      	    			<p class="card-text"><strong>Nombre del ingreso:</strong> Sueldo docente</p>
+			      	    			<p class="card-text"><strong>Monto:</strong> $700.000</p>
+					      	    	<p class="card-text"><strong> Divisa:</strong> COP</p>
+					      	    	<p class="card-text"><strong>Cuenta a ingresar:</strong> Cuenta 1</p>
+					      	    	<p class="card-text"><strong>Fecha de ingreso:</strong> 30/05/2018</p>
+					      	    	<p class="card-text"><strong>Notas adicionales:</strong> Vacia</p>
+				      			</div>
+				      		</div>
+				      		<br><br><br>
+		      	  		</div>
+		      		</div>
+		      	</div>
+		      	<div class="tab-pane fade" id="list-ingreso2" role="tabpanel" aria-labelledby="list-ingreso2-list">
+				<div class="card border-dark">
+				  <div class="card-body">
+				    <h1 class="card-title text-center">Ingreso 2</h1>
+				    <div class="row">
+				    	<div class="col">
+				    		<p class="card-text"><strong>Nombre del ingreso:</strong> Apuesta futbolistica</p>
+			      	    	<p class="card-text"><strong>Monto:</strong> $40.000</p>
+					      	<p class="card-text"><strong> Divisa:</strong> COP</p>
+					      	<p class="card-text"><strong>Cuenta a ingresar:</strong> Cuenta 3</p>
+					      	<p class="card-text"><strong>Fecha de ingreso:</strong> 21/05/2018</p>
+					      	<p class="card-text"><strong>Notas adicionales:</strong> Vacia</p>
+				      	</div>
+					</div>
+					<br><br><br>
+				  </div>
+				</div>
+		      </div>
+		      <div class="tab-pane fade" id="list-gastos1" role="tabpanel" aria-labelledby="list-gastos1-list">
+		      	<div class="card border-dark">
+		      	  <div class="card-body">
+		      	    <h1 class="card-title text-center">Gastos 1</h1>
+		      	    <div class="row">
+		      	    	<div class="col">
+				      	    <p class="card-text"><strong>Nombre del gasto:</strong> Zapatos nuevos</p>
+				      	    <p class="card-text"><strong>Monto:</strong> $150.000</p>
+				      	    <p class="card-text"><strong>Divisa:</strong> COP</p>
+				      	    <p class="card-text"><strong>Cuenta a retirar:</strong> Cuenta 1</p>
+				      	    <p class="card-text"><strong>Fecha gasto:</strong> 03/07/2018</p>
+				      	    <p class="card-text"><strong>Notas adicionales:</strong> Vacia</p>
+		      			</div>
+		      	  </div>
+		      	  <br><br><br>
+		      	</div>
+		      </div>
+		    </div>
+		      <div class="tab-pane fade" id="list-transferencia1" role="tabpanel" aria-labelledby="list-transferencia1-list">
+		      	<div class="card border-dark">
+		      	  <div class="card-body">
+		      	    <h1 class="card-title text-center">Transferencia 1</h1>
+		      	    <div class="row">
+		      	    	<div class="col">
+				      	    <p class="card-text"><strong>Nombre de la transferencia:</strong> Transferencia1</p>
+				      	    <p class="card-text"><strong>Monto:</strong> $20.000</p>
+				      	    <p class="card-text"><strong>Divisa:</strong> COP</p>
+				      	    <p class="card-text"><strong>Cuenta fuente:</strong> Cuenta 1</p>
+				      	    <p class="card-text"><strong>Cuenta destino:</strong> Cuenta 3</p>
+				      	    <p class="card-text"><strong>Notas adicionales:</strong> Vacia</p>
+				      	</div>
+		      	  </div>
+		      	  <br><br><br>
+		      	  </div>
+		      	</div>
+		      </div>
+		      <div class="tab-pane fade" id="list-transferencia2" role="tabpanel" aria-labelledby="list-transferencia2-list">
+		      	<div class="card border-dark">
+		      	  <div class="card-body">
+		      	    <h1 class="card-title text-center">Transferencia 2</h1>
+		      	    <div class="row">
+		      	    	<div class="col">
+				      	    <p class="card-text"><strong>Nombre de la transferencia:</strong> Transferencia2</p>
+				      	    <p class="card-text"><strong>Monto:</strong> $30.000</p>
+				      	    <p class="card-text"><strong>Divisa:</strong> COP</p>
+				      	    <p class="card-text"><strong>Cuenta fuente:</strong> Cuenta 3</p>
+				      	    <p class="card-text"><strong>Cuenta destino:</strong> Cuenta 1</p>
+				      	    <p class="card-text"><strong>Notas adicionales:</strong> Vacia</p>
+				      	</div>
+				    </div>
+				    <br><br><br>
+		      	  </div>
+		      	</div>
+		      </div>
+		    </div>
+		  </div>
+		</div>	
+	</div>
+
+	
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+
+{% endblock %}
