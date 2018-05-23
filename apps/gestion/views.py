@@ -274,6 +274,18 @@ def gestionCuentas(request):
                 chequera.save()
                 chequeras = Chequera.objects.filter(user_id=user[0].id)
 
+        if 'delete_tarjeta' in request.POST:
+            id_tarjeta = request.POST.get('id_tarjeta')        
+            tarjeta = Tarjeta.objects.get(id=id_tarjeta)
+
+            if tarjeta is not None:
+                tarjeta.delete()
+
+            username = request.GET.get('username')
+            user = User.objects.filter(username=username)
+            usuario = Usuario.objects.filter(user_id=user[0].id)
+            usuario = usuario[0]
+
 
         template = loader.get_template('gestion/gestionCuentas.html')
 
