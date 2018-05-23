@@ -13,8 +13,9 @@ Gestión
 <head>
 	<meta chaset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-sacale=1.0, minimum-scale=1.0">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/estilos.css">
+	<link rel="stylesheet" href="../../static/css/bootstrap.css">
+	<link rel="stylesheet" href="../../static/css/estilos.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<title>Visualizar Cuentas</title>
 </head>
 
@@ -33,11 +34,27 @@ Gestión
 			      		<li class="nav-item">
 			        			<a class="nav-link" href="/usuario/perfil?username={{usuario.user.username}}">Perfil</a>
 			      		</li>
-			      		<li class="nav-item">
-			        		<a class="nav-link" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
+			      		<li class="nav-item dropdown">
+	        				<div class="btn-group">
+							  <a class="nav-link " href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
+							  <button class="d-none d-lg-block  pl-0 btn btn-link nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
+							  <div class="dropdown-menu">
+							    <a class="dropdown-item" href="/gestion/cuentas?username={{usuario.user.username}}">Cuentas</a>
+							    <a class="dropdown-item" href="/gestion/transacciones?username={{usuario.user.username}}">Transacciones</a>
+							    <a class="dropdown-item" href="/gestion/presupuesto?username={{usuario.user.username}}">Presupuestos</a>
+							  </div>
+							</div>
 			      		</li>
-			      		<li class="nav-item ac active">
-			        			<a class="nav-link" href="/visualizar/menu?username={{usuario.user.username}}">Visualizar finanzas</a>
+			      		<li class="nav-item dropdown">
+	        				<div class="btn-group">
+							  <a class="nav-link ac active" href="/visualizar/menu?username={{usuario.user.username}}">Visualizar finanzas</a>
+							  <button class="d-none d-lg-block ac active pl-0 btn btn-link nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
+							  <div class="dropdown-menu">
+							    <a class="dropdown-item" href="/visualizar/cuentas?username={{usuario.user.username}}">Cuentas</a>
+							    <a class="dropdown-item" href="/visualizar/transacciones?username={{usuario.user.username}}">Transacciones</a>
+							    <a class="dropdown-item" href="/visualizar/presupuesto?username={{usuario.user.username}}">Presupuestos</a>
+							  </div>
+							</div>
 			      		</li>
 			      		<li class="nav-item d-lg-none">
 			        			<a class="nav-link" href="{%url 'logout'%}">Cerrar sesión</a>
@@ -56,7 +73,8 @@ Gestión
 			</nav>
 
 		<div class="row align-items-center">
-		  	<div class="col-4">
+		  	<div class="col-md-5 col-lg-4 col-12 mt-3">
+		  		<h1 class="font-weight-light mb-3 text-center">Cuentas existentes</h1>
 		    	<div class="list-group bord" id="list-tab" role="tablist">	
 		      	{% if tarjeta or prestamo or inversion or chequera %}
 		      		{% for e in tarjeta %}
@@ -74,7 +92,7 @@ Gestión
 				{% endif %}
 		    	</div>
 			</div>
-			<div class="col-8">
+			<div class="col-md-7 col-lg-8 col-12 mt-3 mb-3">
 		 		<div class="tab-content" id="nav-tabContent">
 		     	{% if tarjeta or prestamo or inversion or chequera %}
 		      		{% for e in tarjeta %}
@@ -98,8 +116,12 @@ Gestión
 		      	  			<div class="card-body">
 		      	    			<h1 class="card-title text-center">{{e.nombre}}</h1>
 		      	    			<p class="card-text"><strong>Entidad bancaria: </strong>{{e.entidad}}</p>
-		      	    			<p class="card-text"><strong>Saldo inicial: </strong> ${{e.saldo_inicial}}</p>
+		      	    			<p class="card-text"><strong>Monto: </strong> ${{e.saldo_inicial}}</p>
 		      	    			<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
+		      	    			<p class="card-text"><strong>Interés: </strong> {{e.interes}}</p>
+		      	    			<p class="card-text"><strong>Fecha prestamo: </strong> {{e.fecha_prestamo}}</p>
+		      	    			<p class="card-text"><strong>Fecha límite: </strong> {{e.fecha_limite}}</p>
+		      	    			<p class="card-text"><strong>Tipo de pago: </strong> {{e.tipo_pago}}</p>
 		      	  			</div>
 		      			</div>
 		     		</div>
@@ -110,8 +132,12 @@ Gestión
 		      	  			<div class="card-body">
 		      	    			<h1 class="card-title text-center">{{e.nombre}}</h1>
 		      	    			<p class="card-text"><strong>Entidad bancaria: </strong>{{e.entidad}}</p>
-		      	    			<p class="card-text"><strong>Numero de cuenta: </strong> {{e.numero_cuenta}}</p>
+		      	    			<p class="card-text"><strong>Número de cuenta: </strong> {{e.numero_cuenta}}</p>
+		      	    			<p class="card-text"><strong>Monto: </strong> ${{e.saldo_inicial}}</p>
 		      	    			<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
+		      	    			<p class="card-text"><strong>Interés: </strong> {{e.interes}}</p>
+		      	    			<p class="card-text"><strong>Fecha prestamo: </strong> {{e.fecha_prestamo}}</p>
+		      	    			<p class="card-text"><strong>Fecha límite: </strong> {{e.fecha_limite}}</p>
 		      	  			</div>
 		      			</div>
 		     		</div>
@@ -124,6 +150,8 @@ Gestión
 		      	    			<p class="card-text"><strong>Entidad bancaria: </strong>{{e.entidad}}</p>
 		      	    			<p class="card-text"><strong>Numero de cuenta: </strong> {{e.numero_cuenta}}</p>
 		      	    			<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
+		      	    			<p class="card-text"><strong>Monto: </strong> {{e.monto}}</p>
+		      	    			<p class="card-text"><strong>Número de cheques: </strong> {{e.numero_cheques}}</p>
 		      	  			</div>
 		      			</div>
 		     		</div>
@@ -134,8 +162,8 @@ Gestión
 		</div>
 	</div>
 
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../static/js/jquery.js"></script>
+	<script src="../static/js/bootstrap.js"></script>
 
 </body>
 </html>
