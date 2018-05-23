@@ -58,3 +58,8 @@ body {
     max-height: 60px;
     min-height: 60px;
 }
+
+.list-group-item.active {
+  background-color: #383d41;
+  border-color: #383d41;
+}
