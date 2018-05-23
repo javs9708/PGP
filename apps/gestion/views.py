@@ -10,11 +10,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required(login_url='/ingresar/')
 def gestionMenu(request):
-    username = request.GET.get('username')
     template = loader.get_template('gestion/Gestion.html')
-    user = User.objects.filter(username=username)
-    usuario = Usuario.objects.filter(user_id=user[0].id)
-    usuario = usuario[0]
+    user = User.objects.get(username=str(request.user))
+    usuario = Usuario.objects.get(id=user.id)
+    usuario = usuario
     ctx = {
         	'usuario': usuario,
     }

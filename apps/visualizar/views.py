@@ -10,10 +10,9 @@ from django.contrib.auth.decorators import login_required
 def visualizarMenu(request):
     template = loader.get_template('visualizar/Visualizar.html')
     if request.method == 'GET':
-        username = request.GET.get('username')
-        user = User.objects.filter(username=username)
-        usuario = Usuario.objects.filter(user_id=user[0].id)
-        usuario = usuario[0]
+        user = User.objects.get(username=str(request.user))
+        usuario = Usuario.objects.get(id=user.id)
+        usuario = usuario
         ctx = {
             	'usuario': usuario,
         }
