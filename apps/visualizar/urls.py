@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^menu/',visualizarMenu, name='menu'),
     url(r'^cuentas/',visualizarCuentas, name='cuentas'),
     url(r'^transacciones/',visualizarTransacciones, name='transacciones'),
-    url(r'^presupuestos/',visualizarPresupuestos, name='presupuesto'),
+    url(r'^presupuesto/',visualizarPresupuestos, name='presupuesto'),
 ]

@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 def visualizarMenu(request):
     template = loader.get_template('visualizar/Visualizar.html')
     if request.method == 'GET':
-        username = request.GET.get('username')    
+        username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
@@ -45,15 +45,27 @@ def visualizarCuentas(request):
 
 @login_required(login_url='/ingresar/')
 def visualizarTransacciones(request):
-    username = request.GET.get('username')
     template = loader.get_template('visualizar/visualizar_transacciones.html')
-    user = User.objects.filter(username=username)
-    usuario = Usuario.objects.filter(user_id=user[0].id)
-    usuario = usuario[0]
-    ctx = {
-        	'usuario': usuario,
-    }
-    return HttpResponse(template.render(ctx,request))
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        ingreso = Ingreso.objects.filter(user_id=user[0].id)
+        gasto = Gasto.objects.filter(user_id=user[0].id)
+        transferencia = Transferencia.objects.filter(user_id=user[0].id)
+
+
+        ctx = {
+            	'usuario': usuario,
+
+                'ingreso': ingreso,
+                'gasto': gasto,
+                'transferencia': transferencia,
+
+        }
+        return HttpResponse(template.render(ctx,request))
 
 @login_required(login_url='/ingresar/')
 def visualizarPresupuestos(request):
