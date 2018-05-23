@@ -63,3 +63,9 @@ body {
   background-color: #383d41;
   border-color: #383d41;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #383d41;
+}

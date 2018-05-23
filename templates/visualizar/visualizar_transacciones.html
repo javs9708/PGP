@@ -78,13 +78,40 @@ Visualizar Transacciones
 				<div class="list-group bord" id="list-tab" role="tablist">
 				{% if ingreso or gasto or transferencia %}
 					{% for e in ingreso %}
-					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">{{e.nombre}} <small><br>Ingreso</br></small></a>
+					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+						<div class="row">	
+							<div class="col-8 pb-0">
+								<p class="mb-0">{{e.nombre}}</p>
+							</div>
+							<div class="col-4 text-right pl-3">
+								<span class="badge badge-success">Ingreso</span>
+							</div>
+						</div>
+					</a>
 					{% endfor %}
 					{% for e in gasto %}
-					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">{{e.nombre}} <small><br>Gasto</br></small></a>
+					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+						<div class="row">	
+							<div class="col-8 pb-0">
+								<p class="mb-0">{{e.nombre}}</p>
+							</div>
+							<div class="col-4 text-right pl-3">
+								<span class="badge badge-danger">Gasto</span>
+							</div>
+						</div>
+					</a>
 					{% endfor %}
 					{% for e in transferencia %}
-					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">{{e.nombre}} <small><br>Transferencia</br></small></a>
+					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+						<div class="row">	
+							<div class="col-8 pb-0">
+								<p class="mb-0">{{e.nombre}}</p>
+							</div>
+							<div class="col-3 text-right pl-3">
+								<span class="badge badge-secondary">Transferencia</span>
+							</div>
+						</div>
+					</a>
 					{% endfor %}
 				{% else %}
 				<p class="text-center">No hay transacciones registradas</p>

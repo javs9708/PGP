@@ -346,7 +346,7 @@ def gestionTransacciones(request):
 
             ingresos = Ingreso.objects.filter(user_id=user[0].id)
 
-
+            error = False
             for ingreso in ingresos:
                 if str(ingreso.nombre) == str(nombre):
                     error=True

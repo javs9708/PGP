@@ -78,16 +78,80 @@ Visualizar Cuentas
 		    	<div class="list-group bord" id="list-tab" role="tablist">
 	      	{% if tarjeta or prestamo or inversion or chequera %}
 	      		{% for e in tarjeta %}
-						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">{{e.nombre}} <small><br>Tarjeta credito/debito</br></small></a>
+						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+							<div class="row">	
+								<div class="col-10">
+									<div class="row">
+										<div class="col-12 pb-0">
+											<p class="mb-0">{{e.nombre}}</p>
+										</div>
+										<div class="col-12 text-left pl-3">
+											<span class="badge badge-secondary">Crédito/Débito</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-2 align-self-center text-right">
+									<i class="material-icons">create</i>
+								</div>
+							</div>
+						</a>
 						{% endfor %}
 						{% for e in prestamo %}
-						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">{{e.nombre}} <small><br>Prestamo/Hipoteca</br></small></a>
+						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+							<div class="row">	
+								<div class="col-10">
+									<div class="row">
+										<div class="col-12 pb-0">
+											<p class="mb-0">{{e.nombre}}</p>
+										</div>
+										<div class="col-12 text-left pl-3">
+											<span class="badge badge-secondary">Préstamo/Hipoteca</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-2 align-self-center text-right">
+									<i class="material-icons">create</i>
+								</div>
+							</div>
+						</a>
 						{% endfor %}
 						{% for e in inversion %}
-						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">{{e.nombre}} <small><br>Cuenta de inversion</br></small></a>
+						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+							<div class="row">	
+								<div class="col-10">
+									<div class="row">
+										<div class="col-12 pb-0">
+											<p class="mb-0">{{e.nombre}}</p>
+										</div>
+										<div class="col-12 text-left pl-3">
+											<span class="badge badge-secondary">Inversión</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-2 align-self-center text-right">
+									<i class="material-icons">create</i>
+								</div>
+							</div>
+						</a>
 						{% endfor %}
 						{% for e in chequera %}
-						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">{{e.nombre}} <small><br>Cheque</br></small></a>
+						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+							<div class="row">	
+								<div class="col-10">
+									<div class="row">
+										<div class="col-12 pb-0">
+											<p class="mb-0">{{e.nombre}}</p>
+										</div>
+										<div class="col-12 text-left pl-3">
+											<span class="badge badge-secondary">Chequera</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-2 align-self-center text-right">
+									<i class="material-icons">create</i>
+								</div>
+							</div>
+						</a>
 						{% endfor %}
 					{% else %}
 					<p class="text-center">No hay cuentas registradas</p>
@@ -95,6 +159,7 @@ Visualizar Cuentas
 		    	</div>
 			</div>
 			<div class="col-md-7 col-lg-8 col-12 mt-3 mb-3">
+				<h1 class="font-weight-light text-center mb-3">Selecciona una cuenta para visualizar</h1>
 		 		<div class="tab-content" id="nav-tabContent">
 		     	{% if tarjeta or prestamo or inversion or chequera %}
 		      		{% for e in tarjeta %}
