@@ -73,145 +73,127 @@ Visualizar Cuentas
 			</nav>
 
 		<div class="row align-items-center">
-		  	<div class="col-md-5 col-lg-4 col-12 mt-3">
+		  	<div class="col-md-6 col-lg-5 col-12 mt-3">
 		  		<h1 class="font-weight-light mb-3 text-center">Cuentas existentes</h1>
 		    	<div class="list-group bord" id="list-tab" role="tablist">
 	      	{% if tarjeta or prestamo or inversion or chequera %}
 	      		{% for e in tarjeta %}
-						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-							<div class="row">
-								<div class="col-10">
-									<div class="row">
-										<div class="col-12 pb-0">
-											<p class="mb-0">{{e.nombre}}</p>
-										</div>
-										<div class="col-12 text-left pl-3">
-											<span class="badge badge-secondary">Crédito/Débito</span>
-										</div>
-									</div>
-								</div>
-								<div class="col-2 align-self-center text-right">
-									<button type="button" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" class="btn btn-light">
-										<i class="material-icons">create</i>
-									</button>
-								</div>
+					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+						<div class="row">
+							<div class="col pb-0">
+								<p class="mb-0">{{e.nombre}}</p>
 							</div>
-						</a>
-						{% endfor %}
+							<div class="col text-right">
+								<span class="badge badge-secondary">Crédito/Débito</span>
+							</div>
+						</div>
+					</a>
+				{% endfor %}
 
-						{% for e in prestamo %}
-						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-							<div class="row">
-								<div class="col-10">
-									<div class="row">
-										<div class="col-12 pb-0">
-											<p class="mb-0">{{e.nombre}}</p>
-										</div>
-										<div class="col-12 text-left pl-3">
-											<span class="badge badge-secondary">Préstamo/Hipoteca</span>
-										</div>
-									</div>
-								</div>
-								<div class="col-2 align-self-center text-right">
-									<button class="btn btn-light" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" name="edit_cuenta">
-										<i class="material-icons">create</i>
-									</button>
-								</div>
+				{% for e in prestamo %}
+					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+						<div class="row">
+							<div class="col pb-0">
+								<p class="mb-0">{{e.nombre}}</p>
 							</div>
-						</a>
-						{% endfor %}
-						{% for e in inversion %}
-						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-							<div class="row">
-								<div class="col-10">
-									<div class="row">
-										<div class="col-12 pb-0">
-											<p class="mb-0">{{e.nombre}}</p>
-										</div>
-										<div class="col-12 text-left pl-3">
-											<span class="badge badge-secondary">Inversión</span>
-										</div>
-									</div>
-								</div>
-								<div class="col-2 align-self-center text-right">
-									<button class="btn btn-light" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" name="edit_cuenta">
-										<i class="material-icons">create</i>
-									</button>
-								</div>
+							<div class="col text-right">
+								<span class="badge badge-secondary">Préstamo/Hipoteca</span>
 							</div>
-						</a>
-						{% endfor %}
-						{% for e in chequera %}
-						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-							<div class="row">
-								<div class="col-10">
-									<div class="row">
-										<div class="col-12 pb-0">
-											<p class="mb-0">{{e.nombre}}</p>
-										</div>
-										<div class="col-12 text-left pl-3">
-											<span class="badge badge-secondary">Chequera</span>
-										</div>
-									</div>
-								</div>
-								<div class="col-2 align-self-center text-right">
-									<button class="btn btn-light" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" name="edit_cuenta">
-										<i class="material-icons">create</i>
-									</button>
-								</div>
+						</div>
+					</a>
+				{% endfor %}
+		
+				{% for e in inversion %}
+					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+						<div class="row">
+							<div class="col pb-0">
+								<p class="mb-0">{{e.nombre}}</p>
 							</div>
-						</a>
-						{% endfor %}
-					{% else %}
+							<div class="col text-right">
+								<span class="badge badge-secondary">Inversión</span>
+							</div>
+						</div>
+					</a>
+				{% endfor %}
+			
+				{% for e in chequera %}
+					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
+						<div class="row">
+							<div class="col pb-0">
+								<p class="mb-0">{{e.nombre}}</p>
+							</div>
+							<div class="col text-right">
+								<span class="badge badge-secondary">Chequera</span>
+							</div>
+						</div>
+					</a>
+				{% endfor %}
+			
+			{% else %}
 					<p class="text-center">No hay cuentas registradas</p>
-					{% endif %}
+			{% endif %}
 		    	</div>
 			</div>
-			<div class="col-md-7 col-lg-8 col-12 mt-3 mb-3">
+			<div class="col-md-6 col-lg-7 col-12 mt-3 mb-3">
 				<h1 class="font-weight-light text-center mb-3">Selecciona una cuenta para visualizar</h1>
 		 		<div class="tab-content" id="nav-tabContent">
-		     	{% if tarjeta or prestamo or inversion or chequera %}
-		      		{% for e in tarjeta %}
+		    {% if tarjeta or prestamo or inversion or chequera %}
+		    	{% for e in tarjeta %}
 					<div class="tab-pane fade" id="{{e.nombre}}{{e.id}}" role="tabpanel" aria-labelledby="list-home-list">
 		     			<div class="card border-dark">
 		      	  			<div class="card-body">
-		      	  			<div class="row">
-		      	  				<div class="col">
-			      	  				<h1 class="card-title text-center">{{e.nombre}}</h1>
-			      	  				<p class="card-text"><strong>Entidad bancaria: </strong> {{e.entidad}}</p>
-			      	  				<p class="card-text"><strong>Numero de tarjeta: </strong> {{e.numero_tarjeta}}</p>
-			      	  				<p class="card-text"><strong>Numero de cuenta: </strong> {{e.numero_cuenta}}</p>
-			      	  				<p class="card-text"><strong>Fecha de vencimiento: </strong> Mes: {{e.fecha_vencimiento_mm}} Año: {{e.fecha_vencimiento_aa}}</p>
-			      	  				<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
-
+		    	  	  			<div class="row">
+		      		  				<div class="col">
+			      		  				<h1 class="card-title text-center">{{e.nombre}}</h1>
+			      	  					<p class="card-text"><strong>Entidad bancaria: </strong> {{e.entidad}}</p>
+			      	  					<p class="card-text"><strong>Numero de tarjeta: </strong> {{e.numero_tarjeta}}</p>
+			      	  					<p class="card-text"><strong>Numero de cuenta: </strong> {{e.numero_cuenta}}</p>
+			      	  					<p class="card-text"><strong>Fecha de vencimiento: </strong> Mes: {{e.fecha_vencimiento_mm}} Año: {{e.fecha_vencimiento_aa}}</p>
+			      	  					<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
+		      	  					</div>
 		      	  				</div>
-		      	  			</div>
-		      	  			<div class="col text-right">
-			      	  			<p class="card-text h1"><strong class="text-black">Saldo:</strong>  <a class="text-success">${{e.saldo_inicial}}</a>
-			      	  			</p>
-		      	  			</div>
-		      	  			</div>
-		      			</div>
+		      	  				<div class="row justify-content-end">
+									<div class="col-12 text-right">
+										<p class="card-text h1"><strong class="text-black">Saldo:</strong>
+											<a class="text-success">${{e.monto}}</a>
+										</p>
+									</div>
+		      	    				<div class="col-4 mt-3">
+		      	    					<a class="btn btn-block btn-dark" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" role="button">Editar</a>
+		      	    				</div>
+		      	    			</div>
+		      				</div>
+		     			</div>
 		     		</div>
 					{% endfor %}
 					{% for e in prestamo %}
 					<div class="tab-pane fade" id="{{e.nombre}}{{e.id}}" role="tabpanel" aria-labelledby="list-home-list">
 		     			<div class="card border-dark">
 		      	  			<div class="card-body">
-		      	    			<h1 class="card-title text-center">{{e.nombre}}</h1>
-		      	    			<p class="card-text"><strong>Entidad bancaria: </strong> {{e.entidad}}</p>
-		      	    			<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
-		      	    			<p class="card-text"><strong>Interés: </strong> {{e.interes}}</p>
-		      	    			<p class="card-text"><strong>Fecha prestamo: </strong> {{e.fecha_prestamo}}</p>
-		      	    			<p class="card-text"><strong>Fecha límite: </strong> {{e.fecha_limite}}</p>
-		      	    			<p class="card-text"><strong>Tipo de pago: </strong> {{e.tipo_pago}}</p>
-											<div class="col text-right">
-				      	  			<p class="card-text h1"><strong class="text-black">Saldo:</strong>  <a class="text-success">${{e.monto}}</a>
-				      	  			</p>
-			      	  			</div>
-			      	  			</div>
-			      			</div>
-			     		</div>
+		      	  				<div class="row">
+		      	  					<div class="col">
+				      	    			<h1 class="card-title text-center">{{e.nombre}}</h1>
+				      	    			<p class="card-text"><strong>Entidad bancaria: </strong> {{e.entidad}}</p>
+				      	    			<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
+				      	    			<p class="card-text"><strong>Interés: </strong> {{e.interes}}</p>
+				      	    			<p class="card-text"><strong>Fecha prestamo: </strong> {{e.fecha_prestamo}}</p>
+				      	    			<p class="card-text"><strong>Fecha límite: </strong> {{e.fecha_limite}}</p>
+				      	    			<p class="card-text"><strong>Tipo de pago: </strong> {{e.tipo_pago}}</p>
+		      	  					</div>
+		      	  				</div>
+								<div class="row justify-content-end">
+									<div class="col-12 text-right">
+										<p class="card-text h1"><strong class="text-black">Saldo:</strong>
+											<a class="text-success">${{e.monto}}</a>
+										</p>
+									</div>
+		      	    				<div class="col-4 mt-3">
+		      	    					<a class="btn btn-block btn-dark" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" role="button">Editar</a>
+		      	    				</div>
+		      	    			</div>
+			      	  		</div>
+			      		</div>
+			     	</div>
 					{% endfor %}
 					{% for e in inversion %}
 					<div class="tab-pane fade" id="{{e.nombre}}{{e.id}}" role="tabpanel" aria-labelledby="list-home-list">
@@ -224,13 +206,19 @@ Visualizar Cuentas
 		      	    			<p class="card-text"><strong>Interés: </strong> {{e.interes}}</p>
 		      	    			<p class="card-text"><strong>Fecha prestamo: </strong> {{e.fecha_prestamo}}</p>
 		      	    			<p class="card-text"><strong>Fecha límite: </strong> {{e.fecha_limite}}</p>
-											<div class="col text-right">
-												<p class="card-text h1"><strong class="text-black">Saldo:</strong>  <a class="text-success">${{e.monto}}</a>
-												</p>
-											</div>
-											</div>
+								<div class="row justify-content-end">
+									<div class="col-12 text-right">
+										<p class="card-text h1"><strong class="text-black">Saldo:</strong>
+											<a class="text-success">${{e.monto}}</a>
+										</p>
 									</div>
+		      	    				<div class="col-4 mt-3">
+		      	    					<a class="btn btn-block btn-dark" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" role="button">Editar</a>
+		      	    				</div>
+		      	    			</div>
 							</div>
+						</div>
+					</div>
 					{% endfor %}
 					{% for e in chequera %}
 					<div class="tab-pane fade" id="{{e.nombre}}{{e.id}}" role="tabpanel" aria-labelledby="list-home-list">
@@ -241,13 +229,19 @@ Visualizar Cuentas
 		      	    			<p class="card-text"><strong>Numero de cuenta: </strong> {{e.numero_cuenta}}</p>
 		      	    			<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
 		      	    			<p class="card-text"><strong>Número de cheques: </strong> {{e.numero_cheques}}</p>
-											<div class="col text-right">
-												<p class="card-text h1"><strong class="text-black">Saldo:</strong>  <a class="text-success">${{e.monto}}</a>
-												</p>
-											</div>
-											</div>
+		      	    			<div class="row justify-content-end">
+									<div class="col-12 text-right">
+										<p class="card-text h1"><strong class="text-black">Saldo:</strong>
+											<a class="text-success">${{e.monto}}</a>
+										</p>
 									</div>
+		      	    				<div class="col-4 mt-3">
+		      	    					<a class="btn btn-block btn-dark" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" role="button">Editar</a>
+		      	    				</div>
+		      	    			</div>
 							</div>
+						</div>
+					</div>
 					{% endfor %}
 				{% endif %}
 		    	</div>
