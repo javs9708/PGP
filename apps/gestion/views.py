@@ -1753,50 +1753,981 @@ def gestionTransacciones(request):
                                 prestamoD.monto+=monto
                                 prestamoD.save()
 
+                        if inversionD:
+                            inversionD = Inversion.objects.get(nombre=cuenta_destino)
+                            inversionD.monto=int(inversionD.monto)
+                            inversionD.tipo_divisa=str(inversionD.tipo_divisa)
+                            if tarjeta.tipo_divisa=="EUR" and inversionD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="DOL" and inversionD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="YEN" and inversionD.tipo_divisa=="COP":
+                                monto=monto*26
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="COP" and inversionD.tipo_divisa=="COP":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="DOL" and inversionD.tipo_divisa=="DOL":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="YEN" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="COP" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and inversionD.tipo_divisa=="EUR":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="DOL" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="YEN" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="COP" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="DOL" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="YEN" and inversionD.tipo_divisa=="YEN":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if tarjeta.tipo_divisa=="COP" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                inversionD.monto+=monto
+                                inversionD.save()
 
-
+                        if chequeraD:
+                            chequeraD = Chequera.objects.get(nombre=cuenta_destino)
+                            chequeraD.monto=int(chequeraD.monto)
+                            chequeraD.tipo_divisa=str(chequeraD.tipo_divisa)
+                            if tarjeta.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*26
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="COP" and chequeraD.tipo_divisa=="COP":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="DOL":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="COP" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="EUR":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="COP" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="YEN":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if tarjeta.tipo_divisa=="COP" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                chequeraD.monto+=monto
+                                chequeraD.save()
 
                     if prestamo:
                         prestamo = Prestamo.objects.get(nombre=cuenta_fuente)
                         monto=int(monto)
                         prestamo.monto=int(prestamo.monto)
+                        prestamo.tipo_divisa=str(prestamo.tipo_divisa)
                         prestamo.monto-=monto
                         prestamo.save()
+                        if tarjetaD:
+                            tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
+                            tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
+                            tarjetaD.tipo_divisa=str(tarjetaD.tipo_divisa)
+                            if prestamo.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*26
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="COP":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="DOL":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="EUR":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="YEN":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if prestamo.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
 
-                    if prestamoD:
-                        prestamo = Prestamo.objects.get(nombre=cuenta_destino)
-                        monto=int(monto)
-                        prestamo.monto=int(prestamo.monto)
-                        prestamo.monto+=monto
-                        prestamo.save()
+                        if prestamoD:
+                            prestamoD = Prestamo.objects.get(nombre=cuenta_destino)
+                            prestamoD.monto=int(prestamoD.monto)
+                            prestamoD.tipo_divisa=str(prestamoD.tipo_divisa)
+                            if prestamo.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*26
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="COP" and prestamoD.tipo_divisa=="COP":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="DOL":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="COP" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="EUR":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="COP" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="YEN":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if prestamo.tipo_divisa=="COP" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+
+                        if inversionD:
+                            inversionD = Inversion.objects.get(nombre=cuenta_destino)
+                            inversionD.monto=int(inversionD.monto)
+                            inversionD.tipo_divisa=str(inversionD.tipo_divisa)
+                            if prestamo.tipo_divisa=="EUR" and inversionD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="DOL" and inversionD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="YEN" and inversionD.tipo_divisa=="COP":
+                                monto=monto*26
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="COP" and inversionD.tipo_divisa=="COP":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="DOL" and inversionD.tipo_divisa=="DOL":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="YEN" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="COP" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and inversionD.tipo_divisa=="EUR":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="DOL" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="YEN" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="COP" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="DOL" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="YEN" and inversionD.tipo_divisa=="YEN":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if prestamo.tipo_divisa=="COP" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                inversionD.monto+=monto
+                                inversionD.save()
+
+                        if chequeraD:
+                            chequeraD = Chequera.objects.get(nombre=cuenta_destino)
+                            chequeraD.monto=int(chequeraD.monto)
+                            chequeraD.tipo_divisa=str(chequeraD.tipo_divisa)
+                            if prestamo.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*26
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="COP" and chequeraD.tipo_divisa=="COP":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="DOL":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="COP" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="EUR":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="COP" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if prestamo.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="YEN":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if prestamo.tipo_divisa=="COP" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                chequeraD.monto+=monto
+                                chequeraD.save()
 
                     if inversion:
                         inversion = Inversion.objects.get(nombre=cuenta_fuente)
                         monto=int(monto)
                         inversion.monto=int(inversion.monto)
+                        inversion.tipo_divisa=str(inversion.tipo_divisa)
                         inversion.monto-=monto
                         inversion.save()
+                        if tarjetaD:
+                            tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
+                            tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
+                            tarjetaD.tipo_divisa=str(tarjetaD.tipo_divisa)
+                            if inversion.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*26
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="COP":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="DOL":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="EUR":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="YEN":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if inversion.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
 
-                    if inversionD:
-                        inversion = Inversion.objects.get(nombre=cuenta_destino)
-                        monto=int(monto)
-                        inversion.monto=int(inversion.monto)
-                        inversion.monto+=monto
-                        inversion.save()
+                        if prestamoD:
+                            prestamoD = Prestamo.objects.get(nombre=cuenta_destino)
+                            prestamoD.monto=int(prestamoD.monto)
+                            prestamoD.tipo_divisa=str(prestamoD.tipo_divisa)
+                            if inversion.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*26
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="COP" and prestamoD.tipo_divisa=="COP":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="DOL":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="COP" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="EUR":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="COP" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="YEN":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if inversion.tipo_divisa=="COP" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+
+                        if inversionD:
+                            inversionD = Inversion.objects.get(nombre=cuenta_destino)
+                            inversionD.monto=int(inversionD.monto)
+                            inversionD.tipo_divisa=str(inversionD.tipo_divisa)
+                            if inversion.tipo_divisa=="EUR" and inversionD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="DOL" and inversionD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="YEN" and inversionD.tipo_divisa=="COP":
+                                monto=monto*26
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="COP" and inversionD.tipo_divisa=="COP":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="DOL" and inversionD.tipo_divisa=="DOL":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="YEN" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="COP" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and inversionD.tipo_divisa=="EUR":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="DOL" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="YEN" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="COP" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="DOL" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="YEN" and inversionD.tipo_divisa=="YEN":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if inversion.tipo_divisa=="COP" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                inversionD.monto+=monto
+                                inversionD.save()
+
+                        if chequeraD:
+                            chequeraD = Chequera.objects.get(nombre=cuenta_destino)
+                            chequeraD.monto=int(chequeraD.monto)
+                            chequeraD.tipo_divisa=str(chequeraD.tipo_divisa)
+                            if inversion.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*26
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="COP" and chequeraD.tipo_divisa=="COP":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="DOL":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="COP" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="EUR":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="COP" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if inversion.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="YEN":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if inversion.tipo_divisa=="COP" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                chequeraD.monto+=monto
+                                chequeraD.save()
 
                     if chequera:
                         chequera = Chequera.objects.get(nombre=cuenta_fuente)
                         monto=int(monto)
                         chequera.monto=int(chequera.monto)
+                        chequera.tipo_divisa=str(chequera.tipo_divisa)
                         chequera.monto-=monto
                         chequera.save()
+                        if tarjetaD:
+                            tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
+                            tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
+                            tarjetaD.tipo_divisa=str(tarjetaD.tipo_divisa)
+                            if chequera.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*26
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="COP":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="DOL":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="EUR":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="YEN":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if chequera.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
 
-                    if chequeraD:
-                        chequera = Chequera.objects.get(nombre=cuenta_destino)
-                        monto=int(monto)
-                        chequera.monto=int(chequera.monto)
-                        chequera.monto+=monto
-                        chequera.save()
+                        if prestamoD:
+                            prestamoD = Prestamo.objects.get(nombre=cuenta_destino)
+                            prestamoD.monto=int(prestamoD.monto)
+                            prestamoD.tipo_divisa=str(prestamoD.tipo_divisa)
+                            if chequera.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*26
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="COP" and prestamoD.tipo_divisa=="COP":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="DOL":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="COP" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="EUR":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="COP" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="YEN":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if chequera.tipo_divisa=="COP" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+
+                        if inversionD:
+                            inversionD = Inversion.objects.get(nombre=cuenta_destino)
+                            inversionD.monto=int(inversionD.monto)
+                            inversionD.tipo_divisa=str(inversionD.tipo_divisa)
+                            if chequera.tipo_divisa=="EUR" and inversionD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="DOL" and inversionD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="YEN" and inversionD.tipo_divisa=="COP":
+                                monto=monto*26
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="COP" and inversionD.tipo_divisa=="COP":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="DOL" and inversionD.tipo_divisa=="DOL":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="YEN" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="COP" and inversionD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and inversionD.tipo_divisa=="EUR":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="DOL" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="YEN" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="COP" and inversionD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="DOL" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="YEN" and inversionD.tipo_divisa=="YEN":
+                                inversionD.monto+=monto
+                                inversionD.save()
+                            if chequera.tipo_divisa=="COP" and inversionD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                inversionD.monto+=monto
+                                inversionD.save()
+
+                        if chequeraD:
+                            chequeraD = Chequera.objects.get(nombre=cuenta_destino)
+                            chequeraD.monto=int(chequeraD.monto)
+                            chequeraD.tipo_divisa=str(chequeraD.tipo_divisa)
+                            if chequera.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="COP":
+                                monto=monto*26
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="COP" and chequeraD.tipo_divisa=="COP":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="DOL":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="COP" and chequeraD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="EUR":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="COP" and chequeraD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            #----------------------------------------------------#
+                            if chequera.tipo_divisa=="EUR" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="DOL" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="YEN" and chequeraD.tipo_divisa=="YEN":
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+                            if chequera.tipo_divisa=="COP" and chequeraD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                chequeraD.monto+=monto
+                                chequeraD.save()
+
+
+
 
             if not error2:
                 monto = request.POST.get('c_mon')
