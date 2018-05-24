@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Tarjeta(models.Model):
     nombre = models.CharField(max_length=50)
     numero_tarjeta = models.BigIntegerField(null=True)
-    saldo_inicial = models.FloatField(null=True)
+    saldo_inicial = models.IntegerField(null=True)
     entidad = models.CharField(max_length=50, null=True)
     numero_cuenta = models.BigIntegerField(null=True)
     fecha_vencimiento_mm = models.IntegerField()
@@ -17,7 +17,7 @@ class Tarjeta(models.Model):
 class Prestamo(models.Model):
     nombre = models.CharField(max_length=50)
     entidad = models.CharField(max_length=50, null=True)
-    monto = models.FloatField(null=True)
+    monto = models.IntegerField(null=True)
     interes = models.IntegerField()
     fecha_prestamo = models.DateField()
     fecha_limite = models.DateField()
@@ -29,7 +29,7 @@ class Inversion(models.Model):
     nombre = models.CharField(max_length=50)
     entidad = models.CharField(max_length=50)
     numero_cuenta = models.BigIntegerField(null=True)
-    monto = models.FloatField(null=True)
+    monto = models.IntegerField(null=True)
     interes = models.IntegerField()
     fecha_prestamo = models.DateField()
     fecha_limite = models.DateField()
@@ -41,14 +41,14 @@ class Chequera(models.Model):
     entidad = models.CharField(max_length=50)
     tipo_divisa = models.CharField(max_length=5)
     numero_cuenta = models.BigIntegerField()
-    monto = models.FloatField(null=True)
+    monto = models.IntegerField(null=True)
     numero_cheques = models.BigIntegerField(null=True)
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
 
 #------------Transacciones--------------------#
 class Ingreso(models.Model):
     nombre = models.CharField(max_length=50)
-    monto = models.FloatField(null=True)
+    monto = models.IntegerField(null=True)
     tipo_divisa = models.CharField(max_length=5)
     cuenta_ingresar = models.CharField(max_length=50)
     fecha_ingreso = models.DateField()
@@ -58,7 +58,7 @@ class Ingreso(models.Model):
 
 class Gasto(models.Model):
     nombre = models.CharField(max_length=50)
-    monto = models.FloatField(null=True)
+    monto = models.IntegerField(null=True)
     tipo_divisa = models.CharField(max_length=5)
     cuenta_retirar = models.CharField(max_length=50)
     fecha_gasto = models.DateField()
@@ -68,8 +68,7 @@ class Gasto(models.Model):
 
 class Transferencia(models.Model):
     nombre = models.CharField(max_length=50)
-    monto = models.FloatField(null=True)
-    tipo_divisa = models.CharField(max_length=5)
+    monto = models.IntegerField(null=True)
     cuenta_fuente = models.CharField(max_length=50)
     cuenta_destino = models.CharField(max_length=50)
     notas_adicionales = models.TextField()
@@ -80,7 +79,7 @@ class Transferencia(models.Model):
 
 class Presupuesto(models.Model):
     nombre = models.CharField(max_length=50)
-    monto = models.FloatField(null=True)
+    monto = models.IntegerField(null=True)
     tipo_divisa = models.CharField(max_length=5)
     cuenta = models.CharField(max_length=50)
     saldo_reinversion = models.BigIntegerField(null=True)

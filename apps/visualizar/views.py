@@ -56,6 +56,11 @@ def visualizarTransacciones(request):
         gasto = Gasto.objects.filter(user_id=user[0].id)
         transferencia = Transferencia.objects.filter(user_id=user[0].id)
 
+        tarjeta = Tarjeta.objects.filter(user_id=user[0].id)
+        prestamo = Prestamo.objects.filter(user_id=user[0].id)
+        inversion = Inversion.objects.filter(user_id=user[0].id)
+        chequera = Chequera.objects.filter(user_id=user[0].id)
+
 
         ctx = {
             	'usuario': usuario,
@@ -63,6 +68,11 @@ def visualizarTransacciones(request):
                 'ingreso': ingreso,
                 'gasto': gasto,
                 'transferencia': transferencia,
+
+                'tarjeta': tarjeta,
+                'prestamo': prestamo,
+                'inversion': inversion,
+                'chequera': chequera,
 
         }
         return HttpResponse(template.render(ctx,request))

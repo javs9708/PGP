@@ -79,7 +79,7 @@ Visualizar Transacciones
 				{% if ingreso or gasto or transferencia %}
 					{% for e in ingreso %}
 					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-						<div class="row">	
+						<div class="row">
 							<div class="col-8 pb-0">
 								<p class="mb-0">{{e.nombre}}</p>
 							</div>
@@ -91,7 +91,7 @@ Visualizar Transacciones
 					{% endfor %}
 					{% for e in gasto %}
 					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-						<div class="row">	
+						<div class="row">
 							<div class="col-8 pb-0">
 								<p class="mb-0">{{e.nombre}}</p>
 							</div>
@@ -103,7 +103,7 @@ Visualizar Transacciones
 					{% endfor %}
 					{% for e in transferencia %}
 					<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-						<div class="row">	
+						<div class="row">
 							<div class="col-8 pb-0">
 								<p class="mb-0">{{e.nombre}}</p>
 							</div>
@@ -160,7 +160,6 @@ Visualizar Transacciones
 				      	    			<h1 class="card-title text-center">{{e.nombre}}</h1>
 				      	    <p class="card-text"><strong>Nombre de la transferencia:</strong> {{e.nombre}}</p>
 				      	    <p class="card-text"><strong>Monto:</strong> $ {{e.monto}}</p>
-				      	    <p class="card-text"><strong>Divisa:</strong> {{e.tipo_divisa}}</p>
 				      	    <p class="card-text"><strong>Cuenta fuente:</strong> {{e.cuenta_fuente}}</p>
 				      	    <p class="card-text"><strong>Cuenta destino:</strong> {{e.cuenta_destino}}</p>
 				      	    <p class="card-text"><strong>Notas adicionales:</strong> {{e.notas_adicionales}}</p>

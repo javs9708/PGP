@@ -1531,7 +1531,6 @@ def gestionTransacciones(request):
         if 'bc3' in request.POST:
             nombre = request.POST.get('c_name')
             monto = request.POST.get('c_mon')
-            tipo_divisa = request.POST.get('divisa')
             cuenta_fuente = request.POST.get('cuentaF')
             cuenta_destino = request.POST.get('cuentaD')
             notas_adicionales = request.POST.get('notas')
@@ -1548,6 +1547,7 @@ def gestionTransacciones(request):
 
             error=False
             error2=False
+            sonIguales=False
             for transferencia in transferencias:
                 if str(transferencia.nombre) == str(nombre):
                     error2=True
@@ -1562,705 +1562,241 @@ def gestionTransacciones(request):
             if not error:
                 tarjeta = Tarjeta.objects.filter(nombre=cuenta_fuente).exists()
                 tarjetaD = Tarjeta.objects.filter(nombre=cuenta_destino).exists()
-                tarjetaFuente = Tarjeta.objects.get(nombre=cuenta_fuente)
-                tarjetaDestino = Tarjeta.objects.get(nombre=cuenta_destino)
-                tarjetaFuente = str(tarjetaFuente.nombre)
-                tarjetaDestino = str(tarjetaDestino.nombre)
+                if tarjeta and tarjetaD:
+                    tarjetaFuente = Tarjeta.objects.get(nombre=cuenta_fuente)
+                    tarjetaDestino = Tarjeta.objects.get(nombre=cuenta_destino)
+                    tarjetaFuente = str(tarjetaFuente.nombre)
+                    tarjetaDestino = str(tarjetaDestino.nombre)
+                    if tarjetaFuente==tarjetaDestino:
+                        mensaje_cuenta = (True,"No puede hacer una transferencia entre una misma cuenta")
+                        error2=True
+                        sonIguales=True
+
 
                 prestamo = Prestamo.objects.filter(nombre=cuenta_fuente).exists()
                 prestamoD = Prestamo.objects.filter(nombre=cuenta_destino).exists()
+                if prestamo and prestamoD:
+                    prestamoFuente = Prestamo.objects.get(nombre=cuenta_fuente)
+                    prestamoDestino = Prestamo.objects.get(nombre=cuenta_destino)
+                    prestamoFuente = str(prestamoFuente.nombre)
+                    prestamoDestino = str(prestamoDestino.nombre)
+                    if prestamoFuente==prestamoDestino:
+                        mensaje_cuenta = (True,"No puede hacer una transferencia entre una misma cuenta")
+                        error2=True
+                        sonIguales=True
 
                 inversion = Inversion.objects.filter(nombre=cuenta_fuente).exists()
                 inversionD = Inversion.objects.filter(nombre=cuenta_destino).exists()
+                if inversion and inversionD:
+                    inversionFuente = Inversion.objects.get(nombre=cuenta_fuente)
+                    inversionDestino = Inversion.objects.get(nombre=cuenta_destino)
+                    inversionFuente = str(inversionFuente.nombre)
+                    inversionDestino = str(inversionDestino.nombre)
+                    if inversionFuente==inversionDestino:
+                        mensaje_cuenta = (True,"No puede hacer una transferencia entre una misma cuenta")
+                        error2=True
+                        sonIguales=True
 
                 chequera = Chequera.objects.filter(nombre=cuenta_fuente).exists()
                 chequeraD = Chequera.objects.filter(nombre=cuenta_destino).exists()
+                if chequera and chequeraD:
+                    chequeraFuente = Chequera.objects.get(nombre=cuenta_fuente)
+                    chequeraDestino = Chequera.objects.get(nombre=cuenta_destino)
+                    chequeraFuente = str(chequeraFuente.nombre)
+                    chequeraDestino = str(chequeraDestino.nombre)
+                    if chequeraFuente==chequeraDestino:
+                        mensaje_cuenta = (True,"No puede hacer una transferencia entre una misma cuenta")
+                        error2=True
+                        sonIguales=True
 
-                if tarjetaFuente==tarjetaDestino:
-                    mensaje_cuenta = (True,"No puede hacer una transferencia entre una misma cuenta")
-                    error2=True
-                else:
+                if not sonIguales:
                     if tarjeta:
                         tarjeta = Tarjeta.objects.get(nombre=cuenta_fuente)
-                        tipo_divisa_tarjeta=str(tarjeta.tipo_divisa)
-
-                        #--------------------Cuenta Japonesa---------------#
-                        if tipo_divisa=="COP" and tipo_divisa_tarjeta=="YEN":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*0.038260
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Japonesa---------------#
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.009
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*26
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.007
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-                        if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="YEN":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*110.01
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Japonesa---------------#
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.009
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*26
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.007
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-                        if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="YEN":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*128.68
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Japonesa---------------#
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.009
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*26
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.007
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-                        if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="YEN":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Japonesa---------------#
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.009
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*26
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.007
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-                        #-----------------------Cuenta Colombiana---------------#
-                        if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="COP":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*26
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Colombiana---------------#
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0003
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0003
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0382
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-                        if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="COP":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*2851
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Colombiana---------------#
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0003
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0003
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0382
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                        if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="COP":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*3358
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Colombiana---------------#
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0003
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0003
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0382
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-                        if tipo_divisa=="COP" and tipo_divisa_tarjeta=="COP":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Colombiana---------------#
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0003
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0003
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="COP" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.0382
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                        #----------- Cuenta Americana -------------------------#
-                        if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="DOL":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*1.1701
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Americana---------------#
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*2851
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.854
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*110.01
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                        if tipo_divisa=="COP" and tipo_divisa_tarjeta=="DOL":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*0.0003
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Americana---------------#
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*2851
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.854
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*110.01
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                        if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="DOL":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*0.009
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Americana---------------#
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*2851
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.854
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*110.01
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                        if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="DOL":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Americana---------------#
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*2851
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*0.854
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*110.01
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                        #---------------Cuenta Europea---------------------------#
-                        if tipo_divisa=="DOL" and tipo_divisa_tarjeta=="EUR":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*0.85488
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Europea---------------#
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*1.1701
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*3358
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*128.68
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-                        if tipo_divisa=="COP" and tipo_divisa_tarjeta=="EUR":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*0.0003
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Europea---------------#
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*1.1701
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*3358
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*128.68
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-                        if tipo_divisa=="YEN" and tipo_divisa_tarjeta=="EUR":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            monto=monto*0.007
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Europea---------------#
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*1.1701
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*3358
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*128.68
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-                        if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="EUR":
-                            monto=int(monto)
-                            tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
-                            tarjeta.saldo_inicial-=monto
-                            if tarjeta.saldo_inicial<0:
-                                error2=True
-                                mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
-                            else:
-                                tarjeta.save()
-                                if tarjetaD:
-                                    tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
-                                    tipo_divisa_tarjeta=str(tarjetaD.tipo_divisa)
-
-                                    tarjetaF = Tarjeta.objects.get(nombre=cuenta_fuente)
-                                    tipo_divisa=str(tarjetaF.tipo_divisa)
-
-                                    montos = Tarjeta.objects.get(nombre=cuenta_fuente)
-
-                                    #--------------------Cuenta Europea---------------#
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="DOL":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*1.1701
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="COP":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*3358
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="EUR":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-                                    if tipo_divisa=="EUR" and tipo_divisa_tarjeta=="YEN":
-                                        tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
-                                        monto=monto*128.68
-                                        tarjetaD.saldo_inicial+=monto
-                                        tarjetaD.save()
-
-
-
-                if prestamo:
-                    prestamo = Prestamo.objects.get(nombre=cuenta_fuente)
-                    monto=int(monto)
-                    prestamo.monto=int(prestamo.monto)
-                    prestamo.monto-=monto
-                    prestamo.save()
-
-                if prestamoD:
-                    prestamo = Prestamo.objects.get(nombre=cuenta_destino)
-                    monto=int(monto)
-                    prestamo.monto=int(prestamo.monto)
-                    prestamo.monto+=monto
-                    prestamo.save()
-
-                if inversion:
-                    inversion = Inversion.objects.get(nombre=cuenta_fuente)
-                    monto=int(monto)
-                    inversion.monto=int(inversion.monto)
-                    inversion.monto-=monto
-                    inversion.save()
-
-                if inversionD:
-                    inversion = Inversion.objects.get(nombre=cuenta_destino)
-                    monto=int(monto)
-                    inversion.monto=int(inversion.monto)
-                    inversion.monto+=monto
-                    inversion.save()
-
-                if chequera:
-                    chequera = Chequera.objects.get(nombre=cuenta_fuente)
-                    monto=int(monto)
-                    chequera.monto=int(chequera.monto)
-                    chequera.monto-=monto
-                    chequera.save()
-
-                if chequeraD:
-                    chequera = Chequera.objects.get(nombre=cuenta_destino)
-                    monto=int(monto)
-                    chequera.monto=int(chequera.monto)
-                    chequera.monto+=monto
-                    chequera.save()
+                        monto=int(monto)
+                        tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
+                        tarjeta.tipo_divisa=str(tarjeta.tipo_divisa)
+                        tarjeta.saldo_inicial-=monto
+                        tarjeta.save()
+                        if tarjetaD:
+                            tarjetaD = Tarjeta.objects.get(nombre=cuenta_destino)
+                            tarjetaD.saldo_inicial=int(tarjetaD.saldo_inicial)
+                            tarjetaD.tipo_divisa=str(tarjetaD.tipo_divisa)
+                            if tarjeta.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="COP":
+                                monto=monto*26
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="COP":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="DOL":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="EUR":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="DOL" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="YEN" and tarjetaD.tipo_divisa=="YEN":
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+                            if tarjeta.tipo_divisa=="COP" and tarjetaD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                tarjetaD.saldo_inicial+=monto
+                                tarjetaD.save()
+
+                        if prestamoD:
+                            prestamoD = Prestamo.objects.get(nombre=cuenta_destino)
+                            prestamoD.monto=int(prestamoD.monto)
+                            prestamoD.tipo_divisa=str(prestamoD.tipo_divisa)
+                            if tarjeta.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*3358
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*2851
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="COP":
+                                monto=monto*26
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="COP" and prestamoD.tipo_divisa=="COP":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*1.17
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="DOL":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*0.0090
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="COP" and prestamoD.tipo_divisa=="DOL":
+                                monto=monto*0.00035
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="EUR":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.854
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.007
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="COP" and prestamoD.tipo_divisa=="EUR":
+                                monto=monto*0.00030
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            #----------------------------------------------------#
+                            if tarjeta.tipo_divisa=="EUR" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*128.68
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="DOL" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*110.01
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="YEN" and prestamoD.tipo_divisa=="YEN":
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+                            if tarjeta.tipo_divisa=="COP" and prestamoD.tipo_divisa=="YEN":
+                                monto=monto*0.038
+                                prestamoD.monto+=monto
+                                prestamoD.save()
+
+
+
+
+                    if prestamo:
+                        prestamo = Prestamo.objects.get(nombre=cuenta_fuente)
+                        monto=int(monto)
+                        prestamo.monto=int(prestamo.monto)
+                        prestamo.monto-=monto
+                        prestamo.save()
+
+                    if prestamoD:
+                        prestamo = Prestamo.objects.get(nombre=cuenta_destino)
+                        monto=int(monto)
+                        prestamo.monto=int(prestamo.monto)
+                        prestamo.monto+=monto
+                        prestamo.save()
+
+                    if inversion:
+                        inversion = Inversion.objects.get(nombre=cuenta_fuente)
+                        monto=int(monto)
+                        inversion.monto=int(inversion.monto)
+                        inversion.monto-=monto
+                        inversion.save()
+
+                    if inversionD:
+                        inversion = Inversion.objects.get(nombre=cuenta_destino)
+                        monto=int(monto)
+                        inversion.monto=int(inversion.monto)
+                        inversion.monto+=monto
+                        inversion.save()
+
+                    if chequera:
+                        chequera = Chequera.objects.get(nombre=cuenta_fuente)
+                        monto=int(monto)
+                        chequera.monto=int(chequera.monto)
+                        chequera.monto-=monto
+                        chequera.save()
+
+                    if chequeraD:
+                        chequera = Chequera.objects.get(nombre=cuenta_destino)
+                        monto=int(monto)
+                        chequera.monto=int(chequera.monto)
+                        chequera.monto+=monto
+                        chequera.save()
 
             if not error2:
                 monto = request.POST.get('c_mon')
@@ -2268,7 +1804,6 @@ def gestionTransacciones(request):
                 transferencia = Transferencia.objects.create(
                         nombre = nombre,
                         monto = monto,
-                        tipo_divisa = tipo_divisa,
                         cuenta_fuente = cuenta_fuente,
                         cuenta_destino= cuenta_destino,
                         notas_adicionales = notas_adicionales,
