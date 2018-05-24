@@ -91,11 +91,14 @@ Visualizar Cuentas
 									</div>
 								</div>
 								<div class="col-2 align-self-center text-right">
-									<i class="material-icons">create</i>
+									<button type="button" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" class="btn btn-light">
+										<i class="material-icons">create</i>
+									</button>
 								</div>
 							</div>
 						</a>
 						{% endfor %}
+
 						{% for e in prestamo %}
 						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
 							<div class="row">
@@ -110,7 +113,9 @@ Visualizar Cuentas
 									</div>
 								</div>
 								<div class="col-2 align-self-center text-right">
-									<i class="material-icons">create</i>
+									<button class="btn btn-light" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" name="edit_cuenta">
+										<i class="material-icons">create</i>
+									</button>
 								</div>
 							</div>
 						</a>
@@ -129,7 +134,9 @@ Visualizar Cuentas
 									</div>
 								</div>
 								<div class="col-2 align-self-center text-right">
-									<i class="material-icons">create</i>
+									<button class="btn btn-light" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" name="edit_cuenta">
+										<i class="material-icons">create</i>
+									</button>
 								</div>
 							</div>
 						</a>
@@ -148,7 +155,9 @@ Visualizar Cuentas
 									</div>
 								</div>
 								<div class="col-2 align-self-center text-right">
-									<i class="material-icons">create</i>
+									<button class="btn btn-light" href="/visualizar/editar_tarjeta?username={{usuario.user.username}}" name="edit_cuenta">
+										<i class="material-icons">create</i>
+									</button>
 								</div>
 							</div>
 						</a>

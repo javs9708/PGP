@@ -71,11 +71,34 @@ def visualizarTransacciones(request):
 def visualizarPresupuestos(request):
     template = loader.get_template('visualizar/visualizar_presupuesto.html')
     if request.method == 'GET':
-        username = request.GET.get('username')  
+        username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
+
+        presupuesto= Presupuesto.objects.filter(user_id=user[0].id)
+
         ctx = {
             	'usuario': usuario,
+
+                'presupuesto':presupuesto,
+        }
+        return HttpResponse(template.render(ctx,request))
+
+@login_required(login_url='/ingresar/')
+def editarTarjeta(request):
+    template = loader.get_template('visualizar/editar_tarjeta.html')
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        presupuesto= Presupuesto.objects.filter(user_id=user[0].id)
+
+        ctx = {
+            	'usuario': usuario,
+
+                'presupuesto':presupuesto,
         }
         return HttpResponse(template.render(ctx,request))

@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^cuentas/',visualizarCuentas, name='cuentas'),
     url(r'^transacciones/',visualizarTransacciones, name='transacciones'),
     url(r'^presupuesto/',visualizarPresupuestos, name='presupuesto'),
+    url(r'^editar_tarjeta/',editarTarjeta, name='editar_tarjeta'),
 ]
