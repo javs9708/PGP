@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 
 class Tarjeta(models.Model):
     nombre = models.CharField(max_length=50)
-    numero_tarjeta = models.BigIntegerField()
+    numero_tarjeta = models.BigIntegerField(null=True)
     saldo_inicial = models.FloatField(null=True)
     entidad = models.CharField(max_length=50, null=True)
-    numero_cuenta = models.IntegerField()
+    numero_cuenta = models.BigIntegerField(null=True)
     fecha_vencimiento_mm = models.IntegerField()
     fecha_vencimiento_aa = models.IntegerField()
     tipo_divisa = models.CharField(max_length=5, null=True)
@@ -28,7 +28,7 @@ class Prestamo(models.Model):
 class Inversion(models.Model):
     nombre = models.CharField(max_length=50)
     entidad = models.CharField(max_length=50)
-    numero_cuenta = models.IntegerField()
+    numero_cuenta = models.BigIntegerField(null=True)
     monto = models.FloatField(null=True)
     interes = models.IntegerField()
     fecha_prestamo = models.DateField()
@@ -40,9 +40,9 @@ class Chequera(models.Model):
     nombre = models.CharField(max_length=50)
     entidad = models.CharField(max_length=50)
     tipo_divisa = models.CharField(max_length=5)
-    numero_cuenta = models.IntegerField()
+    numero_cuenta = models.BigIntegerField()
     monto = models.FloatField(null=True)
-    numero_cheques = models.IntegerField(null=True)
+    numero_cheques = models.BigIntegerField(null=True)
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
 
 #------------Transacciones--------------------#
@@ -83,7 +83,7 @@ class Presupuesto(models.Model):
     monto = models.FloatField(null=True)
     tipo_divisa = models.CharField(max_length=5)
     cuenta = models.CharField(max_length=50)
-    saldo_reinversion = models.BigIntegerField()
+    saldo_reinversion = models.BigIntegerField(null=True)
     periodo_recurrencia = models.CharField(max_length=50)
     categoria = models.CharField(max_length=50)
 
