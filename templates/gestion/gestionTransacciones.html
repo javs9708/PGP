@@ -330,55 +330,73 @@ Gestión de transacciones
 				<h1 class="font-weight-light text-center mb-3">Historial de transacciones</h1>
 				{% if ingresos or gastos or transferencias%}
 					{% for e in ingresos%}
-					<ul class="list-group">
-					  	<li class="list-group-item py-0">
-							<div class="row pt-3">
-								<div class="col-7">
-									<p>{{e.nombre}}</p>
+					<form method="post">
+					{% csrf_token %}
+						<ul class="list-group">
+						  	<li class="list-group-item py-0">
+								<div class="row pt-3">
+									<div class="col-7">
+										<p>{{e.nombre}}</p>
+									</div>
+									<div class="col-3 text-right pr-0">
+										<span class="badge badge-success">Ingreso</span>
+									</div>
+									<div class="col-2 text-right">
+										<input type="number" name="id_ingreso" value="{{e.id}}" hidden>
+										<button type="submit" class="btn btn-light" name="delete_ingreso">
+											<i class="material-icons">delete</i>
+										</button>
+									</div>
 								</div>
-								<div class="col-3 text-right pr-0">
-									<span class="badge badge-success">Ingreso</span>
-								</div>
-								<div class="col-2 text-right">
-									<i class="material-icons">delete</i>
-								</div>
-							</div>
-					  	</li>
-					</ul>
+						  	</li>
+						</ul>
+					</form>
 					{% endfor %}
 					{% for e in gastos %}
-					<ul class="list-group">
-					  	<li class="list-group-item py-0">
-							<div class="row pt-3">
-								<div class="col-7">
-									<p>{{e.nombre}}</p>
+					<form method="post">
+					{% csrf_token %}
+						<ul class="list-group">
+						  	<li class="list-group-item py-0">
+								<div class="row pt-3">
+									<div class="col-7">
+										<p>{{e.nombre}}</p>
+									</div>
+									<div class="col-3 text-right pr-0">
+										<span class="badge badge-danger">Gasto</span>
+									</div>
+									<div class="col-2 text-right">
+										<input type="number" name="id_gasto" value="{{e.id}}" hidden>
+										<button type="submit" class="btn btn-light" name="delete_gasto">
+											<i class="material-icons">delete</i>
+										</button>
+									</div>
 								</div>
-								<div class="col-3 text-right pr-0">
-									<span class="badge badge-danger">Gasto</span>
-								</div>
-								<div class="col-2 text-right">
-									<i class="material-icons">delete</i>
-								</div>
-							</div>
-					  	</li>
-					</ul>
+						  	</li>
+						</ul>
+					</form>
 					{% endfor %}
 					{% for e in transferencias%}
-					<ul class="list-group">
-					  	<li class="list-group-item py-0">
-							<div class="row pt-3">
-								<div class="col-7">
-									<p>{{e.nombre}}</p>
+					<form method="post">
+					{% csrf_token %}
+						<ul class="list-group">
+						  	<li class="list-group-item py-0">
+								<div class="row pt-3">
+									<div class="col-7">
+										<p>{{e.nombre}}</p>
+									</div>
+									<div class="col-3 text-right pr-0">
+										<span class="badge badge-secondary">Transferencia</span>
+									</div>
+									<div class="col-2 text-right">
+										<input type="number" name="id_transferencia" value="{{e.id}}" hidden>
+										<button type="submit" class="btn btn-light" name="delete_transferencia">
+											<i class="material-icons">delete</i>
+										</button>
+									</div>
 								</div>
-								<div class="col-3 text-right pr-0">
-									<span class="badge badge-secondary">Transferencia</span>
-								</div>
-								<div class="col-2 text-right">
-									<i class="material-icons">delete</i>
-								</div>
-							</div>
-					  	</li>
-					</ul>
+						  	</li>
+						</ul>
+					</form>
 					{% endfor %}
 				{% else %}
 				<p class="text-center">No hay ninguna transaccion hasta ahora.</p>

@@ -120,7 +120,7 @@ Gestión de cuentas
 								      				<h3 class="font-weight-light">/</h3>
 								      			</div>
 								      			<div class="col">
-								      				<input type="number" class="form-control" name="aa" required=True placeholder="aa" value="" min="1" max="99">
+								      				<input type="number" class="form-control" name="aa" required=True placeholder="aa" value="" min="18" max="99">
 								      			</div>
 								      		</div>
 								    	</div>
@@ -170,7 +170,7 @@ Gestión de cuentas
 								  	</div>
 								  	<div class="form-row">
 								    	<div class="form-group col-6">
-								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" value="">
+								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="1" value="">
 								    	</div>
 								    	<div class="form-group col-1 pr-2 align-self-center">
 								    		<label for="">Divisa</label>
@@ -184,7 +184,7 @@ Gestión de cuentas
 											</select>
 								      	</div>
 								    	<div class="form-group col-3">
-								      		<input type="number" class="form-control" name="interes" required=True placeholder="Interés %" value="">
+								      		<input type="number" class="form-control" name="interes" required=True placeholder="Interés %" min="1" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
@@ -370,35 +370,17 @@ Gestión de cuentas
 								</div>
 								<div class="col-2 text-right">
 										<input type="number" name="id_tarjeta" value="{{e.id}}" hidden>
-										<button type="submit" class="btn" name="delete_tarjeta"><i class="material-icons">delete</i></button>
+										<button type="submit" class="btn btn-light" name="delete_tarjeta">
+											<i class="material-icons">delete</i>
+										</button>
 								</div>
 							</div>
 					  	</li>
 					</ul>
 				</form>
 				{% endfor %}
-
-				<!--
-				<div class="pagination">
-				    <span class="step-links">
-				        {% if tarjetas.has_previous %}
-				            <a href="?page=1">&laquo; first</a>
-				            <a href="?page={{ tarjetas.previous_page_number }}">previous</a>
-				        {% endif %}
-
-				        <span class="current">
-				            Page {{ tarjetas.number }} of {{ tarjetas.paginator.num_pages }}.
-				        </span>
-
-				        {% if tarjetas.has_next %}
-				            <a href="?page={{ tarjetas.next_page_number }}">next</a>
-				            <a href="?page={{ tarjetas.paginator.num_pages }}">last &raquo;</a>
-				        {% endif %}
-				    </span>
-				</div>
-
-				-->
 				{% for e in prestamos %}
+				<form method="POST"> {% csrf_token %}
 				<ul class="list-group">
 					<li class="list-group-item py-0">
 						<div class="row pt-3">
@@ -409,13 +391,18 @@ Gestión de cuentas
 								<span class="badge badge-secondary">Préstamo</span>
 							</div>
 							<div class="col-2 text-right">
-								<i class="material-icons">delete</i>
+								<input type="number" name="id_prestamo" value="{{e.id}}" hidden>
+								<button type="submit" class="btn btn-light" name="delete_prestamo">
+									<i class="material-icons">delete</i>
+								</button>
 							</div>
 						</div>
 					</li>
 				</ul>
+				</form>
 				{% endfor %}
 				{% for e in inversiones %}
+				<form method="POST"> {% csrf_token %}
 				<ul class="list-group">
 					<li class="list-group-item py-0">
 						<div class="row pt-3">
@@ -426,13 +413,18 @@ Gestión de cuentas
 								<span class="badge badge-secondary">Inversión</span>
 							</div>
 							<div class="col-2 text-right">
-								<i class="material-icons">delete</i>
+								<input type="number" name="id_inversion" value="{{e.id}}" hidden>
+								<button type="submit" class="btn btn-light" name="delete_inversion">
+									<i class="material-icons">delete</i>
+								</button>
 							</div>
 						</div>
 					</li>
 				</ul>
+				</form>
 				{% endfor %}
 				{% for e in chequeras %}
+				<form method="POST"> {% csrf_token %}
 				<ul class="list-group">
 				  	<li class="list-group-item py-0">
 						<div class="row pt-3">
@@ -443,11 +435,15 @@ Gestión de cuentas
 								<span class="badge badge-secondary">Chequera</span>
 							</div>
 							<div class="col-2 text-right">
+								<input type="number" name="id_chequera" value="{{e.id}}" hidden>
+								<button type="submit" class="btn btn-light" name="delete_chequera">
 									<i class="material-icons">delete</i>
+								</button>
 							</div>
 						</div>
 				  	</li>
 				</ul>
+				</form>
 				{% endfor %}
 				{% else %}
 				<p class="text-center">No hay cuentas registradas</p>

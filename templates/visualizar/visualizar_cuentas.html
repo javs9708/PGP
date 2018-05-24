@@ -79,7 +79,7 @@ Visualizar Cuentas
 	      	{% if tarjeta or prestamo or inversion or chequera %}
 	      		{% for e in tarjeta %}
 						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-							<div class="row">	
+							<div class="row">
 								<div class="col-10">
 									<div class="row">
 										<div class="col-12 pb-0">
@@ -98,7 +98,7 @@ Visualizar Cuentas
 						{% endfor %}
 						{% for e in prestamo %}
 						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-							<div class="row">	
+							<div class="row">
 								<div class="col-10">
 									<div class="row">
 										<div class="col-12 pb-0">
@@ -117,7 +117,7 @@ Visualizar Cuentas
 						{% endfor %}
 						{% for e in inversion %}
 						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-							<div class="row">	
+							<div class="row">
 								<div class="col-10">
 									<div class="row">
 										<div class="col-12 pb-0">
@@ -136,7 +136,7 @@ Visualizar Cuentas
 						{% endfor %}
 						{% for e in chequera %}
 						<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#{{e.nombre}}{{e.id}}" role="tab" aria-controls="home">
-							<div class="row">	
+							<div class="row">
 								<div class="col-10">
 									<div class="row">
 										<div class="col-12 pb-0">
@@ -183,7 +183,7 @@ Visualizar Cuentas
 		      	  			<div class="card-body">
 		      	    			<h1 class="card-title text-center">{{e.nombre}}</h1>
 		      	    			<p class="card-text"><strong>Entidad bancaria: </strong> {{e.entidad}}</p>
-		      	    			<p class="card-text"><strong>Monto: </strong> $ {{e.saldo_inicial}}</p>
+		      	    			<p class="card-text"><strong>Monto: </strong> $ {{e.monto}}</p>
 		      	    			<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
 		      	    			<p class="card-text"><strong>Interés: </strong> {{e.interes}}</p>
 		      	    			<p class="card-text"><strong>Fecha prestamo: </strong> {{e.fecha_prestamo}}</p>
@@ -200,7 +200,7 @@ Visualizar Cuentas
 		      	    			<h1 class="card-title text-center">{{e.nombre}}</h1>
 		      	    			<p class="card-text"><strong>Entidad bancaria: </strong> {{e.entidad}}</p>
 		      	    			<p class="card-text"><strong>Número de cuenta: </strong> {{e.numero_cuenta}}</p>
-		      	    			<p class="card-text"><strong>Monto: </strong> $ {{e.saldo_inicial}}</p>
+		      	    			<p class="card-text"><strong>Monto: </strong> $ {{e.monto}}</p>
 		      	    			<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
 		      	    			<p class="card-text"><strong>Interés: </strong> {{e.interes}}</p>
 		      	    			<p class="card-text"><strong>Fecha prestamo: </strong> {{e.fecha_prestamo}}</p>
