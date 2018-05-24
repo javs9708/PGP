@@ -69,12 +69,13 @@ def visualizarTransacciones(request):
 
 @login_required(login_url='/ingresar/')
 def visualizarPresupuestos(request):
-    username = request.GET.get('username')
-    template = loader.get_template('visualizar/visualizar_transacciones.html')
-    user = User.objects.filter(username=username)
-    usuario = Usuario.objects.filter(user_id=user[0].id)
-    usuario = usuario[0]
-    ctx = {
-        	'usuario': usuario,
-    }
-    return HttpResponse(template.render(ctx,request))
+    template = loader.get_template('visualizar/visualizar_presupuesto.html')
+    if request.method == 'GET':
+        username = request.GET.get('username')  
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+        ctx = {
+            	'usuario': usuario,
+        }
+        return HttpResponse(template.render(ctx,request))

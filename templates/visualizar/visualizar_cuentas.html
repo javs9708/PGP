@@ -166,13 +166,21 @@ Visualizar Cuentas
 					<div class="tab-pane fade" id="{{e.nombre}}{{e.id}}" role="tabpanel" aria-labelledby="list-home-list">
 		     			<div class="card border-dark">
 		      	  			<div class="card-body">
-		      	    			<h1 class="card-title text-center">{{e.nombre}}</h1>
-		      	    			<p class="card-text"><strong>Entidad bancaria: </strong> {{e.entidad}}</p>
-		      	    			<p class="card-text"><strong>Numero de tarjeta: </strong> {{e.numero_tarjeta}}</p>
-		      	    			<p class="card-text"><strong>Saldo: </strong> $ {{e.saldo_inicial}}</p>
-		      	    			<p class="card-text"><strong>Numero de cuenta: </strong> {{e.numero_cuenta}}</p>
-		      	    			<p class="card-text"><strong>Fecha de vencimiento: </strong> Mes: {{e.fecha_vencimiento_mm}} Año: {{e.fecha_vencimiento_aa}}</p>
-		      	    			<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
+		      	  			<div class="row">
+		      	  				<div class="col">
+			      	  				<h1 class="card-title text-center">{{e.nombre}}</h1>
+			      	  				<p class="card-text"><strong>Entidad bancaria: </strong> {{e.entidad}}</p>
+			      	  				<p class="card-text"><strong>Numero de tarjeta: </strong> {{e.numero_tarjeta}}</p>
+			      	  				<p class="card-text"><strong>Numero de cuenta: </strong> {{e.numero_cuenta}}</p>
+			      	  				<p class="card-text"><strong>Fecha de vencimiento: </strong> Mes: {{e.fecha_vencimiento_mm}} Año: {{e.fecha_vencimiento_aa}}</p>
+			      	  				<p class="card-text"><strong>Tipo de divisa: </strong> {{e.tipo_divisa}}</p>
+
+		      	  				</div>
+		      	  			</div>
+		      	  			<div class="col text-right">
+			      	  			<p class="card-text h1"><strong class="text-black">Saldo:</strong>  <a class="text-success">${{e.saldo_inicial}}</a>
+			      	  			</p>
+		      	  			</div>
 		      	  			</div>
 		      			</div>
 		     		</div>

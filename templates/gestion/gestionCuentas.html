@@ -91,26 +91,26 @@ Gestión de cuentas
 								<form method="post">
 								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-6">
+								      	<div class="form-group col-12  col-md-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la cuenta" value="">
 								    	</div>
-								    	<div class="form-group col-6">
+								    	<div class="form-group col-12  col-md-6">
 								      		<input type="text" class="form-control" name="c_entidad" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<input type="number" class="form-control" name="c_num" required=True placeholder="Número tarjeta" value="">
 								    	</div>
-											<div class="form-group col-4">
+											<div class="form-group col-12 col-md-4">
 								      		<input type="number" class="form-control" name="c_saldo" required=True placeholder="Saldo inicial" value="">
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<input type="number" class="form-control" name="c_numCuenta" required=True placeholder="No. Cuenta" value="">
 								    	</div>
 								  	</div>
-								  	<div class="form-row">
-								    	<div class="form-group col-5">
+								  	<div class="form-row ">
+								    	<div class="form-group col-12 col-md-5">
 								      		<label for="">Fecha de vencimiento</label>
 								      		<div class="form-row">
 								      			<div class="col">
@@ -124,7 +124,7 @@ Gestión de cuentas
 								      			</div>
 								      		</div>
 								    	</div>
-								    	<div class="form-group pl-5 col-7">
+								    	<div class="form-group  col-12 col-md-7">
 								      		<label for="">Tipo de divisa</label>
 								      		<select type="text" class="form-control" name="divisa">
 											  	<option>COP</option>
@@ -161,10 +161,10 @@ Gestión de cuentas
 								<form method="post">
 								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-6">
+								      	<div class="form-group  col-12 col-md-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del prestamo/hipoteca" value="">
 								    	</div>
-								    	<div class="form-group col-6">
+								    	<div class="form-group  col-12 col-md-6">
 								      		<input type="text" class="form-control" name="c_entidad" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
