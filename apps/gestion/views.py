@@ -5,6 +5,7 @@ from .models import Tarjeta,Prestamo, Inversion, Chequera, Ingreso, Gasto, Trans
 from django.contrib.auth.models import User
 from django.template import loader
 from django.contrib.auth.decorators import login_required
+from .funciones.validadores import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -159,6 +160,13 @@ def gestionCuentas(request):
                     error=True
                     mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
+            if validar_fecha_prestamo(fecha_prestamo):
+                error=True
+                mensaje_cuenta = (True,"Ingrese una fecha de prestamo valida")
+
+            if validar_fecha_limite(fecha_limite):
+                error=True
+                mensaje_cuenta = (True,"Ingrese una fecha limite valida")
 
             if not error:
                 prestamo = Prestamo.objects.create(
@@ -224,6 +232,14 @@ def gestionCuentas(request):
                 if str(prestamo.nombre)==str(nombre):
                     num_cuenta_exist=True
                     mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+
+            if validar_fecha_prestamo(fecha_prestamo):
+                num_cuenta_exist=True
+                mensaje_cuenta = (True,"Ingrese una fecha de deposito valida")
+
+            if validar_fecha_limite(fecha_limite):
+                num_cuenta_exist=True
+                mensaje_cuenta = (True,"Ingrese una fecha limite valida")
 
             if not num_cuenta_exist:
                 inversion = Inversion.objects.create(
