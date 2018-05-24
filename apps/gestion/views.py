@@ -64,6 +64,9 @@ def gestionCuentas(request):
             usuario = usuario[0]
 
             tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+            prestamos = Prestamo.objects.filter(user_id=user[0].id)
+            inversiones = Inversion.objects.filter(user_id=user[0].id)
+            cheques = Chequera.objects.filter(user_id=user[0].id)
 
             saldo_inicial=int(saldo_inicial)
             numero_tarjeta=int(numero_tarjeta)
@@ -78,19 +81,24 @@ def gestionCuentas(request):
                 else:
                     if str(tarjeta.numero_cuenta) == str(numero_cuenta):
                         error=True
-                        mensaje_cuenta = (True,"Ya existe una cuenta registrada con este número")
+                        mensaje_cuenta = (True,"Ya existe una tarjeta registrada con este número de cuenta")
                     else:
-                        if str(tarjeta.nombre) == str(nombre):
+                        if str(tarjeta.nombre)==str(nombre):
                             error=True
-                            mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
-                        else:
-                            if (saldo_inicial<0) or (numero_tarjeta<0) or (numero_cuenta<0):
-                                error=True
-                                mensaje_cuenta = (True,"No puede ingresar numeros negativos")
-                            else:
-                                if (saldo_inicial==0) or (numero_tarjeta==0) or (numero_cuenta==0):
-                                    error=True
-                                    mensaje_cuenta = (True,"Ingrese un numero valido")
+                            mensaje_cuenta = (True,"Ya existe una tarjeta registrada con este nombre")
+
+            for prestamo in prestamos:
+                if str(prestamo.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+            for inversion in inversiones:
+                if str(inversion.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+            for cheque in cheques:
+                if str(cheque.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
 
             if not error:
@@ -127,6 +135,9 @@ def gestionCuentas(request):
             usuario = usuario[0]
 
             prestamos = Prestamo.objects.filter(user_id=user[0].id)
+            tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+            inversiones = Inversion.objects.filter(user_id=user[0].id)
+            cheques = Chequera.objects.filter(user_id=user[0].id)
 
 
             error=False
@@ -134,6 +145,19 @@ def gestionCuentas(request):
                 if str(prestamo.nombre) == str(nombre):
                     error=True
                     mensaje_cuenta = (True,"Ya existe un prestamo registrado con este nombre")
+
+            for tarjeta in tarjetas:
+                if str(tarjeta.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+            for inversion in inversiones:
+                if str(inversion.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+            for cheque in cheques:
+                if str(cheque.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
 
             if not error:
@@ -167,7 +191,10 @@ def gestionCuentas(request):
             usuario = Usuario.objects.filter(user_id=user[0].id)
             usuario = usuario[0]
 
+            tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+            prestamos = Prestamo.objects.filter(user_id=user[0].id)
             inversiones = Inversion.objects.filter(user_id=user[0].id)
+            cheques = Chequera.objects.filter(user_id=user[0].id)
 
             monto=int(monto)
             interes=int(interes)
@@ -184,15 +211,19 @@ def gestionCuentas(request):
                         num_cuenta_exist=True
                         mensaje_cuenta = (True,"Ya existe una inversion registrada con este nombre")
 
-                    else:
-                        if (monto<0) or (interes<0) or (numero_cuenta<0):
-                            num_cuenta_exist=True
-                            mensaje_cuenta = (True,"No puede ingresar numeros negativos")
+            for tarjeta in tarjetas:
+                if str(tarjeta.nombre)==str(nombre):
+                    num_cuenta_exist=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+            for cheque in cheques:
+                if str(cheque.nombre)==str(nombre):
+                    num_cuenta_exist=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
-                        else:
-                            if (monto==0) or (interes==0) or (numero_cuenta==0):
-                                num_cuenta_exist=True
-                                mensaje_cuenta = (True,"Ingrese un numero valido")
+            for prestamo in prestamos:
+                if str(prestamo.nombre)==str(nombre):
+                    num_cuenta_exist=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
             if not num_cuenta_exist:
                 inversion = Inversion.objects.create(
@@ -226,11 +257,10 @@ def gestionCuentas(request):
             usuario = Usuario.objects.filter(user_id=user[0].id)
             usuario = usuario[0]
 
+            tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+            prestamos = Prestamo.objects.filter(user_id=user[0].id)
+            inversiones = Inversion.objects.filter(user_id=user[0].id)
             chequeras = Chequera.objects.filter(user_id=user[0].id)
-
-            monto=int(monto)
-            numero_cheques=int(numero_cheques)
-            numero_cuenta=int(numero_cuenta)
 
 
             num_cuenta_exist = False
@@ -243,14 +273,21 @@ def gestionCuentas(request):
                         num_cuenta_exist=True
                         mensaje_cuenta = (True,"Ya existe una chequera registrada con este nombre")
 
-                    else:
-                        if (monto<0) or (numero_cheques<0) or (numero_cuenta<0):
-                            num_cuenta_exist=True
-                            mensaje_cuenta = (True,"No puede ingresar numeros negativos")
-                        else:
-                            if (monto==0) or (numero_cheques==0) or (numero_cuenta==0):
-                                num_cuenta_exist=True
-                                mensaje_cuenta = (True,"Ingrese un numero valido")
+            for tarjeta in tarjetas:
+                if str(tarjeta.nombre)==str(nombre):
+                    num_cuenta_exist=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+
+
+            for prestamo in prestamos:
+                if str(prestamo.nombre)==str(nombre):
+                    num_cuenta_exist=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+
+            for inversion in inversiones:
+                if str(inversion.nombre)==str(nombre):
+                    num_cuenta_exist=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
             if not num_cuenta_exist:
                 chequera = Chequera.objects.create(
