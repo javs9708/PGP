@@ -170,13 +170,13 @@ Gestión de cuentas
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-6">
+								    	<div class="form-group col-12 col-md-6">
 								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="1" value="">
 								    	</div>
-								    	<div class="form-group col-1 pr-2 align-self-center">
+								    	<div class="form-group col-3 col-md-1 pr-2 align-self-center">
 								    		<label for="">Divisa</label>
 								      	</div>
-								      	<div class="form-group col-2">
+								      	<div class="form-group col-9 col-md-2">
 								    		<select type="text" class="form-control" name="divisa">
 											   	<option>COP</option>
 											   	<option>EUR</option>
@@ -184,12 +184,12 @@ Gestión de cuentas
 											   	<option>YEN</option>
 											</select>
 								      	</div>
-								    	<div class="form-group col-3">
+								    	<div class="form-group col-12 col-md-3">
 								      		<input type="number" class="form-control" name="interes" required=True placeholder="Interés %" min="0" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Fecha prestamo</label>
 								      		<div class="form-row">
 								      			<div class="col">
@@ -197,7 +197,7 @@ Gestión de cuentas
 								      			</div>
 								      		</div>
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Fecha límite</label>
 								      		<div class="form-row">
 								      			<div class="col">
@@ -205,7 +205,7 @@ Gestión de cuentas
 								      			</div>
 								      		</div>
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Tipo de pago</label>
 								      		 	<select type="text" class="form-control" name="pago">
 											    	<option>Semanal</option>
@@ -242,26 +242,26 @@ Gestión de cuentas
 					        	<form method="post">
 								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-6">
+								      	<div class="form-group col-12 col-md-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la cuenta" value="">
 								    	</div>
-								    	<div class="form-group col-6">
+								    	<div class="form-group col-12 col-md-6">
 								      		<input type="text" class="form-control" name="c_entidad" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-5 align-self-end">
+								    	<div class="form-group col-12 col-md-5 align-self-end">
 								      		<input type="number" class="form-control" name="c_numCuenta" required=True placeholder="No. Cuenta" min="1" value="">
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="1" value="">
 								    	</div>
-								    	<div class="form-group col-3">
+								    	<div class="form-group col-12 col-md-3">
 								      		<input type="number" class="form-control" name="interes" required=True placeholder="Interés %" min="0" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Fecha deposito</label>
 								      		<div class="form-row">
 								      			<div class="col">
@@ -269,7 +269,7 @@ Gestión de cuentas
 								      			</div>
 								      		</div>
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Fecha límite</label>
 								      		<div class="form-row">
 								      			<div class="col">
@@ -277,7 +277,7 @@ Gestión de cuentas
 								      			</div>
 								      		</div>
 								    	</div>
-								      	<div class="form-group col-4">
+								      	<div class="form-group col-12 col-md-4">
 								      		<label for="">Divisa</label>
 								    		<select type="text" class="form-control" name="divisa">
 											   	<option>COP</option>
@@ -314,16 +314,16 @@ Gestión de cuentas
 										<form method="post">
 								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-5">
+								      	<div class="form-group col-12 col-md-5">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la chequera" value="">
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<input type="text" class="form-control" name="c_entidad" required=True placeholder="Entidad bancaria" value="">
 								    	</div>
-											<div class="form-group col-1 pr-2 align-self-center">
+											<div class="form-group col-3 col-md-1 pr-2 align-self-center">
 								    		<label for="">Divisa</label>
 								      	</div>
-								      	<div class="form-group col-2">
+								      	<div class="form-group col-9 col-md-2">
 								    		<select class="form-control" name="divisa">
 											   	<option>COP</option>
 											   	<option>EUR</option>
@@ -333,19 +333,19 @@ Gestión de cuentas
 								      	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<input type="number" class="form-control" name="c_numCuenta" required=True placeholder="Número de la cuenta" min="1" value="">
 								    	</div>
-											<div class="form-group col-4">
+											<div class="form-group col-12 col-md-4">
 								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="1" value="">
 								    	</div>
 
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<input type="number" class="form-control" name="c_numCheques" required=True placeholder="No. de cheques" min="1" value="">
 								    	</div>
 								  	</div>
 								  	<div class="row">
-								  		<div class="col-6">
+								  		<div class="col-12">
 								  			<button type="submit" class="btn btn-dark btn-block" name="bc4">Confirmar</button>
 								  		</div>
 								  	</div>
@@ -441,7 +441,7 @@ Gestión de cuentas
 						<a class="mt-5 btn-block btn btn-dark" href="/visualizar/cuentas?username={{usuario.user.username}}" role="button">Ver lista detallada</a>
 					</div>
 					<div class="col-12 col-md-6 col-lg-12 col-xl-6">
-						<button type="" class="mt-lg-2 mt-2 mt-md-5 mt-xl-5 btn-block btn btn-outline-dark" name="bc1">Configurar banca en línea</button>
+						<button type="" class="mt-lg-2 mb-3 mt-2 mt-md-5 mt-xl-5 btn-block btn btn-outline-dark" name="bc1">Configurar banca en línea</button>
 					</div>
 				</div>
 				{% if mensaje_cuenta.0 %}
