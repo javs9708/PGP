@@ -109,11 +109,66 @@ Visualizar
 				</div>
 			</div>
 		</div>
-		<div class="row mt-2 text-right">
-			<div class="col">
-				<button type="button" class="btn btn-outline-dark">Generar reportes</button>
+		<div class="row mt-2 mb-3">
+			<div class="col text-right d-none d-md-block">
+				<button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#generar">Generar reportes</button>
+			</div>
+			<div class="col d-md-none">
+				<button type="button" class="btn btn-block btn-outline-dark" data-toggle="modal" data-target="#generar">Generar reportes</button>
 			</div>
 		</div>
+	</div>
+
+	<div class="modal fade" id="generar" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Conectar con la banca en linea</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="row">
+	      		<div class="col-12 px-4">
+			      	<form>
+						<div class="form-group">
+				      		<label for="">Cuenta:</label>
+				      		<select type="text" class="form-control" name="cuenta">
+								{% if objetos%}
+									{% for e in objetos%}
+								  	<option>{{ e.nombre }}</option>
+									{% endfor %}
+									{% for e in objetos%}
+								  	<option>{{ e.nombre }}</option>
+									{% endfor %}
+									{% for e in objetos%}
+								  	<option>{{ e.nombre }}</option>
+									{% endfor %}
+									{% for e in objetos%}
+								  	<option>{{ e.nombre }}</option>
+									{% endfor %}
+								{% else %}
+									<option>Sin cuentas</option>
+								{% endif %}
+							</select>
+						</div>
+					</form>
+				</div>
+				<div class="col-12 col-md-6 px-4 pb-2 pb-md-0">
+					<button type="button" class="btn btn-block btn-dark">Exportar como PDF</button>
+				</div>
+				<div class="col-12 col-md-6 px-4">
+					<button type="button" class="btn btn-block btn-dark">Exportar como CSV</button>
+				</div>
+			</div>
+		</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-dark">Confirmar</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 
