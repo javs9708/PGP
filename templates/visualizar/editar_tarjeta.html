@@ -63,7 +63,7 @@ Editar Tarjeta
 			    	<ul class="navbar-nav mr-0 d-none d-lg-block">
 			    		<li class="nav-item dropdown">
 			    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
-							<div class="dropdown-menu">
+							<div class="dropdown-menu dropdown-menu-right">
 					    		<a class="dropdown-item" href="/usuario/editar_perfil?username={{usuario.user.username}}">Editar Perfil</a>
 					    		<a class="dropdown-item" href="{%url 'logout'%}">Cerrar sesión</a>
 							</div>
@@ -76,58 +76,51 @@ Editar Tarjeta
 			<div class="col-xl-8 col-lg-10 col-12">
 				<div class="card border-dark">
 					<div class="card-body">
-						<form method="POST" enctype="multipart/form-data">
+						<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 				 			<div class="row justify-content-center  align-items-center">
 				    			<div class="col-12 col-lg-10 order-lg-first">
 				    				<div class="form-row">
 									    <div class="form-group col-12 col-md-6">
 						      				<label for="inputName">Nombre de la cuenta</label>
-						      				<input type="text" class="form-control" id="inputName" placeholder="Ejemplo_nombre" value="" name="first_name" required=True>
+						      				<input type="text" class="form-control" id="inputName" placeholder="" value="{{tarjetas.nombre}}" name="nombre" required=True>
 						    			</div>
 						    			<div class="form-group col-12 col-md-6">
 						      				<label for="inputApellidos">Entidad bancaria</label>
-						      				<input type="text" class="form-control" id="inputApellidos" placeholder="Nombre del banco" value="" name="last_name" required=True>
+						      				<input type="text" class="form-control" id="inputApellidos" placeholder="" value="{{tarjetas.entidad}}" name="entidad" required=True>
 						    			</div>
 						    			<div class="form-group col-12 col-md-4">
 						      				<label for="inputEmail">Numero de tarjeta</label>
-						      				<input type="email" class="form-control" id="inputEmail" placeholder="###-###-###" value="" name="email" required=True>
+						      				<input type="number" class="form-control" id="inputEmail" placeholder="" value="{{tarjetas.numero_tarjeta}}" min="1" name="numeroTarjeta" required=True>
 						    			</div>
 								    	<div class="form-group col-12 col-md-4">
-								      		<label for="inputID">Saldo inicial</label>
-								      		<input class="form-control" type="text" placeholder="$ 500.000" readonly>
+								      		<label for="inputID">Saldo</label>
+								      		<input class="form-control" type="text" placeholder="" value="$ {{tarjetas.saldo_inicial}}" readonly>
 								    	</div>
 								    	<div class="form-group col-12 col-md-4">
 								      		<label for="inputFechaNacimiento">No. de cuenta</label>
-								      		<input type="email" class="form-control" id="inputEmail" placeholder="###" value="" name="email" required=True>
+								      		<input type="number" class="form-control" id="inputEmail" placeholder="" value="{{tarjetas.numero_cuenta}}" name="numeroCuenta" min="1" required=True>
 								    	</div>
 								    	<div class="form-group col-12 col-md-6">
 									    	<label for="">Fecha de vencimiento</label>
 									    	<div class="form-row">
 									    		<div class="col">
-									    			<input type="number" class="form-control" name="mm" required=True placeholder="mm" value="" min="1" max="12">
+									    			<input type="number" class="form-control" name="mm" required=True placeholder="" value="{{tarjetas.fecha_vencimiento_mm}}" min="1" max="12">
 									    		</div>
 									      		<div class="col-1">
 									      			<h3 class="font-weight-light">/</h3>
 									      		</div>
 									      		<div class="col">
-									      			<input type="number" class="form-control" name="aa" required=True placeholder="aa" value="" min="1" max="99">
+									      			<input type="number" class="form-control" name="aa" required=True placeholder="" value="{{tarjetas.fecha_vencimiento_aa}}" min="18" max="99">
 									      		</div>
 									      	</div>
 									    </div>
 									    <div class="form-group col-12 col-md-6">
 									    	<label for="">Tipo de divisa</label>
-									    	<input class="form-control" type="text" placeholder="COP" readonly>
+									    	<input class="form-control" type="text" placeholder="" value="{{tarjetas.tipo_divisa}}" readonly>
 									    </div>
 								    </div>
 					    			<button type="submit" class="btn btn-dark btn-block">Guardar</button>
 
-					    	  		<div class="col-12">
-										<div class="alert alert-danger alert-dismissible fade show align-self-end mt-2" role="alert">
-											<strong>Error:</strong> en el campo
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
 									</div>
 								</div>
 						    </div>

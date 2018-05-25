@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from ..usuario.models import Usuario
 from ..gestion.models import Tarjeta,Prestamo, Inversion, Chequera, Ingreso, Gasto, Transferencia, Presupuesto
 from django.contrib.auth.models import User
 from django.template import loader
 from django.contrib.auth.decorators import login_required
+from .funciones.validadores import *
 
 @login_required(login_url='/ingresar/')
 def visualizarMenu(request):
@@ -108,21 +109,62 @@ def visualizarPresupuestos(request):
 
 @login_required(login_url='/ingresar/')
 def editarTarjeta(request):
-    template = loader.get_template('visualizar/editar_tarjeta.html')
+
     if request.method == 'GET':
+
+        template = loader.get_template('visualizar/editar_tarjeta.html')
+        tarjeta_id =  request.GET.get('tarjeta_id')
+        tarjetas = Tarjeta.objects.filter(id=tarjeta_id)
+        tarjetas = Tarjeta.objects.get(id=tarjeta_id)
+
         username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
 
-        presupuesto= Presupuesto.objects.filter(user_id=user[0].id)
+
 
         ctx = {
-            	'usuario': usuario,
-
-                'presupuesto':presupuesto,
+        'usuario': usuario,
+        'tarjetas': tarjetas,
         }
         return HttpResponse(template.render(ctx,request))
+
+    if request.method == 'POST':
+        error=(False,"")
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        tarjeta_id =  request.GET.get('tarjeta_id')
+        tarjetas = Tarjeta.objects.filter(id=tarjeta_id)
+        tarjetas = Tarjeta.objects.get(id=tarjeta_id)
+
+        nombre = request.POST.get('nombre')
+        entidad = request.POST.get('entidad')
+        numeroTarjeta = request.POST.get('numeroTarjeta')
+        numeroCuenta = request.POST.get('numeroCuenta')
+        fecha_vencimiento_mm = request.POST.get('mm')
+        fecha_vencimiento_aa = request.POST.get('aa')
+
+        tarjetas.nombre=nombre
+        tarjetas.entidad = entidad
+        tarjetas.numero_tarjeta=numeroTarjeta
+        tarjetas.numero_cuenta=numeroCuenta
+        tarjetas.fecha_vencimiento_mm=fecha_vencimiento_mm
+        tarjetas.fecha_vencimiento_aa=fecha_vencimiento_aa
+
+        tarjetas.save()
+        return redirect('/visualizar/cuentas?username='+usuario.user.username)
+
+    template = loader.get_template('visualizar/editar_tarjeta.html')
+    ctx = {'error':error,
+            'usuario': usuario,
+            'tarjetas': tarjetas,
+
+            }
+    return HttpResponse(template.render(ctx,request))
 
 @login_required(login_url='/ingresar/')
 def editarInversiones(request):
@@ -144,21 +186,70 @@ def editarInversiones(request):
 
 @login_required(login_url='/ingresar/')
 def editarPrestamos(request):
-    template = loader.get_template('visualizar/editar_prestamos_hipotecas.html')
     if request.method == 'GET':
+
+        template = loader.get_template('visualizar/editar_prestamos_hipotecas.html')
+        prestamo_id =  request.GET.get('prestamo_id')
+        prestamos = Prestamo.objects.filter(id=prestamo_id)
+        prestamos = Prestamo.objects.get(id=prestamo_id)
+
         username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
 
-        prestamos = Prestamo.objects.filter(user_id=user[0].id)
+
 
         ctx = {
-            	'usuario': usuario,
-
-                'prestamos':prestamos,
+        'usuario': usuario,
+        'prestamos': prestamos,
         }
         return HttpResponse(template.render(ctx,request))
+
+    if request.method == 'POST':
+        errorM=False
+        error=(False,"")
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        prestamo_id =  request.GET.get('prestamo_id')
+        prestamos = Prestamo.objects.filter(id=prestamo_id)
+        prestamos = Prestamo.objects.get(id=prestamo_id)
+
+        nombre = request.POST.get('nombre')
+        entidad = request.POST.get('entidad')
+        interes= request.POST.get('interes')
+        fecha_prestamo = request.POST.get('fecha_prestamo')
+        fecha_limite = request.POST.get('fecha_limite')
+        tipo_pago = request.POST.get('pago')
+
+        if validar_fecha_prestamo(fecha_prestamo):
+            error=(True,"Ingrese una fecha de prestamo valida")
+            errorM=True
+        if validar_fecha_limite(fecha_limite):
+            error=(True,"Ingrese una fecha de limite valida")
+            errorM=True
+
+        if not errorM:
+            prestamos.nombre=nombre
+            prestamos.entidad = entidad
+            prestamos.interes= interes
+            prestamos.fecha_prestamo=fecha_prestamo
+            prestamos.fecha_limite=fecha_limite
+            prestamos.tipo_pago=tipo_pago
+
+            prestamos.save()
+        return redirect('/visualizar/cuentas?username='+usuario.user.username)
+
+    template = loader.get_template('visualizar/editar_prestamos_hipotecas.html')
+    ctx = {'error':error,
+            'usuario': usuario,
+            'prestamos': prestamos,
+
+            }
+    return HttpResponse(template.render(ctx,request))
 
 @login_required(login_url='/ingresar/')
 def editarChequeras(request):

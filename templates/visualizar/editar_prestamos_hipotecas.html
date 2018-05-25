@@ -63,7 +63,7 @@ Visualizar Presupuesto
 			    	<ul class="navbar-nav mr-0 d-none d-lg-block">
 			    		<li class="nav-item dropdown">
 			    			<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
-							<div class="dropdown-menu">
+							<div class="dropdown-menu dropdown-menu-right">
 					    		<a class="dropdown-item" href="/usuario/editar_perfil?username={{usuario.user.username}}">Editar Perfil</a>
 					    		<a class="dropdown-item" href="{%url 'logout'%}">Cerrar sesión</a>
 							</div>
@@ -71,47 +71,47 @@ Visualizar Presupuesto
 					</ul>
 			  	</div>
 			</nav>
-	
+
 		<div class="row justify-content-center">
 			<div class="col-xl-8 col-lg-10 col-12 mb-3">
 				<div class="card border-dark">
 					<div class="card-body">
-						<form method="POST" enctype="multipart/form-data">
+						<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 				 			<div class="row justify-content-center  align-items-center">
 
 				    			<div class="col-12 col-lg-10 order-lg-first">
 				    				<div class="form-row">
 									    <div class="form-group col-12 col-md-6">
 						      				<label for="inputName">Nombre del prestamo/hipoteca</label>
-						      				<input type="text" class="form-control" id="inputName" placeholder="Ejemplo_nombre" value="" name="first_name" required=True>
+						      				<input type="text" class="form-control" id="inputName" placeholder="Ejemplo_nombre" value="{{prestamos.nombre}}" name="nombre" required=True>
 						    			</div>
 						    			<div class="form-group col-12 col-md-6">
 						      				<label for="inputApellidos">Entidad bancaria</label>
-						      				<input type="text" class="form-control" id="inputApellidos" placeholder="Nombre del banco" value="" name="last_name" required=True>
+						      				<input type="text" class="form-control" id="inputApellidos" placeholder="Nombre del banco" value="{{prestamos.entidad}}" name="entidad" required=True>
 						    			</div>
 						    			<div class="form-group col-12 col-md-4">
 						      				<label for="inputEmail">Monto</label>
-						      				<input class="form-control" type="text" placeholder="$ 400.000" readonly>
+						      				<input class="form-control" type="text" placeholder="" value="{{prestamos.monto}}"readonly>
 						    			</div>
 								    	<div class="form-group col-12 col-md-5">
 								      		<label for="inputID">Divisa</label>
-								      		<input class="form-control" type="text" placeholder="COP" readonly>
+								      		<input class="form-control" type="text" placeholder="{{prestamos.tipo_divisa}}" readonly>
 								    	</div>
 								    	<div class="form-group col-12 col-md-3">
-								      		<label for="inputFechaNacimiento">Interes</label>
-								      		<input type="email" class="form-control" id="inputEmail" placeholder="%" value="" name="email" required=True>
+								      		<label for="interes">Interes</label>
+								      		<input type="number" class="form-control" id="inputEmail" placeholder="" value="%{{prestamos.interes}}" min="0" name="interes" required=True>
 								    	</div>
 								    	<div class="form-group col-12 col-md-4">
 								      		<label for="inputFechaNacimiento">Fecha de prestamo</label>
-								      		<input type="date" class="form-control" value="{{fecha}}" name="fecha_nacimiento" required=True>
+								      		<input type="date" class="form-control" value="{{prestamos.fecha_prestamo}}" name="fecha_prestamo" required=True>
 								    	</div>
 								    	<div class="form-group col-12 col-md-4">
 								      		<label for="inputFechaNacimiento">Fecha limite</label>
-								      		<input type="date" class="form-control" value="{{fecha}}" name="fecha_nacimiento" required=True>
+								      		<input type="date" class="form-control" value="{{prestamos.fecha_limite}}" name="fecha_limite" required=True>
 								    	</div>
 								    	<div class="form-group  col-12 col-md-4">
 								      		<label for="">Tipo de pago</label>
-								      		 	<select type="text" class="form-control" name="pago">
+								      		 	<select type="text" class="form-control" name="pago" value="{{prestamos.tipo_pago}}">
 											    	<option>Semanal</option>
 											      	<option>Quincenal</option>
 											      	<option>Mensual</option>
@@ -122,27 +122,24 @@ Visualizar Presupuesto
 					    						<div class="form-row">
 					    							<button type="submit" class="btn btn-dark btn-block">Guardar</button>
 					    	  				</div>
+													{% if error.0 %}
+													<div class="mt-3 alert alert-warning" role="alert">
+									  					<strong>Atención! </strong> {{error.1}}
+													</div>
+													{% endif %}
 					    	  			</div>
-										<div class="col-12">
-											<div class="alert alert-danger alert-dismissible fade show align-self-end mt-2" role="alert">
-												<strong>Error:</strong> en el campo 
-												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-										</div>
 									</div>
 						    	</div>
-				  				
+
 				    		</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 
-	
+
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
