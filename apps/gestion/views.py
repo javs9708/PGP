@@ -43,11 +43,7 @@ def gestionCuentas(request):
         chequeras = Chequera.objects.filter(user_id=user[0].id)
 
         objetos = list(chain(tarjetas , prestamos , inversiones , chequeras))
-
-        print(objetos)
-
         objetos , paginator = paginacion(objetos,page)
-        #print(tarjetas.num_pages)
 
         ctx = {
             	'usuario': usuario,
@@ -361,23 +357,20 @@ def gestionCuentas(request):
 
         template = loader.get_template('gestion/gestionCuentas.html')
 
+        page = request.GET.get('page')
         prestamos = Prestamo.objects.filter(user_id=user[0].id)
         tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
         inversiones = Inversion.objects.filter(user_id=user[0].id)
         chequeras = Chequera.objects.filter(user_id=user[0].id)
 
-        print(tarjetas)
-
-        tarjetas= paginacion(tarjetas,1)
-
-        print(tarjetas)
+        objetos = list(chain(tarjetas , prestamos , inversiones , chequeras))
+        objetos , paginator = paginacion(objetos,page)
 
         ctx = {
                 'usuario': usuario,
-                #'tarjetas': tarjetas,
-                'prestamos': prestamos,
-                'inversiones':inversiones,
-                'chequeras':chequeras,
+                'objetos': objetos,
+                'paginator': int(paginator.num_pages),
+                'page': int(page),
                 'mensaje_cuenta': mensaje_cuenta,
         }
         return HttpResponse(template.render(ctx,request))
