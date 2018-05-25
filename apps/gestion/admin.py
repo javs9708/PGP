@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import *
+
+@admin.register(Tarjeta)
+class TarjetaAdmin(admin.ModelAdmin):
+	list_display = ('nombre','numero_tarjeta')

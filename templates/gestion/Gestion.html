@@ -37,7 +37,7 @@ Gestión
 						  <a class="nav-link ac active" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
 						  <button class="d-none d-lg-block ac active pl-0 btn btn-link nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
 						  <div class="dropdown-menu">
-						    <a class="dropdown-item" href="/gestion/cuentas?username={{usuario.user.username}}">Cuentas</a>
+						    <a class="dropdown-item" href="/gestion/cuentas?username={{usuario.user.username}}&page=1">Cuentas</a>
 						    <a class="dropdown-item" href="/gestion/transacciones?username={{usuario.user.username}}">Transacciones</a>
 						    <a class="dropdown-item" href="/gestion/presupuesto?username={{usuario.user.username}}">Presupuestos</a>
 						  </div>
@@ -79,7 +79,7 @@ Gestión
 					   		<p class="card-text text-center">Acá podrás agregar nuevas cuentas. También podrás modificar o quitar cuentas que ya existan. Puedes asociar cuentas de bancas en linea si lo requieres.</p>
 					   	</div>
 					   	<div class="botom-card card-footer">
-					   		<a href="/gestion/cuentas?username={{usuario.user.username}}" class="btn btn-dark btn-block">¡Gestionar!</a>
+					   		<a href="/gestion/cuentas?username={{usuario.user.username}}&page=1	" class="btn btn-dark btn-block">¡Gestionar!</a>
 					   	</div>
 					</div>
 					<div class="card border-dark">

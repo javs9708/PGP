@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load staticfiles %}
+{% load range %}
 
 {% block title %}
 Gestión de cuentas
@@ -36,7 +37,7 @@ Gestión de cuentas
 						  <a class="nav-link ac active" href="/gestion/menu?username={{usuario.user.username}}">Gestionar finanzas</a>
 						  <button class="d-none d-lg-block ac active pl-0 btn btn-link nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
 						  <div class="dropdown-menu">
-						    <a class="dropdown-item" href="/gestion/cuentas?username={{usuario.user.username}}">Cuentas</a>
+						    <a class="dropdown-item" href="/gestion/cuentas?username={{usuario.user.username}}&page=1">Cuentas</a>
 						    <a class="dropdown-item" href="/gestion/transacciones?username={{usuario.user.username}}">Transacciones</a>
 						    <a class="dropdown-item" href="/gestion/presupuesto?username={{usuario.user.username}}">Presupuestos</a>
 						  </div>
@@ -356,8 +357,8 @@ Gestión de cuentas
 			</div>
 			<div class="col-12 col-lg-4 col-xl-5 align-self-center mt-5">
 				<h1 class="font-weight-light text-center mb-3">Cuentas existentes</h1>
-				{% if tarjetas or prestamos or inversiones or chequeras%}
-				{% for e in tarjetas %}
+				{% if objetos%}
+				{% for e in objetos %}
 				<form method="POST"> {% csrf_token %}
 					<ul class="list-group">
 					  	<li class="list-group-item py-0">
@@ -366,7 +367,18 @@ Gestión de cuentas
 									<p>{{e.nombre}}</p>
 								</div>
 								<div class="col-3 text-right pr-0">
-									<span class="badge badge-secondary">Crédito/Débito</span>
+									{% if e.tipo == 'tarjeta' %}
+										<span class="badge badge-secondary">Crédito/Débito</span>
+									{% endif %}
+									{% if e.tipo == 'prestamos' %}
+										<span class="badge badge-secondary">Prestamo</span>
+									{% endif %}
+									{% if e.tipo == 'inversion' %}
+										<span class="badge badge-secondary">Inversión</span>
+									{% endif %}
+									{% if e.tipo == 'chequera' %}
+										<span class="badge badge-secondary">Chequera</span>
+									{% endif %}		
 								</div>
 								<div class="col-2 text-right">
 										<input type="number" name="id_tarjeta" value="{{e.id}}" hidden>
@@ -379,72 +391,18 @@ Gestión de cuentas
 					</ul>
 				</form>
 				{% endfor %}
-				{% for e in prestamos %}
-				<form method="POST"> {% csrf_token %}
-				<ul class="list-group">
-					<li class="list-group-item py-0">
-						<div class="row pt-3">
-							<div class="col-7">
-								<p>{{e.nombre}}</p>
-							</div>
-							<div class="col-3 text-right pr-0">
-								<span class="badge badge-secondary">Préstamo</span>
-							</div>
-							<div class="col-2 text-right">
-								<input type="number" name="id_prestamo" value="{{e.id}}" hidden>
-								<button type="submit" class="btn btn-link text-dark pt-0" name="delete_prestamo">
-									<i class="material-icons">delete</i>
-								</button>
-							</div>
-						</div>
-					</li>
-				</ul>
-				</form>
-				{% endfor %}
-				{% for e in inversiones %}
-				<form method="POST"> {% csrf_token %}
-				<ul class="list-group">
-					<li class="list-group-item py-0">
-						<div class="row pt-3">
-							<div class="col-7">
-								<p>{{e.nombre}}</p>
-							</div>
-							<div class="col-3 text-right pr-0">
-								<span class="badge badge-secondary">Inversión</span>
-							</div>
-							<div class="col-2 text-right">
-								<input type="number" name="id_inversion" value="{{e.id}}" hidden>
-								<button type="submit" class="btn btn-link text-dark pt-0" name="delete_inversion">
-									<i class="material-icons">delete</i>
-								</button>
-							</div>
-						</div>
-					</li>
-				</ul>
-				</form>
-				{% endfor %}
-				{% for e in chequeras %}
-				<form method="POST"> {% csrf_token %}
-				<ul class="list-group">
-				  	<li class="list-group-item py-0">
-						<div class="row pt-3">
-							<div class="col-7">
-								<p>{{e.nombre}}</p>
-							</div>
-							<div class="col-3 text-right pr-0">
-								<span class="badge badge-secondary">Chequera</span>
-							</div>
-							<div class="col-2 text-right">
-								<input type="number" name="id_chequera" value="{{e.id}}" hidden>
-								<button type="submit" class="btn btn-link text-dark pt-0" name="delete_chequera">
-									<i class="material-icons">delete</i>
-								</button>
-							</div>
-						</div>
-				  	</li>
-				</ul>
-				</form>
-				{% endfor %}
+
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				    	{% for i in 0|range:paginator %}
+				    		{% if page == forloop.counter %}
+				    			<li class="page-item active"><a class="page-link" href="#">{{forloop.counter}}</a></li>
+				    		{% else %}
+				    			<li class="page-item"><a class="page-link" href="/gestion/cuentas/?username=jorsh&page={{forloop.counter}}">{{forloop.counter}}</a></li>
+				    		{% endif %}	
+				    	{% endfor %}
+				  </ul>
+				</nav>	
 				{% else %}
 				<p class="text-center">No hay cuentas registradas</p>
 				{% endif %}

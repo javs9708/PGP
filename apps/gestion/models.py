@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+TYPE = (
+    ('ceremonia','Ceremonia'),
+    ('fiesta', 'Fiesta')
+)
+
 #------------Cuentas--------------------#
 
 class Tarjeta(models.Model):
@@ -13,6 +18,10 @@ class Tarjeta(models.Model):
     fecha_vencimiento_aa = models.IntegerField()
     tipo_divisa = models.CharField(max_length=5, null=True)
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
+    tipo = models.CharField(default="tarjeta" , max_length=50)
+
+    def __str__(self):
+        return self.nombre
 
 class Prestamo(models.Model):
     nombre = models.CharField(max_length=50)
@@ -24,6 +33,7 @@ class Prestamo(models.Model):
     tipo_divisa = models.CharField(max_length=5, null=True)
     tipo_pago = models.CharField(max_length=50, null=True)
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
+    tipo = models.CharField(default="prestamos" , max_length=50)
 
 class Inversion(models.Model):
     nombre = models.CharField(max_length=50)
@@ -35,6 +45,7 @@ class Inversion(models.Model):
     fecha_limite = models.DateField()
     tipo_divisa = models.CharField(max_length=5, null=True)
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
+    tipo = models.CharField(default="inversion" , max_length=50)
 
 class Chequera(models.Model):
     nombre = models.CharField(max_length=50)
@@ -44,6 +55,7 @@ class Chequera(models.Model):
     monto = models.IntegerField(null=True)
     numero_cheques = models.BigIntegerField(null=True)
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
+    tipo = models.CharField(default="chequera" , max_length=50)
 
 #------------Transacciones--------------------#
 class Ingreso(models.Model):

@@ -7,6 +7,9 @@ from django.template import loader
 from django.contrib.auth.decorators import login_required
 from .funciones.validadores import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django import template
+from itertools import chain
+
 
 
 @login_required(login_url='/ingresar/')
@@ -29,6 +32,7 @@ def gestionCuentas(request):
     template = loader.get_template('gestion/gestionCuentas.html')
     if request.method == 'GET':
         username = request.GET.get('username')
+        page = request.GET.get('page')
         user =  User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
@@ -38,12 +42,18 @@ def gestionCuentas(request):
         inversiones = Inversion.objects.filter(user_id=user[0].id)
         chequeras = Chequera.objects.filter(user_id=user[0].id)
 
+        objetos = list(chain(tarjetas , prestamos , inversiones , chequeras))
+
+        print(objetos)
+
+        objetos , paginator = paginacion(objetos,page)
+        #print(tarjetas.num_pages)
+
         ctx = {
             	'usuario': usuario,
-                'tarjetas': tarjetas,
-                'prestamos': prestamos,
-                'inversiones':inversiones,
-                'chequeras':chequeras,
+                'objetos': objetos,
+                'paginator': int(paginator.num_pages),
+                'page': int(page)
         }
         return HttpResponse(template.render(ctx,request))
 
@@ -356,9 +366,15 @@ def gestionCuentas(request):
         inversiones = Inversion.objects.filter(user_id=user[0].id)
         chequeras = Chequera.objects.filter(user_id=user[0].id)
 
+        print(tarjetas)
+
+        tarjetas= paginacion(tarjetas,1)
+
+        print(tarjetas)
+
         ctx = {
                 'usuario': usuario,
-                'tarjetas': tarjetas,
+                #'tarjetas': tarjetas,
                 'prestamos': prestamos,
                 'inversiones':inversiones,
                 'chequeras':chequeras,
@@ -2986,10 +3002,14 @@ def gestionPresupuesto(request):
         }
         return HttpResponse(template.render(ctx,request))
 
-def paginacion(request):
-    tarjetas= Tarjeta.objects.all()
-    paginator = Paginator(tarjetas, 1) # Show 25 contacts per page
-    page = request.GET.get('page')
+
+def paginacion(tarjetas,page):
+    paginator = Paginator(tarjetas, 4) 
     # ?page=1
-    tarjetas = paginator.get_page(page)
-    return render(request, 'gestion/gestionCuentas.html', {'tarjetas': tarjetas})
+    tarjetas = paginator.page(page)
+
+
+    return tarjetas , paginator
+    #return render(request, 'gestion/gestionCuentas.html', {'tarjetas': tarjetas})
+
+
