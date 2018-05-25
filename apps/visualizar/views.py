@@ -14,8 +14,19 @@ def visualizarMenu(request):
         user =  User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
+
+        tarjeta = Tarjeta.objects.filter(user_id=user[0].id)
+        prestamo = Prestamo.objects.filter(user_id=user[0].id)
+        inversion = Inversion.objects.filter(user_id=user[0].id)
+        chequera = Chequera.objects.filter(user_id=user[0].id)
+
         ctx = {
             	'usuario': usuario,
+
+                'tarjeta': tarjeta,
+                'prestamo': prestamo,
+                'inversion': inversion,
+                'chequera': chequera,
         }
         return HttpResponse(template.render(ctx,request))
 

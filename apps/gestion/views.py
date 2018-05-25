@@ -3057,27 +3057,31 @@ def gestionPresupuesto(request):
                 presupuesto.monto=int(presupuesto.monto)
                 presupuesto.cuenta=str(presupuesto.cuenta)
 
-                tarjeta = Tarjeta.objects.get(nombre=prestamo.cuenta).exist()
-                prestamo = Prestamo.objects.get(nombre=prestamo.cuenta).exist()
-                inversion = Inversion.objects.get(nombre=prestamo.cuenta).exist()
-                cheque = Chequera.objects.get(nombre=prestamo.cuenta).exist()
+                tarjeta = Tarjeta.objects.filter(nombre=presupuesto.cuenta).exists()
+                prestamo = Prestamo.objects.filter(nombre=presupuesto.cuenta).exists()
+                inversion = Inversion.objects.filter(nombre=presupuesto.cuenta).exists()
+                cheque = Chequera.objects.filter(nombre=presupuesto.cuenta).exists()
 
                 if tarjeta:
+                    tarjeta = Tarjeta.objects.get(nombre=presupuesto.cuenta)
                     tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
                     tarjeta.saldo_inicial+=presupuesto.monto
                     tarjeta.save()
                     presupuesto.delete()
                 if prestamo:
+                    prestamo = Prestamo.objects.get(nombre=presupuesto.cuenta)
                     prestamo.monto=int(prestamo.monto)
                     prestamo.monto+=presupuesto.monto
                     prestamo.save()
                     presupuesto.delete()
                 if inversion:
+                    inversion = Inversion.objects.get(nombre=presupuesto.cuenta)
                     inversion.monto=int(inversion.monto)
                     inversion.monto+=presupuesto.monto
                     inversion.save()
                     presupuesto.delete()
                 if cheque:
+                    cheque = Chequera.objects.get(nombre=presupuesto.cuenta)
                     cheque.monto=int(cheque.monto)
                     cheque.monto+=presupuesto.monto
                     cheque.save()

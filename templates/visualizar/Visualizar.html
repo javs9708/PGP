@@ -135,17 +135,17 @@ Visualizar
 						<div class="form-group">
 				      		<label for="">Cuenta:</label>
 				      		<select type="text" class="form-control" name="cuenta">
-								{% if objetos%}
-									{% for e in objetos%}
+								{% if tarjeta or inversion or prestamo or chequera %}
+									{% for e in tarjeta%}
 								  	<option>{{ e.nombre }}</option>
 									{% endfor %}
-									{% for e in objetos%}
+									{% for e in inversion%}
 								  	<option>{{ e.nombre }}</option>
 									{% endfor %}
-									{% for e in objetos%}
+									{% for e in prestamo%}
 								  	<option>{{ e.nombre }}</option>
 									{% endfor %}
-									{% for e in objetos%}
+									{% for e in chequera%}
 								  	<option>{{ e.nombre }}</option>
 									{% endfor %}
 								{% else %}
@@ -165,7 +165,6 @@ Visualizar
 		</div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-	        <button type="button" class="btn btn-dark">Confirmar</button>
 	      </div>
 	    </div>
 	  </div>
