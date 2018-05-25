@@ -409,7 +409,7 @@ Gestión de cuentas
 											<i class="material-icons">delete</i>
 										</button>
 									</div>
-									{% endif %}		
+									{% endif %}
 							</div>
 					  	</li>
 					</ul>
@@ -433,7 +433,7 @@ Gestión de cuentas
 				    		<li class="page-item">
 				    			<a class="page-link  text-dark" href="/gestion/cuentas/?username={{usuario.user.username}}&page={{forloop.counter}}">{{forloop.counter}}</a>
 				    		</li>
-				    	{% endif %}	
+				    	{% endif %}
 				    {% endfor %}
 				    {% if objetos.has_next %}
 				    	<li class="page-item">
@@ -441,7 +441,7 @@ Gestión de cuentas
 				    	</li>
 				   	{% endif %}
 				  </ul>
-				</nav>	
+				</nav>
 				{% else %}
 				<p class="text-center">No hay cuentas registradas</p>
 				{% endif %}
@@ -461,7 +461,7 @@ Gestión de cuentas
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="bancalinea" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
@@ -474,22 +474,21 @@ Gestión de cuentas
 	      <div class="modal-body">
 	      	<div class="row">
 	      		<div class="col px-4">
-			      	<form method="post">
-					{% csrf_token %}     		
+			      	<form>
 						<div class="form-group">
 				      		<label for="">Cuenta asociada</label>
 				      		<select type="text" class="form-control" name="cuenta">
-								{% if tarjetas or prestamos or inversiones or chequeras%}
-									{% for e in tarjetas %}
+								{% if objetos%}
+									{% for e in objetos%}
 								  	<option>{{ e.nombre }}</option>
 									{% endfor %}
-									{% for e in prestamos %}
+									{% for e in objetos%}
 								  	<option>{{ e.nombre }}</option>
 									{% endfor %}
-									{% for e in inversiones %}
+									{% for e in objetos%}
 								  	<option>{{ e.nombre }}</option>
 									{% endfor %}
-									{% for e in chequeras %}
+									{% for e in objetos%}
 								  	<option>{{ e.nombre }}</option>
 									{% endfor %}
 								{% else %}

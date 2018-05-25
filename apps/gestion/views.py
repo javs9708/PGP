@@ -3024,6 +3024,11 @@ def gestionPresupuesto(request):
             presupuesto = Presupuesto.objects.get(id=id_presupuesto)
             if presupuesto is not None:
                 presupuesto.delete()
+                presupuesto.monto=int(presupuesto.monto)
+                presupuesto.cuenta=str(presupuesto.cuenta)
+                
+
+
 
         template = loader.get_template('gestion/gestionPresupuesto.html')
 
