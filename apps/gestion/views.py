@@ -3004,12 +3004,8 @@ def gestionPresupuesto(request):
 
 
 def paginacion(tarjetas,page):
-    paginator = Paginator(tarjetas, 4) 
-    # ?page=1
+    paginator = Paginator(tarjetas, 4)
     tarjetas = paginator.page(page)
-
-
     return tarjetas , paginator
-    #return render(request, 'gestion/gestionCuentas.html', {'tarjetas': tarjetas})
 
 
