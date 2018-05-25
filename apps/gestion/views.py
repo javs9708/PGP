@@ -2920,7 +2920,6 @@ def gestionPresupuesto(request):
         if 'bc1' in request.POST:
             nombre = request.POST.get('c_name')
             monto = request.POST.get('c_mon')
-            tipo_divisa = request.POST.get('divisa')
             cuenta = request.POST.get('cuenta')
             saldo_reinversion = request.POST.get('c_saldoR')
             periodo_recurrencia_num = request.POST.get('c_periodoRecurrenciaD')
@@ -2951,6 +2950,59 @@ def gestionPresupuesto(request):
             if cuenta==sin_cuentas:
                 error=True
                 mensaje_cuenta = (True,"No hay cuentas existentes para realizar la acción")
+
+            tarjeta = Tarjeta.objects.filter(nombre=cuenta).exists()
+            prestamo = Prestamo.objects.filter(nombre=cuenta).exists()
+            inversion = Inversion.objects.filter(nombre=cuenta).exists()
+            cheque = Chequera.objects.filter(nombre=cuenta).exists()
+
+            if tarjeta:
+                tarjeta = Tarjeta.objects.get(nombre=cuenta)
+                tipo_divisa=str(tarjeta.tipo_divisa)
+                tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
+                monto=int(monto)
+                tarjeta.saldo_inicial-=monto
+                if tarjeta.saldo_inicial<0:
+                    error=True
+                    mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                else:
+                    tarjeta.save()
+
+            if prestamo:
+                prestamo = Prestamo.objects.get(nombre=cuenta)
+                tipo_divisa=str(prestamo.tipo_divisa)
+                prestamo.monto=int(prestamo.monto)
+                monto=int(monto)
+                prestamo.monto-=monto
+                if prestamo.monto<0:
+                    error=True
+                    mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                else:
+                    prestamo.save()
+
+            if inversion:
+                inversion = Inversion.objects.get(nombre=cuenta)
+                tipo_divisa=str(inversion.tipo_divisa)
+                inversion.monto=int(inversion.monto)
+                monto=int(monto)
+                inversion.monto-=monto
+                if inversion.monto<0:
+                    error=True
+                    mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                else:
+                    inversion.save()
+
+            if cheque:
+                cheque = Chequera.objects.get(nombre=cuenta)
+                tipo_divisa=str(cheque.tipo_divisa)
+                cheque.monto=int(cheque.monto)
+                monto=int(monto)
+                cheque.monto-=monto
+                if cheque.monto<0:
+                    error=True
+                    mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                else:
+                    cheque.save()
 
 
             if not error:
