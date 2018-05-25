@@ -123,3 +123,57 @@ def editarTarjeta(request):
                 'presupuesto':presupuesto,
         }
         return HttpResponse(template.render(ctx,request))
+
+@login_required(login_url='/ingresar/')
+def editarInversiones(request):
+    template = loader.get_template('visualizar/editar_inversiones.html')
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        inversiones = Inversion.objects.filter(user_id=user[0].id)
+
+        ctx = {
+            	'usuario': usuario,
+
+                'inversiones':inversiones,
+        }
+        return HttpResponse(template.render(ctx,request))
+
+@login_required(login_url='/ingresar/')
+def editarPrestamos(request):
+    template = loader.get_template('visualizar/editar_prestamos_hipotecas.html')
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        prestamos = Prestamo.objects.filter(user_id=user[0].id)
+
+        ctx = {
+            	'usuario': usuario,
+
+                'prestamos':prestamos,
+        }
+        return HttpResponse(template.render(ctx,request))
+
+@login_required(login_url='/ingresar/')
+def editarChequeras(request):
+    template = loader.get_template('visualizar/editar_chequera.html')
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        chequeras = Chequera.objects.filter(user_id=user[0].id)
+
+        ctx = {
+            	'usuario': usuario,
+
+                'chequeras':chequeras,
+        }
+        return HttpResponse(template.render(ctx,request))
