@@ -77,6 +77,8 @@ def gestionCuentas(request):
             inversiones = Inversion.objects.filter(user_id=user[0].id)
             cheques = Chequera.objects.filter(user_id=user[0].id)
 
+            presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
             saldo_inicial=int(saldo_inicial)
             numero_tarjeta=int(numero_tarjeta)
             numero_cuenta=int(numero_cuenta)
@@ -106,6 +108,11 @@ def gestionCuentas(request):
                     mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
             for cheque in cheques:
                 if str(cheque.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+
+            for presupuesto in presupuestos:
+                if str(presupuesto.nombre)==str(nombre):
                     error=True
                     mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
@@ -148,6 +155,8 @@ def gestionCuentas(request):
             inversiones = Inversion.objects.filter(user_id=user[0].id)
             cheques = Chequera.objects.filter(user_id=user[0].id)
 
+            presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
 
             error=False
             for prestamo in prestamos:
@@ -165,6 +174,11 @@ def gestionCuentas(request):
                     mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
             for cheque in cheques:
                 if str(cheque.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+
+            for presupuesto in presupuestos:
+                if str(presupuesto.nombre)==str(nombre):
                     error=True
                     mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
@@ -212,6 +226,8 @@ def gestionCuentas(request):
             inversiones = Inversion.objects.filter(user_id=user[0].id)
             cheques = Chequera.objects.filter(user_id=user[0].id)
 
+            presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
             monto=int(monto)
             interes=int(interes)
             numero_cuenta=int(numero_cuenta)
@@ -238,6 +254,11 @@ def gestionCuentas(request):
 
             for prestamo in prestamos:
                 if str(prestamo.nombre)==str(nombre):
+                    num_cuenta_exist=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+
+            for presupuesto in presupuestos:
+                if str(presupuesto.nombre)==str(nombre):
                     num_cuenta_exist=True
                     mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
@@ -286,6 +307,8 @@ def gestionCuentas(request):
             inversiones = Inversion.objects.filter(user_id=user[0].id)
             chequeras = Chequera.objects.filter(user_id=user[0].id)
 
+            presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
 
             num_cuenta_exist = False
             for num_cuenta in chequeras:
@@ -312,6 +335,12 @@ def gestionCuentas(request):
                 if str(inversion.nombre)==str(nombre):
                     num_cuenta_exist=True
                     mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+
+            for presupuesto in presupuestos:
+                if str(presupuesto.nombre)==str(nombre):
+                    num_cuenta_exist=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+
 
             if not num_cuenta_exist:
                 chequera = Chequera.objects.create(
@@ -929,6 +958,8 @@ def gestionTransacciones(request):
                 prestamo = Prestamo.objects.filter(nombre=cuenta_retirar).exists()
                 inversion = Inversion.objects.filter(nombre=cuenta_retirar).exists()
                 chequera = Chequera.objects.filter(nombre=cuenta_retirar).exists()
+
+                prestamo = Prestamo.objects.filter(nombre=cuenta_retirar).exists()
 
                 if tarjeta:
                     tarjeta = Tarjeta.objects.get(nombre=cuenta_retirar)
@@ -1594,6 +1625,174 @@ def gestionTransacciones(request):
                             mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
                         else:
                             chequera.save()
+
+                if presupuesto:
+                    presupuesto = Presupuesto.objects.get(nombre=cuenta_retirar)
+                    tipo_divisa_presupuesto=str(presupuesto.tipo_divisa)
+
+                    #--------------------Cuenta Colombiana---------------#
+                    if tipo_divisa=="COP" and tipo_divisa_presupuesto=="COP":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            presupuesto.save()
+                    if tipo_divisa=="DOL" and tipo_divisa_presupuesto=="COP":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*2851
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="EUR" and tipo_divisa_presupuesto=="COP":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*3358
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="YEN" and tipo_divisa_presupuesto=="COP":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*26
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+
+                    #--------------------Cuenta Americana---------------#
+                    if tipo_divisa=="COP" and tipo_divisa_presupuesto=="DOL":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*0.00035000
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="DOL" and tipo_divisa_presupuesto=="DOL":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="EUR" and tipo_divisa_presupuesto=="DOL":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*1.1701
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="YEN" and tipo_divisa_presupuesto=="DOL":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*0.0090800
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+
+                    #--------------------Cuenta Europea---------------#
+                    if tipo_divisa=="COP" and tipo_divisa_presupuesto=="EUR":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*0.00030000
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="DOL" and tipo_divisa_presupuesto=="EUR":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*0.85488
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="EUR" and tipo_divisa_presupuesto=="EUR":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="YEN" and tipo_divisa_presupuesto=="EUR":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*0.0077700
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+
+                    #--------------------Cuenta Japonesa---------------#
+                    if tipo_divisa=="COP" and tipo_divisa_presupuesto=="YEN":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*0.038260
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="DOL" and tipo_divisa_presupuesto=="YEN":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*110.01
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="EUR" and tipo_divisa_presupuesto=="YEN":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        monto=monto*128.68
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
+                    if tipo_divisa=="YEN" and tipo_divisa_presupuesto=="YEN":
+                        monto=int(monto)
+                        presupuesto.monto=int(presupuesto.monto)
+                        presupuesto.monto-=monto
+                        if presupuesto.monto<0:
+                            error=True
+                            mensaje_cuenta = (True,"No puede realizar la acción, fondos insuficientes")
+                        else:
+                            tarjeta.save()
 
             if not error:
                 monto = request.POST.get('c_mon')
