@@ -450,7 +450,7 @@ Gestión de cuentas
 						<a class="btn-block btn btn-dark" href="/visualizar/cuentas?username={{usuario.user.username}}" role="button">Ver lista detallada</a>
 					</div>
 					<div class="col-12 col-md-6 col-lg-12 col-xl-6">
-						<button type="" class="mt-lg-2 mb-3 mt-2 mt-md-0 mt-xl-0 btn-block btn btn-outline-dark" name="bc1">Configurar banca en línea</button>
+						<button type="button" class="mt-lg-2 mb-3 mt-2 mt-md-0 mt-xl-0 btn-block btn btn-outline-dark" data-toggle="modal" data-target="#bancalinea">Configurar banca en línea</button>
 					</div>
 				</div>
 				{% if mensaje_cuenta.0 %}
@@ -460,6 +460,57 @@ Gestión de cuentas
 				{% endif %}
 			</div>
 		</div>
+	</div>
+	
+	<div class="modal fade" id="bancalinea" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Conectar con la banca en linea</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="row">
+	      		<div class="col px-4">
+			      	<form method="post">
+					{% csrf_token %}     		
+						<div class="form-group">
+				      		<label for="">Cuenta asociada</label>
+				      		<select type="text" class="form-control" name="cuenta">
+								{% if tarjetas or prestamos or inversiones or chequeras%}
+									{% for e in tarjetas %}
+								  	<option>{{ e.nombre }}</option>
+									{% endfor %}
+									{% for e in prestamos %}
+								  	<option>{{ e.nombre }}</option>
+									{% endfor %}
+									{% for e in inversiones %}
+								  	<option>{{ e.nombre }}</option>
+									{% endfor %}
+									{% for e in chequeras %}
+								  	<option>{{ e.nombre }}</option>
+									{% endfor %}
+								{% else %}
+									<option>Sin cuentas</option>
+								{% endif %}
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Entidad bancaria</label>
+							<input type="text" class="form-control" name="" required=True placeholder="Entidad bancaria" value="">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+	        <button type="button" class="btn btn-dark">Confirmar</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 	<script src="../static/js/jquery.js"></script>
