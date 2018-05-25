@@ -92,14 +92,14 @@ Visualizar Presupuesto
 						</div>
 					</div>
 			      </a>
-						{{ e.monto|add:"2" }}
+						{{ e.monto|add:e.monto }}
 						{%endfor%}
 						{% else %}
 						<p>No hay presupuestos :( </p>
 						{%endif%}
 
 			      <div class="mt-2">
-			      	<h1 class="text-right">Total $ {{presupuestoTotal.monto}}</h1>
+			      	<h1 class="text-right">Total $ {{x}}</h1>
 			      </div>
 			    </div>
 		  </div>
