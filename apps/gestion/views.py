@@ -3409,6 +3409,10 @@ def gestionPresupuesto(request):
 
         presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
 
+        presupuestoTotal = Presupuesto.objects.filter(user_id=user[0].id).exists()
+        if presupuestoTotal:
+            presupuestoTotal = Presupuesto.objects.all()
+
         ctx = {
                 'usuario': usuario,
 
@@ -3422,6 +3426,7 @@ def gestionPresupuesto(request):
                 'transferencias': transferencias,
 
                 'presupuestos':presupuestos,
+                'presupuestoTotal':presupuestoTotal,
 
                 'mensaje_cuenta': mensaje_cuenta,
         }
@@ -3611,6 +3616,12 @@ def gestionPresupuesto(request):
 
         presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
 
+        presupuestoTotal = Presupuesto.objects.filter(user_id=user[0].id).exists()
+        if presupuestoTotal:
+            presupuestoTotal = Presupuesto.objects.all()
+
+
+
 
 
         ctx = {
@@ -3626,6 +3637,7 @@ def gestionPresupuesto(request):
                 'transferencias':transferencias,
 
                 'presupuestos':presupuestos,
+                'presupuestoTotal':presupuestoTotal,
 
                 'mensaje_cuenta': mensaje_cuenta,
         }
