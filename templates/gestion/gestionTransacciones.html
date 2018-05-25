@@ -260,7 +260,7 @@ Gestión de transacciones
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-12 col-md-6">
+								    	<div class="form-group mb-0 col-12 col-md-6">
 								      		<label for="">Cuenta fuente</label>
 								      		<select type="text" class="form-control" name="cuentaF">
 														{% if tarjetas or prestamos or inversiones or chequeras or presupuestos%}
@@ -284,7 +284,7 @@ Gestión de transacciones
 														{% endif %}
 											</select>
 								    	</div>
-								    	<div class="form-group col-12 col-md-6">
+								    	<div class="form-group mb-0 col-12 col-md-6">
 								      		<label for="">Cuenta destino</label>
 								      		<select type="text" class="form-control" name="cuentaD">
 														{% if tarjetas or prestamos or inversiones or chequeras%}
@@ -306,7 +306,7 @@ Gestión de transacciones
 											</select>
 								      	</div>
 								      	<small id="" class="pb-2 pl-1 form-text text-muted">
-	  										Nota: El monto de la transferencia tendrá una divisa igual a la de la cuenta fuente.
+	  										Nota: El presupuesto tendrá la misma divisa que tenga la cuenta fuente.
 										</small>
 								  	</div>
 								  	<div class="form-row">
