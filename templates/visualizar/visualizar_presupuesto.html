@@ -78,7 +78,7 @@ Visualizar Presupuesto
 			    <div class="list-group" id="list-tab" role="tablist">
 						{% if presupuesto%}
 						{% for e in presupuesto%}
-			      <a class="list-group-item list-group-item-action" id="list-cuenta1-list" data-toggle="list" href="#list-cuenta1" role="tab" aria-controls="cuenta1">
+			      <a class="list-group-item list-group-item-action" id="list-cuenta1-list" data-toggle="list" href="#{{e.nombre}}" role="tab" aria-controls="cuenta1">
 			      	<div class="row">
 						<div class="col-auto">
 							<div class="row">
@@ -92,7 +92,6 @@ Visualizar Presupuesto
 						</div>
 					</div>
 			      </a>
-						{{ e.monto|add:e.monto }}
 						{%endfor%}
 						{% else %}
 						<p>No hay presupuestos :( </p>
@@ -103,23 +102,19 @@ Visualizar Presupuesto
 			      </div>
 			    </div>
 		  </div>
+			{% if presupuesto%}
+			{% for e in presupuesto%}
 		  <div class=" col-md-8 col-12 mt-3 mb-3">
 		    <div class="tab-content" id="nav-tabContent">
-		      <div class="tab-pane fade show active" id="list-cuenta1" role="tabpanel" aria-labelledby="list-cuenta1-list">
+		      <div class="tab-pane fade" id="{{e.nombre}}" role="tabpanel" aria-labelledby="list-cuenta1-list">
 		      	<div class="card border-dark">
 		      	  <div class="card-body">
 		      	    <h1 class="card-title text-center">Dinero actual</h1>
-								{% if presupuesto%}
-								{% for e in presupuesto%}
 		      	    <p class="card-text"><strong>Cuenta asociada:</strong> {{e.cuenta}}</p>
 		      	    <p class="card-text"><strong>Saldo disponible:</strong> $ {{e.monto}}</p>
 		      	    <p class="card-text"><strong>Saldo de reinversion:</strong> $ {{e.saldo_reinversion}}</p>
 		      	    <p class="card-text"><strong>Periodo de recurrencia:</strong> {{e.periodo_recurrencia}}</p>
 		      	    <p class="card-text"><strong>Categoria:</strong> {{e.categoria}}</p>
-								{%endfor%}
-								{%else%}
-								<p>Seleccione un presupuesto</p>
-								{%endif%}
 					<div class="col-8 mt-5">
 				      	<div class="progress">
 				      	    <div class="progress-bar progress-bar-striped bg-dark" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
@@ -130,6 +125,8 @@ Visualizar Presupuesto
 		      	  </div>
 		      	</div>
 		      </div>
+					{%endfor%}
+					{%endif%}
 
 		    </div>
 		  </div>
