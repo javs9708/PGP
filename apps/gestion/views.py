@@ -445,6 +445,12 @@ def gestionTransacciones(request):
                 error=True
                 mensaje_cuenta = (True,"No hay cuentas existentes para realizar la acción")
 
+            if validar_fecha_prestamo(fecha_ingreso):
+                error=True
+                mensaje_cuenta = (True,"Ingrese una fecha de ingreso valida")
+
+
+
             if not error:
                 ingreso = Ingreso.objects.create(
                         nombre = nombre,
@@ -905,6 +911,13 @@ def gestionTransacciones(request):
                 error2=True
                 error=True
                 mensaje_cuenta = (True,"No hay cuentas existentes para realizar la acción")
+
+            if validar_fecha_prestamo(fecha_gasto):
+                error=True
+                error2=True
+                mensaje_cuenta = (True,"Ingrese una fecha de gasto valida")
+
+
 
             if not error2:
 
@@ -3003,5 +3016,3 @@ def paginacion(tarjetas,page):
     paginator = Paginator(tarjetas, 4)
     tarjetas = paginator.page(page)
     return tarjetas , paginator
-
-
