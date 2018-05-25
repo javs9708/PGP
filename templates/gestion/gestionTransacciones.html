@@ -74,7 +74,7 @@ Gestión de transacciones
 
 		<div class="row">
 			<div class="col-12 col-lg-8 col-xl-7 pr-lg-4 mt-5 pt-lg-0 pt-5">
-				<h1 class="font-weight-light mb-3">aldfhaodfuhaodufh</h1>
+				<h1 class="font-weight-light mb-3">Nueva transacción</h1>
 				<div id="accordion">
 					<div class="card border-dark mb-1">
 						<div class="card-header bg-transparent py-0" style="height: 3rem;" id="headingOne">
@@ -94,15 +94,15 @@ Gestión de transacciones
 								<form method="post">
 								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-6">
+								      	<div class="form-group col-12 col-md-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del Ingreso" value="">
 								    	</div>
-								    	<div class="form-group col-6">
+								    	<div class="form-group col-12 col-md-6">
 								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="1" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Divisa</label>
 								      		<select type="text" class="form-control" name="divisa">
 											  	<option>COP</option>
@@ -111,7 +111,7 @@ Gestión de transacciones
 											   	<option>YEN</option>
 											</select>
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Cuenta a ingresar</label>
 								      		<select type="text" class="form-control" name="cuenta">
 													{% if tarjetas or prestamos or inversiones or chequeras%}
@@ -134,7 +134,7 @@ Gestión de transacciones
 
 											</select>
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Fecha ingreso</label>
 								      		<input type="date" class="form-control" name="fechai" required=True>
 								      	</div>
@@ -172,15 +172,15 @@ Gestión de transacciones
 								<form method="post">
 								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-6">
+								      	<div class="form-group col-12 col-md-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre del Gasto" value="">
 								    	</div>
-								    	<div class="form-group col-6">
+								    	<div class="form-group col-12 col-md-6">
 								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="1" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Divisa</label>
 								      		<select type="text" class="form-control" name="divisa">
 											  	<option>COP</option>
@@ -189,7 +189,7 @@ Gestión de transacciones
 											   	<option>YEN</option>
 											</select>
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Cuenta a retirar</label>
 								      		<select type="text" class="form-control" name="cuenta">
 														{% if tarjetas or prestamos or inversiones or chequeras %}
@@ -211,7 +211,7 @@ Gestión de transacciones
 														{% endif %}
 											</select>
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Fecha gasto</label>
 								      		<input type="date" class="form-control" name="fechag" required=True>
 								      	</div>
@@ -249,15 +249,15 @@ Gestión de transacciones
 					        	<form method="post">
 								{% csrf_token %}
 									<div class="form-row">
-								      	<div class="form-group col-6">
+								      	<div class="form-group col-12 col-md-6">
 								      		<input type="text" class="form-control" name="c_name" required=True placeholder="Nombre de la Transferencia" value="">
 								    	</div>
-								    	<div class="form-group col-6">
+								    	<div class="form-group col-12 col-md-6">
 								      		<input type="number" class="form-control" name="c_mon" required=True placeholder="Monto" min="1" value="">
 								    	</div>
 								  	</div>
 								  	<div class="form-row">
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-6">
 								      		<label for="">Cuenta fuente</label>
 								      		<select type="text" class="form-control" name="cuentaF">
 														{% if tarjetas or prestamos or inversiones or chequeras%}
@@ -278,7 +278,7 @@ Gestión de transacciones
 														{% endif %}
 											</select>
 								    	</div>
-								    	<div class="form-group col-4">
+								    	<div class="form-group col-12 col-md-6">
 								      		<label for="">Cuenta destino</label>
 								      		<select type="text" class="form-control" name="cuentaD">
 														{% if tarjetas or prestamos or inversiones or chequeras%}
@@ -299,6 +299,9 @@ Gestión de transacciones
 														{% endif %}
 											</select>
 								      	</div>
+								      	<small id="" class="pb-2 pl-1 form-text text-muted">
+	  										Nota: El monto de la transferencia tendrá una divisa igual a la de la cuenta fuente.
+										</small>
 								  	</div>
 								  	<div class="form-row">
 								  		<div class="form-group col-12">
@@ -334,7 +337,7 @@ Gestión de transacciones
 									</div>
 									<div class="col-2 text-right">
 										<input type="number" name="id_ingreso" value="{{e.id}}" hidden>
-										<button type="submit" class="btn btn-light" name="delete_ingreso">
+										<button type="submit" class="btn btn-link text-dark pt-0" name="delete_ingreso">
 											<i class="material-icons">delete</i>
 										</button>
 									</div>
@@ -357,7 +360,7 @@ Gestión de transacciones
 									</div>
 									<div class="col-2 text-right">
 										<input type="number" name="id_gasto" value="{{e.id}}" hidden>
-										<button type="submit" class="btn btn-light" name="delete_gasto">
+										<button type="submit" class="btn btn-link text-dark pt-0" name="delete_gasto">
 											<i class="material-icons">delete</i>
 										</button>
 									</div>
@@ -380,7 +383,7 @@ Gestión de transacciones
 									</div>
 									<div class="col-2 text-right">
 										<input type="number" name="id_transferencia" value="{{e.id}}" hidden>
-										<button type="submit" class="btn btn-light" name="delete_transferencia">
+										<button type="submit" class="btn btn-link text-dark pt-0" name="delete_transferencia">
 											<i class="material-icons">delete</i>
 										</button>
 									</div>
@@ -392,7 +395,11 @@ Gestión de transacciones
 				{% else %}
 				<p class="text-center">No hay ninguna transaccion hasta ahora.</p>
 				{% endif %}
-				<button type="" class="mt-5 btn-block btn btn-dark" name="bc1">Ver historial detallado</button>
+				<div class="row">
+					<div class="col mt-3">
+						<a class="btn-block btn btn-dark" href="/visualizar/transacciones?username={{usuario.user.username}}" role="button">Ver historial detallado</a>
+					</div>
+				</div>
 				{% if mensaje_cuenta.0 %}
 				<div class="mt-3 alert alert-warning" role="alert">
   					<strong>Atención! </strong> {{mensaje_cuenta.1}}
