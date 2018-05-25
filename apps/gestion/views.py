@@ -45,10 +45,12 @@ def gestionCuentas(request):
         objetos = list(chain(tarjetas , prestamos , inversiones , chequeras))
         objetos , paginator = paginacion(objetos,page)
 
+
         ctx = {
             	'usuario': usuario,
                 'objetos': objetos,
-                'paginator': int(paginator.num_pages),
+                'paginator': paginator,
+                'num_pages': int(paginator.num_pages),
                 'page': int(page)
         }
         return HttpResponse(template.render(ctx,request))
@@ -369,7 +371,8 @@ def gestionCuentas(request):
         ctx = {
                 'usuario': usuario,
                 'objetos': objetos,
-                'paginator': int(paginator.num_pages),
+                'paginator': paginator,
+                'num_pages': int(paginator.num_pages),
                 'page': int(page),
                 'mensaje_cuenta': mensaje_cuenta,
         }

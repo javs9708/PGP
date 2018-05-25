@@ -394,13 +394,19 @@ Gestión de cuentas
 
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination">
-				    	{% for i in 0|range:paginator %}
+				  		{% if objetos.has_previous  %}
+				    			<li class="page-item"><a class="page-link" href="/gestion/cuentas/?username=jorsh&page={{objetos.previous_page_number}}">Previous</a></li>
+				    		{% endif %}
+				    	{% for i in 0|range:num_pages %}
 				    		{% if page == forloop.counter %}
 				    			<li class="page-item active"><a class="page-link" href="#">{{forloop.counter}}</a></li>
 				    		{% else %}
 				    			<li class="page-item"><a class="page-link" href="/gestion/cuentas/?username=jorsh&page={{forloop.counter}}">{{forloop.counter}}</a></li>
 				    		{% endif %}	
 				    	{% endfor %}
+				    	{% if objetos.has_next %}
+				    		<li class="page-item"><a class="page-link" href="/gestion/cuentas/?username=jorsh&page={{objetos.next_page_number}}">Next</a></li>
+				    	{% endif %}
 				  </ul>
 				</nav>	
 				{% else %}
