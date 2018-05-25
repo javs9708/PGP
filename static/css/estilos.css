@@ -69,3 +69,8 @@ body {
   text-decoration: none;
   background-color: #383d41;
 }
+
+.page-item.active .page-link {
+  background-color: #383d41;
+  border-color: #383d41;
+}
