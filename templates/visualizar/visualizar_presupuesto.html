@@ -109,11 +109,17 @@ Visualizar Presupuesto
 		      	<div class="card border-dark">
 		      	  <div class="card-body">
 		      	    <h1 class="card-title text-center">Dinero actual</h1>
-		      	    <p class="card-text"><strong>Cuenta asociada:</strong> Gastos varios</p>
-		      	    <p class="card-text"><strong>Saldo disponible:</strong> $500.000</p>
-		      	    <p class="card-text"><strong>Saldo de reinversion:</strong> $456.000</p>
-		      	    <p class="card-text"><strong>Periodo de recurrencia:</strong> 15 Dias</p>
-		      	    <p class="card-text"><strong>Categoria:</strong> Categoria 1</p>
+								{% if presupuesto%}
+								{% for e in presupuesto%}
+		      	    <p class="card-text"><strong>Cuenta asociada:</strong> {{e.cuenta}}</p>
+		      	    <p class="card-text"><strong>Saldo disponible:</strong> $ {{e.monto}}</p>
+		      	    <p class="card-text"><strong>Saldo de reinversion:</strong> $ {{e.saldo_reinversion}}</p>
+		      	    <p class="card-text"><strong>Periodo de recurrencia:</strong> {{e.periodo_recurrencia}}</p>
+		      	    <p class="card-text"><strong>Categoria:</strong> {{e.categoria}}</p>
+								{%endfor%}
+								{%else%}
+								<p>Seleccione un presupuesto</p>
+								{%endif%}
 					<div class="col-8 mt-5">
 				      	<div class="progress">
 				      	    <div class="progress-bar progress-bar-striped bg-dark" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
