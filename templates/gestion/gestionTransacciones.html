@@ -192,7 +192,7 @@ Gestión de transacciones
 								    	<div class="form-group col-12 col-md-4">
 								      		<label for="">Cuenta a retirar</label>
 								      		<select type="text" class="form-control" name="cuenta">
-														{% if tarjetas or prestamos or inversiones or chequeras %}
+														{% if tarjetas or prestamos or inversiones or chequeras or presupuestos %}
 															{% for e in tarjetas %}
 														  	<option>{{ e.nombre }}</option>
 															{% endfor %}
@@ -203,6 +203,9 @@ Gestión de transacciones
 														  	<option>{{ e.nombre }}</option>
 															{% endfor %}
 															{% for e in chequeras %}
+														  	<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in presupuestos %}
 														  	<option>{{ e.nombre }}</option>
 															{% endfor %}
 
@@ -260,7 +263,7 @@ Gestión de transacciones
 								    	<div class="form-group col-12 col-md-6">
 								      		<label for="">Cuenta fuente</label>
 								      		<select type="text" class="form-control" name="cuentaF">
-														{% if tarjetas or prestamos or inversiones or chequeras%}
+														{% if tarjetas or prestamos or inversiones or chequeras or presupuestos%}
 															{% for e in tarjetas %}
 																<option>{{ e.nombre }}</option>
 															{% endfor %}
@@ -272,6 +275,9 @@ Gestión de transacciones
 															{% endfor %}
 															{% for e in chequeras %}
 																<option>{{ e.nombre }}</option>
+															{% endfor %}
+															{% for e in presupuestos %}
+														  	<option>{{ e.nombre }}</option>
 															{% endfor %}
 														{% else %}
 															<option>Sin cuentas</option>

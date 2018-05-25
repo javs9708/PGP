@@ -400,6 +400,8 @@ def gestionTransacciones(request):
         gastos = Gasto.objects.filter(user_id=user[0].id)
         transferencias = Transferencia.objects.filter(user_id=user[0].id)
 
+        presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
         ctx = {
                 'usuario': usuario,
 
@@ -411,6 +413,8 @@ def gestionTransacciones(request):
                 'ingresos': ingresos,
                 'gastos': gastos,
                 'transferencias': transferencias,
+
+                'presupuestos': presupuestos,
 
                 'mensaje_cuenta': mensaje_cuenta,
         }
@@ -2857,6 +2861,8 @@ def gestionTransacciones(request):
         gastos = Gasto.objects.filter(user_id=user[0].id)
         transferencias = Transferencia.objects.filter(user_id=user[0].id)
 
+        presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
+
 
 
         ctx = {
@@ -2870,6 +2876,8 @@ def gestionTransacciones(request):
                 'ingresos': ingresos,
                 'gastos': gastos,
                 'transferencias':transferencias,
+
+                'presupuestos': presupuestos,
 
                 'mensaje_cuenta': mensaje_cuenta,
         }
@@ -2936,6 +2944,11 @@ def gestionPresupuesto(request):
             usuario = Usuario.objects.filter(user_id=user[0].id)
             usuario = usuario[0]
 
+            tarjetas = Tarjeta.objects.filter(user_id=user[0].id)
+            prestamos = Prestamo.objects.filter(user_id=user[0].id)
+            inversiones = Inversion.objects.filter(user_id=user[0].id)
+            chequeras = Chequera.objects.filter(user_id=user[0].id)
+
             presupuestos = Presupuesto.objects.filter(user_id=user[0].id)
 
             cuenta=str(cuenta)
@@ -2946,6 +2959,23 @@ def gestionPresupuesto(request):
                 if str(presupuesto.nombre) == str(nombre):
                     error=True
                     mensaje_cuenta = (True,"Ya existe un presupuesto con este nombre")
+            for tarjeta in tarjetas:
+                if str(tarjeta.nombre) == str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta con este nombre")
+
+            for prestamo in prestamos:
+                if str(prestamo.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+            for inversion in inversiones:
+                if str(inversion.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
+            for cheque in chequeras:
+                if str(cheque.nombre)==str(nombre):
+                    error=True
+                    mensaje_cuenta = (True,"Ya existe una cuenta registrada con este nombre")
 
             if cuenta==sin_cuentas:
                 error=True
@@ -3023,10 +3053,36 @@ def gestionPresupuesto(request):
             id_presupuesto = request.POST.get('id_presupuesto')
             presupuesto = Presupuesto.objects.get(id=id_presupuesto)
             if presupuesto is not None:
-                presupuesto.delete()
+
                 presupuesto.monto=int(presupuesto.monto)
                 presupuesto.cuenta=str(presupuesto.cuenta)
-                
+
+                tarjeta = Tarjeta.objects.get(nombre=prestamo.cuenta).exist()
+                prestamo = Prestamo.objects.get(nombre=prestamo.cuenta).exist()
+                inversion = Inversion.objects.get(nombre=prestamo.cuenta).exist()
+                cheque = Chequera.objects.get(nombre=prestamo.cuenta).exist()
+
+                if tarjeta:
+                    tarjeta.saldo_inicial=int(tarjeta.saldo_inicial)
+                    tarjeta.saldo_inicial+=presupuesto.monto
+                    tarjeta.save()
+                    presupuesto.delete()
+                if prestamo:
+                    prestamo.monto=int(prestamo.monto)
+                    prestamo.monto+=presupuesto.monto
+                    prestamo.save()
+                    presupuesto.delete()
+                if inversion:
+                    inversion.monto=int(inversion.monto)
+                    inversion.monto+=presupuesto.monto
+                    inversion.save()
+                    presupuesto.delete()
+                if cheque:
+                    cheque.monto=int(cheque.monto)
+                    cheque.monto+=presupuesto.monto
+                    cheque.save()
+                    presupuesto.delete()
+
 
 
 
