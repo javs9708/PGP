@@ -11,8 +11,11 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Usuario
+from apps.gestion.models import Tarjeta
 from django.contrib.auth.decorators import login_required
 from .funciones.validadores import *
+
+
 
 
 def RegistroUsuario(request):
@@ -23,9 +26,20 @@ def RegistroUsuario(request):
     errores = (False , erroresCampos )
     datos = request.POST
     if request.method == 'GET':
+
+        username=None
+        username=request.user.username
+        usuario = User.objects.filter(username=username).exists()
+        if usuario:
+            usuario = User.objects.get(username=username)
+        if len(username)!=0 and not usuario.is_superuser:
+            return redirect('/gestion/menu?username='+username)
+
         template = loader.get_template('usuario/index.html')
-        ctx = {}
+        ctx = {
+        }
         return HttpResponse(template.render(ctx,request))
+
 
 
     if request.method == 'POST':
@@ -91,6 +105,7 @@ def RegistroUsuario(request):
                 erroresCampos.append(error)
                 errores = (True , erroresCampos)
 
+
             if len(cedula)!=0:
                 flag= True
                 error = "Documento de identidad (Ya existe un documento asociado)"
@@ -129,16 +144,26 @@ def RegistroUsuario(request):
 
             username = request.POST['username']
             password = request.POST['password']
-            usuario = User.objects.filter(username=username)
+            usuario = User.objects.filter(username=username).exists()
+            if usuario:
+                usuario = User.objects.get(username=username)
+                if not usuario.is_superuser:
+                    user = authenticate(username=username, password=password)
+                    if user is not None:
+                        login(request,user)
+                        return redirect('/gestion/menu?username='+username)
 
-            if len(usuario) != 0:
-                user = authenticate(username=username, password=password)
-                if user is not None:
-                    login(request,user)
-                    return redirect('/gestion/menu?username='+username)
-
+                    else:
+                        error = (True, "Contraseña invalida")
                 else:
-                    error = (True, "Contraseña invalida")
+                    user = authenticate(username=username, password=password)
+                    if user is not None:
+                        login(request,user)
+                        return redirect('/usuario/gestionAdmin?username='+username)
+
+                    else:
+                        error = (True, "Contraseña invalida")
+                    #error = (True, "El usuario "+username+" es superusuario")
 
             else:
                 error = (True, "No existe el usuario " + username)
@@ -161,7 +186,6 @@ def inicio(request):
 def cerrarSesion(request):
 	if request.user is not None:
 		logout(request)
-
 	return redirect('inicio')
 
 @login_required(login_url='/ingresar/')
@@ -176,6 +200,32 @@ def visualizarPerfil(request):
         ctx = {'usuario':usuario,
                 }
         return HttpResponse(template.render(ctx,request))
+
+@login_required(login_url='/ingresar/')
+def gestionAdmin(request):
+
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user =  User.objects.filter(username=username)
+        usuario = user[0]
+
+        username=request.user.username
+        usuario = User.objects.filter(username=username).exists()
+        if usuario:
+            usuario = User.objects.get(username=username)
+        if len(username)!=0 and usuario.is_superuser:
+
+            tarjeta =  Tarjeta.objects.all()
+
+            template = loader.get_template('usuario/gestionAdmin.html')
+
+            ctx = {
+                	'usuario': usuario,
+                    'tarjeta': tarjeta,
+            }
+            return HttpResponse(template.render(ctx,request))
+
+        return redirect('inicio')
 
 
 @login_required(login_url='/ingresar/')

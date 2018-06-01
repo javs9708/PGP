@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+Administrador
+{% endblock %}
+
+
+{% block content %}
+
+<head>
+<meta http-equiv="refresh" content="50" />
+<h1> Bienvenido administrador</h1>
+
+{%if tarjeta%}
+  {%for e in tarjeta%}
+    {{e.nombre}}
+  {%endfor%}
+
+{%endif%}
+
+</head>
+
+
+    <button href="{%url 'logout'%}">Cerrar sesión</button>
+
+
+{% endblock %}
