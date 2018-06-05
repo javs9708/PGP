@@ -131,7 +131,7 @@ def editarTarjeta(request):
         return HttpResponse(template.render(ctx,request))
 
     if request.method == 'POST':
-        error=(False,"")
+
         username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
@@ -143,23 +143,16 @@ def editarTarjeta(request):
 
         nombre = request.POST.get('nombre')
         entidad = request.POST.get('entidad')
-        numeroTarjeta = request.POST.get('numeroTarjeta')
-        numeroCuenta = request.POST.get('numeroCuenta')
-        fecha_vencimiento_mm = request.POST.get('mm')
-        fecha_vencimiento_aa = request.POST.get('aa')
+
 
         tarjetas.nombre=nombre
         tarjetas.entidad = entidad
-        tarjetas.numero_tarjeta=numeroTarjeta
-        tarjetas.numero_cuenta=numeroCuenta
-        tarjetas.fecha_vencimiento_mm=fecha_vencimiento_mm
-        tarjetas.fecha_vencimiento_aa=fecha_vencimiento_aa
 
         tarjetas.save()
         return redirect('/visualizar/cuentas?username='+usuario.user.username)
 
     template = loader.get_template('visualizar/editar_tarjeta.html')
-    ctx = {'error':error,
+    ctx = {
             'usuario': usuario,
             'tarjetas': tarjetas,
 
@@ -193,6 +186,12 @@ def editarPrestamos(request):
         prestamos = Prestamo.objects.filter(id=prestamo_id)
         prestamos = Prestamo.objects.get(id=prestamo_id)
 
+        fecha_prestamo=prestamos.fecha_prestamo
+        fecha_prestamo=str(fecha_prestamo)
+
+        fecha_limite=prestamos.fecha_limite
+        fecha_limite=str(fecha_limite)
+
         username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
@@ -202,6 +201,8 @@ def editarPrestamos(request):
 
         ctx = {
         'usuario': usuario,
+        'fecha_prestamo': fecha_prestamo,
+        'fecha_limite': fecha_limite,
         'prestamos': prestamos,
         }
         return HttpResponse(template.render(ctx,request))
@@ -217,6 +218,12 @@ def editarPrestamos(request):
         prestamo_id =  request.GET.get('prestamo_id')
         prestamos = Prestamo.objects.filter(id=prestamo_id)
         prestamos = Prestamo.objects.get(id=prestamo_id)
+
+        fecha_prestamo=prestamos.fecha_prestamo
+        fecha_prestamo=str(fecha_prestamo)
+
+        fecha_limite=prestamos.fecha_limite
+        fecha_limite=str(fecha_limite)
 
         nombre = request.POST.get('nombre')
         entidad = request.POST.get('entidad')
@@ -241,11 +248,13 @@ def editarPrestamos(request):
             prestamos.tipo_pago=tipo_pago
 
             prestamos.save()
-        return redirect('/visualizar/cuentas?username='+usuario.user.username)
+            return redirect('/visualizar/cuentas?username='+usuario.user.username)
 
     template = loader.get_template('visualizar/editar_prestamos_hipotecas.html')
     ctx = {'error':error,
             'usuario': usuario,
+            'fecha_prestamo': fecha_prestamo,
+            'fecha_limite': fecha_limite,
             'prestamos': prestamos,
 
             }

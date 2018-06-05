@@ -90,7 +90,7 @@ Editar Tarjeta
 						    			</div>
 						    			<div class="form-group col-12 col-md-4">
 						      				<label for="inputEmail">Numero de tarjeta</label>
-						      				<input type="number" class="form-control" id="inputEmail" placeholder="" value="{{tarjetas.numero_tarjeta}}" min="1" name="numeroTarjeta" required=True>
+						      				<input type="number" class="form-control" id="inputEmail" placeholder="" value="{{tarjetas.numero_tarjeta}}" min="1" name="numeroTarjeta" readonly>
 						    			</div>
 								    	<div class="form-group col-12 col-md-4">
 								      		<label for="inputID">Saldo</label>
@@ -98,19 +98,19 @@ Editar Tarjeta
 								    	</div>
 								    	<div class="form-group col-12 col-md-4">
 								      		<label for="inputFechaNacimiento">No. de cuenta</label>
-								      		<input type="number" class="form-control" id="inputEmail" placeholder="" value="{{tarjetas.numero_cuenta}}" name="numeroCuenta" min="1" required=True>
+								      		<input type="number" class="form-control" id="inputEmail" placeholder="" value="{{tarjetas.numero_cuenta}}" name="numeroCuenta" min="1" readonly>
 								    	</div>
 								    	<div class="form-group col-12 col-md-6">
 									    	<label for="">Fecha de vencimiento</label>
 									    	<div class="form-row">
 									    		<div class="col">
-									    			<input type="number" class="form-control" name="mm" required=True placeholder="" value="{{tarjetas.fecha_vencimiento_mm}}" min="1" max="12">
+									    			<input type="number" class="form-control" name="mm" placeholder="" value="{{tarjetas.fecha_vencimiento_mm}}" min="1" max="12" readonly>
 									    		</div>
 									      		<div class="col-1">
 									      			<h3 class="font-weight-light">/</h3>
 									      		</div>
 									      		<div class="col">
-									      			<input type="number" class="form-control" name="aa" required=True placeholder="" value="{{tarjetas.fecha_vencimiento_aa}}" min="18" max="99">
+									      			<input type="number" class="form-control" name="aa" placeholder="" value="{{tarjetas.fecha_vencimiento_aa}}" min="18" max="99" readonly>
 									      		</div>
 									      	</div>
 									    </div>
@@ -120,6 +120,11 @@ Editar Tarjeta
 									    </div>
 								    </div>
 					    			<button type="submit" class="btn btn-dark btn-block">Guardar</button>
+										{% if error.0 %}
+										<div class="mt-3 alert alert-warning" role="alert">
+												<strong>Atención! </strong> {{error.1}}
+										</div>
+										{% endif %}
 
 									</div>
 								</div>
