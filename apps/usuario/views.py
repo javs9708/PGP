@@ -77,7 +77,7 @@ def RegistroUsuario(request):
 
             if validar_cc(cc):
                 flag = True
-                error = "Documento de identidad (Ingrese unicamente caracteres numericos y 10 digitos)"
+                error = "Documento de identidad (Ingrese unicamente caracteres numericos y un rango de 6 a 14 digitos)"
                 erroresCampos.append(error)
                 errores = (True , erroresCampos)
             """
