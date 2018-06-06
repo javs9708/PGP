@@ -2,12 +2,58 @@
 {% load staticfiles %}
 
 {% block title %}
-505
+Error 500
 {% endblock %}
-
 
 {% block content %}
 
-<h1> No toque eso</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta chaset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-sacale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <title>Error 500</title>
+</head>
 
+<body class="bg-light d-flex align-items-md-center">
+{% block navbar %}
+    <div class="container pt-5 mt-4">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                  <a class="navbar-brand" href="{%url 'inicio'%}">
+                    <img src="/static/img/Logo-light.svg" class="img-fluid" width="30" height="30" alt="">
+                  </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                      <li class="nav-item ac active">
+                            <a class="nav-link" href="{%url 'inicio'%}">Inicio</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{%url 'index'%}">Ingresar</a>
+                      </li>
+                </ul>
+              </div>
+            </nav>
+        {% endblock %}
+        <div class="row justify-content-center">
+            <div class="col-12 d-none d-md-block mt-2 mb-2">
+                <h1 class="display-3 text-center">Error 500</h1>
+            </div>
+            <div class="col-12 d-block  d-md-none d-lg-none d-xl-none">
+                <h1 class=" text-center">Error 500</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
 {% endblock %}
