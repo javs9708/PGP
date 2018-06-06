@@ -161,19 +161,28 @@ def editarTarjeta(request):
 
 @login_required(login_url='/ingresar/')
 def editarInversiones(request):
-    template = loader.get_template('visualizar/editar_inversiones.html')
     if request.method == 'GET':
+        template = loader.get_template('visualizar/editar_inversiones.html')
         username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
+        inversion_id =  request.GET.get('inversion_id')
+        inversiones = Inversion.objects.filter(id=inversion_id)
+        inversiones = Inversion.objects.get(id=inversion_id)
 
-        inversiones = Inversion.objects.filter(user_id=user[0].id)
+        fecha_prestamo=inversiones.fecha_prestamo
+        fecha_prestamo=str(fecha_prestamo)
+
+        fecha_limite=inversiones.fecha_limite
+        fecha_limite=str(fecha_limite)
+
 
         ctx = {
             	'usuario': usuario,
-
                 'inversiones':inversiones,
+                'fecha_prestamo': fecha_prestamo,
+                'fecha_limite': fecha_limite,
         }
         return HttpResponse(template.render(ctx,request))
 
@@ -262,14 +271,16 @@ def editarPrestamos(request):
 
 @login_required(login_url='/ingresar/')
 def editarChequeras(request):
-    template = loader.get_template('visualizar/editar_chequera.html')
     if request.method == 'GET':
+        template = loader.get_template('visualizar/editar_chequera.html')
         username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
+        chequera_id =  request.GET.get('chequera_id')
+        chequeras = Chequera.objects.filter(id=chequera_id)
+        chequeras = Chequera.objects.get(id=chequera_id)
 
-        chequeras = Chequera.objects.filter(user_id=user[0].id)
 
         ctx = {
             	'usuario': usuario,

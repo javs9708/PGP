@@ -83,50 +83,46 @@ Visualizar Presupuesto
 				    				<div class="form-row">
 									    <div class="form-group col-12 col-md-6">
 						      				<label for="inputName">Nombre de la inversion</label>
-						      				<input type="text" class="form-control" id="inputName" placeholder="Ejemplo_nombre" value="" name="first_name" required=True>
+						      				<input type="text" class="form-control" id="inputName" placeholder="Ejemplo_nombre" value="{{inversiones.nombre}}" name="nombre" required=True>
 						    			</div>
 						    			<div class="form-group col-12 col-md-6">
 						      				<label for="inputApellidos">Entidad bancaria</label>
-						      				<input type="text" class="form-control" id="inputApellidos" placeholder="Nombre del banco" value="" name="last_name" required=True>
+						      				<input type="text" class="form-control" id="inputApellidos" placeholder="Nombre del banco" value="{{inversiones.entidad}}" name="entidad" required=True>
 						    			</div>
 						    			<div class="form-group col-12 col-md-4">
 						      				<label for="inputEmail">Numero de cuenta</label>
-						      				<input type="text" class="form-control" id="inputApellidos" placeholder="##" value="" name="last_name" required=True>
+						      				<input type="text" class="form-control" id="inputApellidos" placeholder="" value="{{inversiones.numero_cuenta}}" name="last_name" readonly>
 						    			</div>
 								    	<div class="form-group col-12 col-md-5">
 								      		<label for="inputID">Monto</label>
-								      		<input class="form-control" type="text" placeholder="$300.000" readonly>
+								      		<input class="form-control" type="text" placeholder="" value="{{inversiones.monto}}"readonly>
 								    	</div>
 								    	<div class="form-group col-12 col-md-3">
 								      		<label for="inputFechaNacimiento">Interes</label>
-								      		<input type="email" class="form-control" id="inputEmail" placeholder="%" value="" name="email" required=True>
+								      		<input type="email" class="form-control" id="inputEmail" placeholder="" value="{{inversiones.interes}} %" name="email"readonly>
 								    	</div>
 								    	<div class="form-group col-12 col-md-4">
 								      		<label for="inputFechaNacimiento">Fecha de prestamo</label>
-								      		<input type="date" class="form-control" value="{{fecha}}" name="fecha_nacimiento" required=True>
+								      		<input type="date" class="form-control" value="{{fecha_prestamo}}" name="fecha_prestamo" required=True>
 								    	</div>
 								    	<div class="form-group col-12 col-md-4">
 								      		<label for="inputFechaNacimiento">Fecha limite</label>
-								      		<input type="date" class="form-control" value="{{fecha}}" name="fecha_nacimiento" required=True>
+								      		<input type="date" class="form-control" value="{{fecha_limite}}" name="fecha_limite" required=True>
 								    	</div>
 								    	<div class="form-group col-12 col-md-4">
 								      		<label for="inputID">Divisa</label>
-								      		<input class="form-control" type="text" placeholder="COP" readonly>
+								      		<input class="form-control" type="text" placeholder="" value="{{inversiones.tipo_divisa}}" readonly>
 								    	</div>
-					    					<div class="col-12 pt-2">
-					    						<div class="form-row">
-					    							<button type="submit" class="btn btn-dark btn-block">Guardar</button>
+					    				<div class="col-12 pt-2">
+					    					<div class="form-row">
+					    						<button type="submit" class="btn btn-dark btn-block">Guardar</button>
 					    	  				</div>
-					    	  			</div>
-										<div class="col-12">
-											<div class="alert alert-danger alert-dismissible fade show align-self-end mt-2" role="alert">
-												<strong>Error:</strong> en el campo
-												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
+											{% if error.0 %}
+											<div class="mt-3 alert alert-warning" role="alert">
+									  			<strong>Atención! </strong> {{error.1}}
 											</div>
-										</div>
-									</div>
+											{% endif %}
+					    	  			</div>
 						    	</div>
 
 				    		</div>
