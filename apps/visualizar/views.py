@@ -186,6 +186,56 @@ def editarInversiones(request):
         }
         return HttpResponse(template.render(ctx,request))
 
+    if request.method == 'POST':
+        error=(False,"")
+        errorM=False
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        inversion_id =  request.GET.get('inversion_id')
+        inversiones = Inversion.objects.filter(id=inversion_id)
+        inversiones = Inversion.objects.get(id=inversion_id)
+
+        fecha_prestamo=inversiones.fecha_prestamo
+        fecha_prestamo=str(fecha_prestamo)
+
+        fecha_limite=inversiones.fecha_limite
+        fecha_limite=str(fecha_limite)
+
+        nombre = request.POST.get('nombre')
+        entidad = request.POST.get('entidad')
+        fecha_prestamo = request.POST.get('fecha_prestamo')
+        fecha_limite = request.POST.get('fecha_limite')
+
+        if validar_fecha_prestamo(fecha_prestamo):
+            error=(True,"Ingrese una fecha de prestamo valida")
+            errorM=True
+        if validar_fecha_limite(fecha_limite):
+            error=(True,"Ingrese una fecha de limite valida")
+            errorM=True
+
+        if not errorM:
+            inversiones.nombre=nombre
+            inversiones.entidad = entidad
+            inversiones.fecha_prestamo = fecha_prestamo
+            inversiones.fecha_limite = fecha_limite
+
+            inversiones.save()
+            return redirect('/visualizar/cuentas?username='+usuario.user.username)
+
+    template = loader.get_template('visualizar/editar_inversiones.html')
+    ctx = {
+            'usuario': usuario,
+            'inversiones': inversiones,
+            'fecha_prestamo': fecha_prestamo,
+            'fecha_limite': fecha_limite,
+            'error':error,
+
+            }
+    return HttpResponse(template.render(ctx,request))
+
 @login_required(login_url='/ingresar/')
 def editarPrestamos(request):
     if request.method == 'GET':
@@ -273,10 +323,12 @@ def editarPrestamos(request):
 def editarChequeras(request):
     if request.method == 'GET':
         template = loader.get_template('visualizar/editar_chequera.html')
+
         username = request.GET.get('username')
         user = User.objects.filter(username=username)
         usuario = Usuario.objects.filter(user_id=user[0].id)
         usuario = usuario[0]
+
         chequera_id =  request.GET.get('chequera_id')
         chequeras = Chequera.objects.filter(id=chequera_id)
         chequeras = Chequera.objects.get(id=chequera_id)
@@ -288,3 +340,35 @@ def editarChequeras(request):
                 'chequeras':chequeras,
         }
         return HttpResponse(template.render(ctx,request))
+
+    if request.method == 'POST':
+
+        username = request.GET.get('username')
+        user = User.objects.filter(username=username)
+        usuario = Usuario.objects.filter(user_id=user[0].id)
+        usuario = usuario[0]
+
+        chequera_id =  request.GET.get('chequera_id')
+        chequeras = Chequera.objects.filter(id=chequera_id)
+        chequeras = Chequera.objects.get(id=chequera_id)
+
+        nombre = request.POST.get('nombre')
+        entidad = request.POST.get('entidad')
+        numero_cheques = request.POST.get('numero_cheques')
+
+        chequeras.nombre=nombre
+        chequeras.entidad = entidad
+        chequeras.numero_cheques= numero_cheques
+
+
+        chequeras.save()
+        return redirect('/visualizar/cuentas?username='+usuario.user.username)
+
+    template = loader.get_template('visualizar/editar_prestamos_hipotecas.html')
+    ctx = {
+            'usuario': usuario,
+
+            'chequeras': chequeras,
+
+            }
+    return HttpResponse(template.render(ctx,request))
